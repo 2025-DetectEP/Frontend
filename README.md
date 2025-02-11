@@ -1,15 +1,20 @@
 # Frontend
 
 ### **Git Flow**
+```
+1. issue를 생성한다.
+2. branch를 생성한다.
+3. add → commit → push → pull request 과정을 거친다.
+4. pull request를 요청하면, 다른 팀원이 code review를 한다.
+5. code review가 완료되면, pull request 요청자가 main branch로 merge한다.
+```
 
-issue를 생성한다.branch를 생성한다.add → commit → push → pull request 과정을 거친다.pull request를 요청하면, 다른 팀원이 code review를 한다.code review가 완료되면, pull request 요청자가 main branch로 merge한다.
-> 
 
 ### **Commit Convention**
 
 **타입: 부연 설명 및 이유 #이슈번호**
 
-*ex. feat: Login 화면 UI 구현 #1*
+*ex) feat: Login 화면 UI 구현 #1*
 
 ```
   feat: 새로운 기능 추가
@@ -24,6 +29,7 @@ issue를 생성한다.branch를 생성한다.add → commit → push → pull re
   remove: 코드 삭제
 ```
 
+
 ### **Branch**
 
 **(feat/fix/refactor/chore)/#이슈번호-(UI/Func)-기능설명**
@@ -37,5 +43,4 @@ issue를 생성한다.branch를 생성한다.add → commit → push → pull re
 [FIX]
 [REFACTOR]
 [CHORE]
-
 ```
