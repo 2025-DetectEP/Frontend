@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'GyeonggiTitleBold';
+  src: url('./fonts/GyeonggiTitle_Bold.ttf');
+}
+@font-face {
+  font-family: 'GyeonggiTitleLight';
+  src: url('./fonts/GyeonggiTitle_Light.ttf');
+}
