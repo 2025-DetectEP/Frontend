@@ -6,3 +6,11 @@
   font-family: 'GyeonggiTitleLight';
   src: url('./fonts/GyeonggiTitle_Light.ttf');
 }
+@font-face {
+  font-family: 'NotoSansBold';
+  src: url('./fonts/NotoSansKR-Bold.ttf');
+}
+@font-face {
+  font-family: 'NotoSansMedium';
+  src: url('./fonts/NotoSansKR-Medium.ttf');
+}
