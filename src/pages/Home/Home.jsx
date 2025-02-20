@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import * as S from "./styled";
+import * as S from "./HomeStyled";
 import { ReactComponent as RightArrowEnabled} from '../../assets/icons/icon_circle_right_arrow_enabled.svg'
 import { ReactComponent as RightArrowHover} from '../../assets/icons/icon_circle_right_arrow_hover.svg'
 import SearchBtn from '../../components/Home/SearchBtn';
