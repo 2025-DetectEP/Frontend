@@ -34,8 +34,8 @@ export default function Home() {
           <span><RightArrow /></span>
         </S.SubTitle>
         <S.BtnContainer>
-          <SearchBtn btnType="all" value="전체 게시물 분석하기" onClick={handleClick}></SearchBtn>
-          <SearchBtn btnType="one" value="글/이미지 검사하기" onClick={handleClick}></SearchBtn>
+          <SearchBtn btnType="all" value="기존 게시물 분석하기" onClick={handleClick}></SearchBtn>
+          <SearchBtn btnType="one" value="직접 입력해 검사하기" onClick={handleClick}></SearchBtn>
         </S.BtnContainer>
       </S.HomeImg>
 

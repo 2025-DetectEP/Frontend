@@ -32,4 +32,8 @@ const BtnDiv = styled.div`
     color: ${(props) => (props.theme.Black)};
     text-align: center;
   }
+
+  &:hover {
+    background: ${(props) => (props.btnType === "all" ? props.theme.Primary500 : props.theme.Primary200)};
+  }
 `;
