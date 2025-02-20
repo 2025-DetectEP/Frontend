@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from "styled-components";
 import '../../App.css';
 import media from '../../styles/media';
@@ -16,8 +16,10 @@ export default function LoginModal({setIsModalOpen}) {
     return () => clearTimeout(timer);
   }, []);
 
+  const outRef = useRef(null);
+
   return (
-    <ModalBg>
+    <ModalBg ref={outRef} onClick={(e) => {if(e.target == outRef.current) setIsModalOpen(false)}}>
     <LoginModalContainer>
       <CloseBtn onClick={() => setIsModalOpen(false)}><CloseIcon /></CloseBtn>
       <LoginContainer>
@@ -45,6 +47,8 @@ const ModalBg = styled.div`
   position: fixed;
   top:0; left: 0; bottom: 0; right: 0;
   background: rgba(6, 6, 6, 0.6);
+  width: 100vw;
+  height: 100vh;
 `;
 
 const LoginModalContainer = styled.div`
