@@ -6,9 +6,9 @@ import { ReactComponent as CloseIcon } from '../../assets/icons/icon_close.svg';
 import LoginBtn from './LoginBtn';
 
 export default function LoginModal({setIsModalOpen}) {
-  const [showBubble, setShowBubble] = useState(false);
+  const [showBubble, setShowBubble] = useState(false);  // 말풍선
 
-  useEffect(() => {
+  useEffect(() => { ;  // 0.3초 뒤 말풍선 나타내기
     const timer = setTimeout(() => {
       setShowBubble(true);
     }, 300);
@@ -16,7 +16,7 @@ export default function LoginModal({setIsModalOpen}) {
     return () => clearTimeout(timer);
   }, []);
 
-  const outRef = useRef(null);
+  const outRef = useRef(null);  // 모달 밖 클릭 시 모달 닫힘
 
   return (
     <ModalBg ref={outRef} onClick={(e) => {if(e.target == outRef.current) setIsModalOpen(false)}}>
