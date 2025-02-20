@@ -13,7 +13,7 @@ export default function Footer() {
 
 const FooterContainer = styled.div`
   display: flex;
-  width: 100vw;
+  /* width: 100vw; */
   padding: 2.963vh 12.5vw;
   flex-direction: column;
   align-items: flex-start;
