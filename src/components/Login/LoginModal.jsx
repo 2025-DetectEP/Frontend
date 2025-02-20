@@ -17,6 +17,7 @@ export default function LoginModal({setIsModalOpen}) {
   }, []);
 
   return (
+    <ModalBg>
     <LoginModalContainer>
       <CloseBtn onClick={() => setIsModalOpen(false)}><CloseIcon /></CloseBtn>
       <LoginContainer>
@@ -36,8 +37,15 @@ export default function LoginModal({setIsModalOpen}) {
         <FooterText>추후 분석이 지원되는 SNS가 더 추가될 예정입니다.</FooterText>
       </LoginContainer>
     </LoginModalContainer>
+    </ModalBg>
   );
 }
+
+const ModalBg = styled.div`
+  position: fixed;
+  top:0; left: 0; bottom: 0; right: 0;
+  background: rgba(6, 6, 6, 0.6);
+`;
 
 const LoginModalContainer = styled.div`
   position: absolute;
