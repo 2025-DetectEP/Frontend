@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import styles from './Header.module.css';
 import LoginModal from '../Login/LoginModal';
+import ProfileDropdown from './ProfileDropdown';
 
 export default function Header() {
   const [isLogin, setIsLogin] = useState(false);  // 로그인 여부
   const [isModalOpen, setIsModalOpen] = useState(false);  // 로그인 모달 여부
+  const [isDropdown, setIsDropdown] = useState(false);  // 프로필 드롭다운 여부
   
   // 로그인 여부에 따라 모달(로그인X -> 로그인 모달)
   const handleClick = () => {
@@ -18,21 +20,29 @@ export default function Header() {
     }
   }
 
+  // 프로필 드롭다운
+  const handleDropdown = () => {
+    setIsDropdown(!isDropdown);
+  }
+
   return (
     <header className={styles.header}>
       <div className={styles.headerObj}>
         <h1>LOGO</h1>
         {isLogin ? 
-          <button className={styles.profile}>
+          <button className={styles.profile} onClick={handleDropdown}>
           </button>
           : <button className={styles.loginBtn} onClick={handleClick}>로그인</button>
         }
       </div>
 
-      {isModalOpen && (
+      {isDropdown && (    // 프로필 드롭다운
+        <ProfileDropdown setIsDropdown={setIsDropdown} />
+      )}
+
+      {isModalOpen && (   // 로그인 모달
         <LoginModal setIsModalOpen={setIsModalOpen} />
-        )
-      }
+      )}
     </header>
   )
 }
