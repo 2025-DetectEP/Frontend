@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import * as S from "./styled";
-import LoginBtn from '../../components/Login/LoginBtn';
-import { ReactComponent as RightArrow} from '../../assets/icons/icon_circle_right_arrow.svg'
+import { ReactComponent as RightArrowEnabled} from '../../assets/icons/icon_circle_right_arrow_enabled.svg'
+import { ReactComponent as RightArrowHover} from '../../assets/icons/icon_circle_right_arrow_hover.svg'
 import SearchBtn from '../../components/Home/SearchBtn';
 import mainImg from '../../assets/home/mainImg.png';
 import LoginModal from '../../components/Login/LoginModal';
 
 export default function Home() {
-  const [isLogin, setIsLogin] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);  // 로그인 여부
+  const [isModalOpen, setIsModalOpen] = useState(false);  // 로그인 모달 여부
+  const [isRightArrowHovered, setIsRightArrowHovered] = useState(false);  // rightArrow 버튼 호버
 
   // 로그인 여부에 따라 모달(로그인X -> 로그인 모달)
   const handleClick = () => {
@@ -31,7 +32,12 @@ export default function Home() {
         </S.MainTitle>
         <S.SubTitle>
           Chat GPT와 Cloud DLP를 활용해서 게시물 속 개인정보를 안전하게 분석해 드려요.
-          <span><RightArrow /></span>
+          <span
+            onMouseEnter={() => setIsRightArrowHovered(true)}
+            onMouseLeave={() => setIsRightArrowHovered(false)}
+          >
+            {isRightArrowHovered ? <RightArrowHover /> : <RightArrowEnabled />}
+          </span>
         </S.SubTitle>
         <S.BtnContainer>
           <SearchBtn btnType="all" value="기존 게시물 분석하기" onClick={handleClick}></SearchBtn>
