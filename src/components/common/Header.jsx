@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../AuthContext';
 import styles from './Header.module.css';
 import LoginModal from '../Login/LoginModal';
@@ -8,6 +8,7 @@ export default function Header() {
   const { isLogin, login, logout }= useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);  // 로그인 모달 여부
   const [isDropdown, setIsDropdown] = useState(false);  // 프로필 드롭다운 여부
+  const [userImgUrl, setUserImgUrl] = useState();   // 프로필 이미지
   
   // 로그인 여부에 따라 모달(로그인X -> 로그인 모달)
   const handleClick = () => {
@@ -26,13 +27,33 @@ export default function Header() {
     setIsDropdown(!isDropdown);
   }
 
+  // useEffect(() => {
+  //   if (isDropdown) {
+
+  //     // document.addEventListener("click", handleClickProfile);
+
+  //     return () => {
+  //       document.removeEventListener("click", handleDropdown);
+  //     }
+  //   }
+  // }, [isDropdown]);
+
+  // 프로필 이미지
+  useEffect(() => {
+    const userImg = localStorage.getItem("userImg");
+    if (userImg) {
+      setUserImgUrl(userImg);
+    }
+  }, []);
+
   return (
     <header className={styles.header}>
       <div className={styles.headerObj}>
-        <h1>LOGO</h1>
+        <h1>{isDropdown?'t':'f'}</h1>
         {isLogin ? 
-          <button className={styles.profile} onClick={handleDropdown}>
-          </button>
+          <div className={styles.profile} onClick={handleDropdown}>
+            <img src={userImgUrl} alt="Profile" />
+          </div>
           : <button className={styles.loginBtn} onClick={handleClick}>로그인</button>
         }
       </div>
