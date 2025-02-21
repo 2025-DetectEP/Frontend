@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import '../../App.css';
 import media from '../../styles/media';
+import { fontSizes } from "../../styles/FontSizes";
 
 export const HomeImg = styled.div`
   /* min-height: 100vh; */
@@ -22,19 +23,8 @@ export const HomeImg = styled.div`
 `;
 
 export const MainTitle = styled.h1`
-  font-family: 'GyeonggiTitleBold';
-  /* font-size: 3.25rem; */
-  font-style: normal;
-  font-weight: 700;
-  line-height: 120%;
+  ${fontSizes.titleHead1Bold};
   color: ${(props) => props.theme.White};
-
-  ${media.small`
-    font-size: 2rem;
-  `}
-  ${media.large`
-    font-size: 3.25rem;
-  `}
 
   span {
     color: ${(props) => props.theme.Primary};
@@ -42,24 +32,13 @@ export const MainTitle = styled.h1`
 `;
 
 export const SubTitle = styled.div`
-  font-family: 'GyeonggiTitleLight';
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 120%;
+  ${fontSizes.titleSubhead1Light};
   color: ${(props) => props.theme.Gray200};
   
   display: flex;
   align-items: center;
   margin-top: 16px;
 
-  ${media.small`
-    font-size: 1.5rem;
-  `}
-  ${media.large`
-    font-size: 2rem;
-  `}
-  
   span {
     cursor: pointer;
     display: flex;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import styles from './Header.module.css';
 import LoginModal from '../Login/LoginModal';
 import ProfileDropdown from './ProfileDropdown';

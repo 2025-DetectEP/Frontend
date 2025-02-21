@@ -1,6 +1,6 @@
 import FacebookLogin from "@greatsumini/react-facebook-login";
 import styled from "styled-components";
-import { useAuth } from "../../AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { ReactComponent as FaceBookIcon } from '../../assets/icons/icon_Facebook.svg';
 
 export default function LoginBtn({setIsModalOpen}) {
