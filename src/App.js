@@ -1,21 +1,24 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home/Home';
-import Header from "./components/common/Header";
 import './App.css';
+import { AuthProvider } from './AuthContext';
+import Header from "./components/common/Header";
 import Footer from './components/common/Footer';
+import Home from './pages/Home/Home';
 
 function App() {
   return (
-    <div className="app">
-      <Header/>
-      <main className='content'>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
+    <AuthProvider>
+      <div className="app">
+        <Header/>
+        <main className='content'>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </AuthProvider>
   );
 }
 

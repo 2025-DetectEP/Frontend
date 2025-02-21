@@ -4,7 +4,7 @@ import '../../App.css';
 
 export default function SearchBtn({btnType, value, onClick}) {
   return (
-    <BtnDiv btnType={btnType} onClick={onClick}>
+    <BtnDiv $btnType={btnType} onClick={onClick}>
       <span>{value}</span>
     </BtnDiv>
   );
@@ -21,7 +21,7 @@ const BtnDiv = styled.div`
   flex-shrink: 0;
 
   border-radius: 8px;
-  background: ${(props) => (props.btnType === "all" ? props.theme.Primary : props.theme.Primary100)};
+  background: ${(props) => (props.$btnType === "all" ? props.theme.Primary : props.theme.Primary100)};
 
   span {
     font-family: "NotoSansBold";
@@ -34,6 +34,6 @@ const BtnDiv = styled.div`
   }
 
   &:hover {
-    background: ${(props) => (props.btnType === "all" ? props.theme.Primary500 : props.theme.Primary200)};
+    background: ${(props) => (props.$btnType === "all" ? props.theme.Primary500 : props.theme.Primary200)};
   }
 `;

@@ -28,12 +28,12 @@ export default function LoginModal({setIsModalOpen}) {
           <Title>로그인</Title>
           <Description>로그인하시면 전체 게시물 분석이 가능해요<br/>분석하고 싶으신 sns를 선택해 주세요</Description>
         </TitleContainer>
-        <FBContainer isVisible={showBubble}>
+        <FBContainer $isVisible={showBubble}>
           <FBDescription>인스타그램 계정을 분석할 수 있어요</FBDescription>
         </FBContainer>
         
         <BtnContainer>
-          <LoginBtn />
+          <LoginBtn setIsModalOpen={setIsModalOpen} />
         </BtnContainer>
         <Spacer />
         <FooterText>추후 분석이 지원되는 SNS가 더 추가될 예정입니다.</FooterText>
@@ -132,8 +132,8 @@ const FBContainer = styled.div`
   margin-top: 2.315vh;
   display: flex;
   justify-content: center;
-  visibility: ${({isVisible}) => (isVisible ? "visible" : "hidden")};
-  opacity: ${({isVisible}) => (isVisible ? 1 : 0)};
+  visibility: ${({$isVisible}) => ($isVisible ? "visible" : "hidden")};
+  opacity: ${({$isVisible}) => ($isVisible ? 1 : 0)};
   transition: opacity 0.3s ease-in-out;
 `;
 

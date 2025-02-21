@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as S from "./HomeStyled";
 import { ReactComponent as RightArrowEnabled} from '../../assets/icons/icon_circle_right_arrow_enabled.svg'
 import { ReactComponent as RightArrowHover} from '../../assets/icons/icon_circle_right_arrow_hover.svg'
@@ -10,6 +10,16 @@ export default function Home() {
   const [isLogin, setIsLogin] = useState(false);  // 로그인 여부
   const [isModalOpen, setIsModalOpen] = useState(false);  // 로그인 모달 여부
   const [isRightArrowHovered, setIsRightArrowHovered] = useState(false);  // rightArrow 버튼 호버
+
+  // 로그인 확인(토큰 여부)
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  },[]);
 
   // 로그인 여부에 따라 모달(로그인X -> 로그인 모달)
   const handleClick = () => {
@@ -46,7 +56,7 @@ export default function Home() {
       </S.HomeImg>
 
       {isModalOpen && (
-        <LoginModal setIsModalOpen={setIsModalOpen} />
+        <LoginModal setIsModalOpen={setIsModalOpen} setIsLogin={setIsLogin} />
         )
       }
     </div>

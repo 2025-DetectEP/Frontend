@@ -1,8 +1,10 @@
 import FacebookLogin from "@greatsumini/react-facebook-login";
 import styled from "styled-components";
+import { useAuth } from "../../AuthContext";
 import { ReactComponent as FaceBookIcon } from '../../assets/icons/icon_Facebook.svg';
 
-export default function LoginBtn() {
+export default function LoginBtn({setIsModalOpen}) {
+  const { login } = useAuth();
   return (
     <FacebookLogin
       appId={process.env.REACT_APP_FB_ID}
@@ -13,6 +15,9 @@ export default function LoginBtn() {
         console.log("expiresIn: ", response.expiresIn);
         console.log("reauthorize_required_in: ", response.reauthorize_required_in);
         console.log("signedRequest: ", response.signedRequest);
+        
+        login(response.accessToken);
+        setIsModalOpen(false);
       }}
       onFail={(error) => {
         console.log("로그인 실패!");
@@ -23,7 +28,11 @@ export default function LoginBtn() {
         console.log("name: ", response.name);
         console.log("id: ", response.id);
         console.log("picture: ", response.picture);
+        console.log("picture: ", response.picture.data.url);  // 프로필 이미지 경로
         console.log("email: ", response.email);
+
+        const userImg = response.picture.data.url;
+        localStorage.setItem("userImg", userImg);
       }}
       render={({onClick}) => (
         <FBLoginBtn onClick={onClick}>

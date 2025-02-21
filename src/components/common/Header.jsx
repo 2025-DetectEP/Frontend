@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../AuthContext';
 import styles from './Header.module.css';
 import LoginModal from '../Login/LoginModal';
 import ProfileDropdown from './ProfileDropdown';
 
 export default function Header() {
-  const [isLogin, setIsLogin] = useState(false);  // 로그인 여부
+  const { isLogin, login, logout }= useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);  // 로그인 모달 여부
   const [isDropdown, setIsDropdown] = useState(false);  // 프로필 드롭다운 여부
   
