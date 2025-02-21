@@ -7,13 +7,13 @@ export const fontSizes = {
     font-style: normal;
     font-weight: 700;
     line-height: 120%;
-    font-size: 52px;
+    font-size: 3.25rem;
 
     ${media.large`
-      font-size: 52px;
+      font-size: 3.25rem;
     `}
     ${media.small`
-      font-size: 48px;
+      font-size: 3rem;
     `}
   `,
 

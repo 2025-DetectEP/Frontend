@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 import '../../App.css';
+import { fontSizes } from '../../styles/FontSizes';
+import media from '../../styles/media';
 
 export default function SearchBtn({btnType, value, onClick}) {
   return (
@@ -23,12 +25,16 @@ const BtnDiv = styled.div`
   border-radius: 8px;
   background: ${(props) => (props.$btnType === "all" ? props.theme.Primary : props.theme.Primary100)};
 
+  box-sizing: border-box;
+  ${media.large`
+    width: 220px;
+  `}
+  ${media.small`
+    width: 100%;
+  `}
+
   span {
-    font-family: "NotoSansBold";
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+    ${fontSizes.btnTitle1Bold};
     color: ${(props) => (props.theme.Black)};
     text-align: center;
   }
