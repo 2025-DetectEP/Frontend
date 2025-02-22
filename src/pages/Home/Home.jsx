@@ -1,16 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import * as S from "./HomeStyled";
-import { ReactComponent as RightArrowEnabled} from '../../assets/icons/icon_circle_right_arrow_enabled.svg'
+import { ReactComponent as RightArrowEnabled } from '../../assets/icons/icon_circle_right_arrow_enabled.svg'
 import { ReactComponent as RightArrowHover} from '../../assets/icons/icon_circle_right_arrow_hover.svg'
 import SearchBtn from '../../components/Home/SearchBtn';
 import mainImg from '../../assets/home/mainImg.png';
 import LoginModal from '../../components/Login/LoginModal';
+import QuizSection from '../../components/Home/QuizSection';
+import MoreSection from '../../components/Home/MoreSection';
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(false);  // 로그인 여부
   const [isModalOpen, setIsModalOpen] = useState(false);  // 로그인 모달 여부
   const [isRightArrowHovered, setIsRightArrowHovered] = useState(false);  // rightArrow 버튼 호버
-
+  
   // 로그인 확인(토큰 여부)
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -55,6 +57,14 @@ export default function Home() {
         </S.BtnContainer>
       </S.HomeImg>
 
+      <S.Section2>
+        <span>개인정보 지식 얻어 프라이버시를 지킵시다?</span>
+        <S.Sec2Container>
+          <QuizSection />
+          <MoreSection />
+        </S.Sec2Container>
+      </S.Section2>
+
       {isModalOpen && (
         <LoginModal setIsModalOpen={setIsModalOpen} setIsLogin={setIsLogin} />
         )
@@ -62,7 +72,3 @@ export default function Home() {
     </div>
   )
 }
-
-
-        {/* <LoginBtn /> */}
-        {/* <button onClick={() => {console.log("안녕")}}>안녕</button> */}

@@ -27,7 +27,7 @@ export const HomeImg = styled.div`
     padding: 7.407vh 12.5vw;
   `}
   ${media.small`
-    padding: 5.556vh 1.238vw;
+    padding: 5.556vh 3.962vw;
   `}
 `;
 
@@ -79,5 +79,25 @@ export const BtnContainer = styled.div`
     justify-content: center;
     align-items: flex-start;
     gap: 1.111vh;
+  `}
+`;
+
+export const Section2 = styled.div`
+  box-sizing: border-box;
+  padding: 0vh 12.5vw;
+  ${media.large`
+    padding: 0vh 12.5vw;
+  `}
+  ${media.small`
+    padding: 0vh 3.962vw;
+  `}
+`;
+
+export const Sec2Container = styled.div`
+  display: flex;
+  gap: 24px;
+  ${media.small`
+    display: flex;
+    flex-direction: column;
   `}
 `;

@@ -42,4 +42,7 @@ const BtnDiv = styled.div`
   &:hover {
     background: ${(props) => (props.$btnType === "all" ? props.theme.Primary500 : props.theme.Primary200)};
   }
+  &:active {
+    background: ${(props) => (props.$btnType === "all" ? props.theme.Primary600 : props.theme.Primary300)};
+  }
 `;

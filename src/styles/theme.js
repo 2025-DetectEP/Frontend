@@ -13,7 +13,7 @@ const theme = {
   Secondary100: "#EEEFF7",
   Warnging: "#DE3535",
   // Background_gradient: "#F8FAFC",
-  Background_gradient: "#F8FAFC",
+  Background_gradient: "linear-gradient(180deg, #F8FAFC 59.52%, #FFF 100%)",
   Black: "#060606",
   Gray800: "#181A1C",
   Gray700: "#3E4042",
