@@ -18,7 +18,6 @@ export default function Home() {
   const [isRightArrowHovered, setIsRightArrowHovered] = useState(false);  // 섹션1 rightArrow 버튼 호버
   const [isRightArrowPressed, setIsRightArrowPressed] = useState(false);  // 섹션1 rightArrow 버튼 호버
   const [isSec2CheckHovered, setIsSec2CheckHovered] = useState(false);    // 섹션2 체크하기 버튼 호버
-  const [sec3BtnData, setSec3BtnData] = useState(section3BtnData);  // 섹션3 버튼 데이터
 
   // 로그인 확인(토큰 여부) -> context로 수정 예정
   useEffect(() => {
@@ -94,7 +93,7 @@ export default function Home() {
           <span className='sec3title'>개인정보 지킴이 서비스</span>
         </S.Sec3Title>
         <S.Sec3BtnContainer>
-          {sec3BtnData.map(data => {
+          {section3BtnData.map(data => {
             return (
               <ServiceLinkBtn key={data.id} title={data.title} description={data.description} url={data.url} />
             )
