@@ -9,7 +9,6 @@ import { ReactComponent as IconLinkPressed } from '../../assets/icons/icon_arrow
 export default function ServiceLinkBtn({title, description, url}) {
   const [isPressed, setIsPressed] = useState(false);
 
-  useEffect(()=>{console.log(url)},[])
   return (
     <BtnContainer
       onMouseDown={() => setIsPressed(true)}
