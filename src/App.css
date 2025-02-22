@@ -9,3 +9,8 @@
 .content {
   /* padding-left: 4vw; */
 }
+
+html, body {
+  min-width: 580px;
+  overflow-x: auto;
+}
