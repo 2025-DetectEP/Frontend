@@ -8,13 +8,15 @@ import mainImg from '../../assets/home/mainImg.png';
 import LoginModal from '../../components/Login/LoginModal';
 import QuizSection from '../../components/Home/QuizSection';
 import MoreSection from '../../components/Home/MoreSection';
+import ServiceLinkBtn from '../../components/Home/ServiceLinkBtn';
+import { section3BtnData } from '../../constants/section3BtnData';
 
-console.log(theme);
 export default function Home() {
   const [isLogin, setIsLogin] = useState(false);  // 로그인 여부
   const [isModalOpen, setIsModalOpen] = useState(false);  // 로그인 모달 여부
   const [isRightArrowHovered, setIsRightArrowHovered] = useState(false);  // rightArrow 버튼 호버
   const [isSec2CheckHovered, setIsSec2CheckHovered] = useState(false);    // 섹션2 체크하기 버튼 호버
+  const [sec3BtnData, setSec3BtnData] = useState(section3BtnData);  // 섹션3 버튼 데이터
 
   // 로그인 확인(토큰 여부)
   useEffect(() => {
@@ -61,7 +63,7 @@ export default function Home() {
       </S.HomeImg>
 
       <S.Section2>
-        <span>개인정보 지식 얻어 프라이버시를 지킵시다?</span>
+        <span className='sec2SubTitle'>개인정보 지식 얻어 프라이버시를 지킵시다?</span>
         <S.Sec2Container>
           <QuizSection />
           <MoreSection />
@@ -74,6 +76,20 @@ export default function Home() {
           >체크하기</button>
         </S.CheckContainer>
       </S.Section2>
+
+      <S.Section3>
+        <S.Sec3Title>
+          <span className='sec3SubTitle'>넷상에 스스로 관리할 수 없는 개인정보가 노출되어 있나요?</span>
+          <span className='sec3title'>개인정보 지킴이 서비스</span>
+        </S.Sec3Title>
+        <S.Sec3BtnContainer>
+          {sec3BtnData.map(data => {
+            return (
+              <ServiceLinkBtn key={data.id} title={data.title} description={data.description} url={data.url} />
+            )
+          })}
+        </S.Sec3BtnContainer>
+      </S.Section3>
 
       {isModalOpen && (
         <LoginModal setIsModalOpen={setIsModalOpen} setIsLogin={setIsLogin} />

@@ -9,6 +9,13 @@ const GlobalStyles = createGlobalStyle`
         cursor: pointer;
         background: transparent;
         border: transparent;
+
+        // 드래그 방지
+        /* -webkit-user-select:all;
+        -moz-user-select:all;
+        -ms-user-select:all;
+        -o-user-drag: none;
+        user-select:all */
     }
 `;
 

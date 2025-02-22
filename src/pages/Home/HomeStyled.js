@@ -84,21 +84,29 @@ export const BtnContainer = styled.div`
 
 export const Section2 = styled.div`
   box-sizing: border-box;
-  padding: 0vh 12.5vw;
-  ${media.large`
-    padding: 0vh 12.5vw;
-  `}
+  padding-top: 7.407vh;
+  padding-left: 12.5vw;
+  padding-right: 12.5vw;
   ${media.small`
-    padding: 0vh 3.962vw;
+      padding-top: 5.556vh;
+      padding-left: 3.962vw;
+      padding-right: 3.962vw;
   `}
+
+  .sec2SubTitle {
+    ${fontSizes.titleSubhead2Light};
+    color: ${(props) => props.theme.Gray700};
+  }
 `;
 
 export const Sec2Container = styled.div`
   display: flex;
   gap: 24px;
+  padding-top: 2.222vh;
   ${media.small`
     display: flex;
     flex-direction: column;
+    padding-top: 1.481vh;
   `}
 `;
 
@@ -147,4 +155,44 @@ export const CheckContainer = styled.div`
     background: ${(props) => props.theme.Secondary};
     color: ${(props) => props.theme.White};
   }
+`;
+
+export const Section3 = styled.div`
+  box-sizing: border-box;
+  padding: 7.407vh 12.5vw;
+  ${media.small`
+    padding: 5.556vh 3.962vw;
+  `}
+`;
+
+export const Sec3Title = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  .sec3SubTitle {
+    ${fontSizes.titleSubhead2Light};
+    color: ${(props) => props.theme.Gray700};
+  }
+  .sec3title {
+    ${fontSizes.titleHead2bold};
+    color: ${(props) => props.theme.Black};
+
+    padding-top: 1.111vh;
+    padding-bottom: 2.222vh;
+    ${media.small`
+      padding-top: 0.741vh;
+      padding-bottom: 1.481vh;
+    `}
+  }
+`;
+
+export const Sec3BtnContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  ${media.small`
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  `}
 `;

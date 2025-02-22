@@ -3,8 +3,7 @@ import styled from "styled-components";
 import '../../App.css';
 import media from '../../styles/media';
 import { fontSizes } from "../../styles/FontSizes";
-import { ReactComponent as IconLink} from '../../assets/icons/icon_arrow-right-up-line.svg'
-
+import { ReactComponent as IconLink } from '../../assets/icons/icon_arrow_right_up_line.svg'
 
 export default function MoreSection() {
   return (
