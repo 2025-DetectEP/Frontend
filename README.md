@@ -13,9 +13,9 @@
     - styled-components
     - CSS Modules
 - **HTTP 클라이언트**
-      - Axios
+    - Axios
 - **빌드 도구**
-      - npm
+    - npm
 
 ---
 
