@@ -1,21 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import styled from "styled-components";
 import '../../App.css';
 import media from '../../styles/media';
 
-export default function ProfileDropdown({setIsDropdown}) {
+export default function ProfileDropdown({setIsDropdown, userImgUrl}) {
   const { logout } = useAuth();
-  const [userImgUrl, setUserImgUrl] = useState();   // 프로필 이미지
   const dropdownRef = useRef(null);
-
-  // 프로필 이미지
-  useEffect(() => {
-    const userImg = localStorage.getItem("userImg");
-    if (userImg) {
-      setUserImgUrl(userImg);
-    }
-  }, []);
 
   // 영역 밖 클릭 감지
   useEffect(() => {

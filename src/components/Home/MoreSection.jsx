@@ -30,8 +30,6 @@ export default function MoreSection() {
   );
 }
 
-/*<Componenet onClick={() => window.open("외부링크 URL")}*/
-
 const MoreContainer = styled.div`
   margin-top: 32px;
   ${media.small`

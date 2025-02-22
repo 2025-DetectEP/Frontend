@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import * as S from "./HomeStyled";
+import theme from '../../styles/theme';
 import { ReactComponent as RightArrowEnabled } from '../../assets/icons/icon_circle_right_arrow_enabled.svg'
 import { ReactComponent as RightArrowHover} from '../../assets/icons/icon_circle_right_arrow_hover.svg'
 import SearchBtn from '../../components/Home/SearchBtn';
@@ -8,11 +9,13 @@ import LoginModal from '../../components/Login/LoginModal';
 import QuizSection from '../../components/Home/QuizSection';
 import MoreSection from '../../components/Home/MoreSection';
 
+console.log(theme);
 export default function Home() {
   const [isLogin, setIsLogin] = useState(false);  // 로그인 여부
   const [isModalOpen, setIsModalOpen] = useState(false);  // 로그인 모달 여부
   const [isRightArrowHovered, setIsRightArrowHovered] = useState(false);  // rightArrow 버튼 호버
-  
+  const [isSec2CheckHovered, setIsSec2CheckHovered] = useState(false);    // 섹션2 체크하기 버튼 호버
+
   // 로그인 확인(토큰 여부)
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -36,7 +39,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div style={{ background: theme.Background_gradient }}>
       <S.HomeImg image={mainImg}>
         <S.MainTitle>
           SNS를 통한 개인정보 유출,<br/>
@@ -63,6 +66,13 @@ export default function Home() {
           <QuizSection />
           <MoreSection />
         </S.Sec2Container>
+        <S.CheckContainer $isBtnHover={isSec2CheckHovered} >
+          <span>나는 개인정보를 안전하게 관리하고 있을까?</span>
+          <button
+            onMouseEnter={() => setIsSec2CheckHovered(true)} 
+            onMouseLeave={() => setIsSec2CheckHovered(false)}
+          >체크하기</button>
+        </S.CheckContainer>
       </S.Section2>
 
       {isModalOpen && (

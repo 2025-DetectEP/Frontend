@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import styles from './Header.module.css';
 import LoginModal from '../Login/LoginModal';
@@ -40,11 +40,20 @@ export default function Header() {
 
   // 프로필 이미지
   useEffect(() => {
+    preloadImage();
+  }, []);
+
+  const preloadImage = () => {
     const userImg = localStorage.getItem("userImg");
     if (userImg) {
       setUserImgUrl(userImg);
+      const img = new Image();
+      img.src = userImg;
+      img.onload = () => {
+        setUserImgUrl(userImg); // 이미지 로드 완료 후 상태 업데이트
+      };
     }
-  }, []);
+  }
 
   return (
     <header className={styles.header}>
@@ -59,7 +68,7 @@ export default function Header() {
       </div>
 
       {isDropdown && (    // 프로필 드롭다운
-        <ProfileDropdown setIsDropdown={setIsDropdown} />
+        <ProfileDropdown setIsDropdown={setIsDropdown} userImgUrl={userImgUrl} />
       )}
 
       {isModalOpen && (   // 로그인 모달

@@ -101,3 +101,50 @@ export const Sec2Container = styled.div`
     flex-direction: column;
   `}
 `;
+
+export const CheckContainer = styled.div`
+  background-color: ${(props) => (props.$isBtnHover ? props.theme.White : props.theme.Secondary100)};
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  padding: 2.963vh 1.667vw;
+  margin-top: 24px;
+  ${media.small`
+    flex-direction: column;
+    padding: 2.222vh 4vw;
+    gap: 1.481vh;
+  `}
+
+  span {
+    ${fontSizes.titleHead3Bold};
+    color: ${(props) => props.theme.Black};
+  }
+
+  button {
+    display: flex;
+    width: 220px;
+    height: 60px;
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    background: ${(props) => props.theme.White};
+    ${fontSizes.btnTitle1Bold};
+    color: ${(props) => props.theme.Black};
+
+    ${media.small`
+      width: 100%;
+    `}
+  }
+
+  button:hover {
+    background: ${(props) => props.theme.Secondary100};
+  }
+  button:active {
+    background: ${(props) => props.theme.Secondary};
+    color: ${(props) => props.theme.White};
+  }
+`;
