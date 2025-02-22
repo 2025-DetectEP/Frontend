@@ -1,13 +1,28 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: 'GyeonggiTitleBold';
+  src: url('./fonts/GyeonggiTitle_Bold.ttf');
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: 'GyeonggiTitleMedium';
+  src: url('./fonts/GyeonggiTitle_Medium.ttf');
+}
+@font-face {
+  font-family: 'GyeonggiTitleLight';
+  src: url('./fonts/GyeonggiTitle_Light.ttf');
+}
+@font-face {
+  font-family: 'NotoSansBold';
+  src: url('./fonts/NotoSansKR-Bold.ttf');
+}
+@font-face {
+  font-family: 'NotoSansMedium';
+  src: url('./fonts/NotoSansKR-Medium.ttf');
+}
+@font-face {
+  font-family: 'NotoSansRegular';
+  src: url('./fonts/NotoSansKR-Regular.ttf');
+}
+@font-face {
+  font-family: 'NotoSansLight';
+  src: url('./fonts/NotoSansKR-Light.ttf');
 }
