@@ -43,7 +43,7 @@ export default function Home() {
 
   return (
     <div style={{ background: theme.Background_gradient }}>
-      <S.HomeImg image={mainImg}>
+      <S.HomeImg $image={mainImg}>
         <S.MainTitle>
           SNS를 통한 개인정보 유출,<br/>
           <span>Pribee</span>와 방지하세요.

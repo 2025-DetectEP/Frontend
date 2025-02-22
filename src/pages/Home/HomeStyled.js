@@ -9,7 +9,7 @@ export const HomeImg = styled.div`
   /* width: 100vw; */
   /* height: 80vh; */
   min-height: 60vh;
-  background-image: url(${(props) => props.image}); 
+  background-image: url(${(props) => props.$image});
   background-size: cover;
   background-repeat: no-repeat; /* 반복 방지 */
   /* padding-left: 10%;
