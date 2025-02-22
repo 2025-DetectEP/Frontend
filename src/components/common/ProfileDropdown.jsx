@@ -4,16 +4,20 @@ import styled from "styled-components";
 import '../../App.css';
 import media from '../../styles/media';
 
-export default function ProfileDropdown({setIsDropdown, userImgUrl}) {
+export default function ProfileDropdown({setIsDropdown, userImgUrl, profileImageRef}) {
   const { logout } = useAuth();
   const dropdownRef = useRef(null);
 
   // 영역 밖 클릭 감지
   useEffect(() => {
     function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdown(false); // 바깥 클릭 시 닫기
-        // setIsDPClick(false);
+      if (
+        dropdownRef.current && 
+        profileImageRef?.current && 
+        !dropdownRef.current.contains(event.target) && 
+        !profileImageRef.current.contains(event.target)
+      ) {
+        setIsDropdown(false);
       }
     }
 
