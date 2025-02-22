@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import * as S from "./HomeStyled";
 import theme from '../../styles/theme';
 import { ReactComponent as RightArrowEnabled } from '../../assets/icons/icon_circle_right_arrow_enabled.svg'
-import { ReactComponent as RightArrowHover} from '../../assets/icons/icon_circle_right_arrow_hover.svg'
+import { ReactComponent as RightArrowHover } from '../../assets/icons/icon_circle_right_arrow_hover.svg'
+import { ReactComponent as RightArrowPressed } from '../../assets/icons/icon_circle_right_arrow_pressed.svg'
 import SearchBtn from '../../components/Home/SearchBtn';
 import mainImg from '../../assets/home/mainImg.png';
 import LoginModal from '../../components/Login/LoginModal';
@@ -14,11 +15,12 @@ import { section3BtnData } from '../../constants/section3BtnData';
 export default function Home() {
   const [isLogin, setIsLogin] = useState(false);  // 로그인 여부
   const [isModalOpen, setIsModalOpen] = useState(false);  // 로그인 모달 여부
-  const [isRightArrowHovered, setIsRightArrowHovered] = useState(false);  // rightArrow 버튼 호버
+  const [isRightArrowHovered, setIsRightArrowHovered] = useState(false);  // 섹션1 rightArrow 버튼 호버
+  const [isRightArrowPressed, setIsRightArrowPressed] = useState(false);  // 섹션1 rightArrow 버튼 호버
   const [isSec2CheckHovered, setIsSec2CheckHovered] = useState(false);    // 섹션2 체크하기 버튼 호버
   const [sec3BtnData, setSec3BtnData] = useState(section3BtnData);  // 섹션3 버튼 데이터
 
-  // 로그인 확인(토큰 여부)
+  // 로그인 확인(토큰 여부) -> context로 수정 예정
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
@@ -52,8 +54,17 @@ export default function Home() {
           <span
             onMouseEnter={() => setIsRightArrowHovered(true)}
             onMouseLeave={() => setIsRightArrowHovered(false)}
+            onMouseDown={() => setIsRightArrowPressed(true)}
+            onMouseUp={() => setIsRightArrowPressed(false)}
+            onMouseOut={() => setIsRightArrowPressed(false)}
           >
-            {isRightArrowHovered ? <RightArrowHover /> : <RightArrowEnabled />}
+            {isRightArrowPressed ? (
+              <RightArrowPressed />
+            ) : isRightArrowHovered ? (
+              <RightArrowHover />
+            ) : (
+              <RightArrowEnabled />
+            )}
           </span>
         </S.SubTitle>
         <S.BtnContainer>
