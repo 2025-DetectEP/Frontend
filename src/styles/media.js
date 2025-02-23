@@ -2,7 +2,7 @@ import { css } from "styled-components";
 
 const sizes = {
 	// Default styles written mobile-first assuming 320px width
-	small: 600,
+	small: 820,
 	medium: 970,
 	large: 1200,
 }
