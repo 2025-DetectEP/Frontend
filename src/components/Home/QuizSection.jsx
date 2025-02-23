@@ -66,7 +66,7 @@ export default function QuizSection() {
 }
 
 const QuizContainer = styled.div`
-  width: 49.583vw;
+  /* width: 49.583vw; */
   flex-shrink: 0;
   border-radius: 8px;
   background:  ${(props) => props.theme.White};
@@ -74,6 +74,7 @@ const QuizContainer = styled.div`
   box-sizing: border-box;
   /* padding: 2.963vh 1.667vw; */
   padding: 32px;
+  flex: 2;
   ${media.small`
     width: 100%;
     /* padding: 2.222vh 1.25vw; */

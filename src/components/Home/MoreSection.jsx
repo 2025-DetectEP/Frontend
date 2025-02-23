@@ -31,6 +31,7 @@ export default function MoreSection() {
 
 const MoreContainer = styled.div`
   margin-top: 32px;
+  flex: 1;
   ${media.small`
     margin-top: 24px;
   `}
