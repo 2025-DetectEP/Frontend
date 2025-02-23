@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as S from "./HomeStyled";
 import theme from '../../styles/theme';
+import { useAuth } from '../../context/AuthContext';
 import { ReactComponent as RightArrowEnabled } from '../../assets/icons/icon_circle_right_arrow_enabled.svg'
 import { ReactComponent as RightArrowHover } from '../../assets/icons/icon_circle_right_arrow_hover.svg'
 import { ReactComponent as RightArrowPressed } from '../../assets/icons/icon_circle_right_arrow_pressed.svg'
@@ -13,31 +15,30 @@ import ServiceLinkBtn from '../../components/Home/ServiceLinkBtn';
 import { section3BtnData } from '../../constants/section3BtnData';
 
 export default function Home() {
-  const [isLogin, setIsLogin] = useState(false);  // 로그인 여부
+  const { isLogin }= useAuth();
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);  // 로그인 모달 여부
   const [isRightArrowHovered, setIsRightArrowHovered] = useState(false);  // 섹션1 rightArrow 버튼 호버
   const [isRightArrowPressed, setIsRightArrowPressed] = useState(false);  // 섹션1 rightArrow 버튼 호버
   const [isSec2CheckHovered, setIsSec2CheckHovered] = useState(false);    // 섹션2 체크하기 버튼 호버
 
   // 로그인 확인(토큰 여부) -> context로 수정 예정
-  useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  },[]);
+  // useEffect(() => {
+  //   const accessToken = localStorage.getItem("accessToken");
+  //   if (accessToken) {
+  //     setIsLogin(true);
+  //   } else {
+  //     setIsLogin(false);
+  //   }
+  // },[]);
 
   // 로그인 여부에 따라 모달(로그인X -> 로그인 모달)
-  const handleClick = () => {
+  const handlePostAnalysisBtn = () => {
     if (isLogin) {  // 로그인O
        setIsModalOpen(false);
-       console.log("로그인o")
-       // 다른 활동 작성 예정
+       navigate("/post-analysis");  // 기존 게시물 분석하기 페이지로 이동
     } else {  // 로그인X
       setIsModalOpen(true); // 로그인 모달 열기
-      console.log("로그인x")
     }
   }
 
@@ -67,8 +68,8 @@ export default function Home() {
           </span>
         </S.SubTitle>
         <S.BtnContainer>
-          <SearchBtn btnType="all" value="기존 게시물 분석하기" onClick={handleClick}></SearchBtn>
-          <SearchBtn btnType="one" value="직접 입력해 검사하기" onClick={handleClick}></SearchBtn>
+          <SearchBtn btnType="all" value="기존 게시물 분석하기" onClick={handlePostAnalysisBtn}></SearchBtn>
+          <SearchBtn btnType="one" value="직접 입력해 검사하기" onClick={handlePostAnalysisBtn}></SearchBtn>
         </S.BtnContainer>
       </S.HomeImg>
 
@@ -102,7 +103,7 @@ export default function Home() {
       </S.Section3>
 
       {isModalOpen && (
-        <LoginModal setIsModalOpen={setIsModalOpen} setIsLogin={setIsLogin} />
+        <LoginModal setIsModalOpen={setIsModalOpen} />
         )
       }
     </div>
