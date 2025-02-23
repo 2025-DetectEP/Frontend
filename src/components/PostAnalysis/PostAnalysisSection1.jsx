@@ -82,8 +82,8 @@ const AccountContainer = styled.div`
 `;
 
 const InfoContainer = styled.div`
-  ${fontSizes.titleHead2bold};
-  color: ${(props) => props.theme.Gray700};
+  ${fontSizes.titleHead2Medium};
+  color: ${(props) => props.theme.Black};
 
   .lineBreak {
     display: none;
