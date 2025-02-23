@@ -42,7 +42,7 @@ const TextcContainer = styled.div`
 
 const Title = styled.div`
   ${fontSizes.titleHead3Bold};
-  color: ${(props) => props.theme.Warnging800};
+  color: ${(props) => props.theme.Warning800};
   align-self: stretch;
   white-space: nowrap;
 `;
