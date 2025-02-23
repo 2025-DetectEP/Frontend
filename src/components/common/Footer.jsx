@@ -11,7 +11,7 @@ export default function Footer() {
         <span>필수 약관</span>
         <span>개인정보처리방침</span>
       </TermsAndPrivacyContainer>
-      <h1>Pribee</h1>
+      <Logo>Pribee</Logo>
       <BrandingContainer>
         <span>SNS 개인정보 탐지 보조 서비스<br/>2025.03</span>
         <span>Team Olibees</span>
@@ -28,6 +28,16 @@ const FooterContainer = styled.div`
   align-items: flex-start;
   gap: 10px;
   background: ${(props) => props.theme.Secondary};
+  height: 210px;
+  ${media.small`
+    height: 177px;
+  `}
+`;
+
+const Logo = styled.div`
+  ${fontSizes.titleSubhead2Light};
+  color: ${(props) => props.theme.Gray100};
+  margin-top: 2.222vh;
 `;
 
 const TermsAndPrivacyContainer = styled.div`
