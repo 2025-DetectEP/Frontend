@@ -12,7 +12,7 @@ import LoginModal from '../../components/Login/LoginModal';
 import QuizSection from '../../components/Home/QuizSection';
 import MoreSection from '../../components/Home/MoreSection';
 import ServiceLinkBtn from '../../components/Home/ServiceLinkBtn';
-import { section3BtnData } from '../../constants/section3BtnData';
+import { homeSection3BtnData } from '../../constants/homeSection3BtnData';
 
 export default function Home() {
   const { isLogin }= useAuth();
@@ -94,7 +94,7 @@ export default function Home() {
           <span className='sec3title'>개인정보 지킴이 서비스</span>
         </S.Sec3Title>
         <S.Sec3BtnContainer>
-          {section3BtnData.map(data => {
+          {homeSection3BtnData.map(data => {
             return (
               <ServiceLinkBtn key={data.id} title={data.title} description={data.description} url={data.url} />
             )
