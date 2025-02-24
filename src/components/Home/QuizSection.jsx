@@ -17,10 +17,10 @@ export default function QuizSection() {
   const [isQuizRightPressed, setIsQuizRightPressed] = useState(false);  // 섹션2 퀴즈 오른쪽 버튼 클릭
   
   return (
-    <QuizContainer>
+    <Main>
       <span>오늘의 개인정보 퀴즈</span>
       <Quiz>
-        <span>어떤 형식으로 하느냐에 따라 달라겠지만, 일단 맞춤법 퀴즈처럼 넣어 봄</span>
+        <span>어떤 형식으로 하느냐에 따라 달라겠지만, 일단 맞춤법 퀴즈처럼 넣어 봄ㄴㄴ</span>
         <Answer>
           <button>선택지1</button>
           <button>선택지2</button>
@@ -61,11 +61,14 @@ export default function QuizSection() {
           )}
         </span>
       </QuizNavigation>
-    </QuizContainer>
+    </Main>
   );
 }
 
-const QuizContainer = styled.div`
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   /* width: 49.583vw; */
   flex-shrink: 0;
   border-radius: 8px;
@@ -90,8 +93,14 @@ const QuizContainer = styled.div`
 const Quiz = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  span { 
+  flex-grow: 1;
+  span {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    text-align: center;
     ${fontSizes.body1Medium}
     color: ${(props) => props.theme.Black};
     text-align: center;
@@ -121,7 +130,7 @@ const Answer = styled.div`
   align-items: center;
   gap: 10px;
   width: 100%;
-
+  
   button {
     width: 50%;
     padding: 1.759vh 0.833vw;
@@ -146,9 +155,7 @@ const Answer = styled.div`
 
   margin-bottom: 4.63vh;
   ${media.small`
-    span {
-      margin-bottom: 3.333vh
-    }
+    margin-bottom: 3.333vh;
   `}
 `;
 
