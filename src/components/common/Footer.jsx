@@ -29,9 +29,6 @@ const FooterContainer = styled.div`
   gap: 10px;
   background: ${(props) => props.theme.Secondary};
   height: 210px;
-  ${media.small`
-    height: 177px;
-  `}
 `;
 
 const Logo = styled.div`
