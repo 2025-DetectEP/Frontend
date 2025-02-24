@@ -33,7 +33,7 @@ export default function ProfileDropdown({setIsDropdown, userImgUrl, profileImage
   const handleLogout = () => {
     logout();
     setIsDropdown(false);
-    navigate('/');
+    window.location.reload();
   }
 
   return (
