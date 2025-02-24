@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 
-export const useInteraction = () => {
+export const useBtnInteraction = () => {
   const [isHover, setIsHover] = useState(false);
   const [isClick, setIsClick] = useState(false);
   const ref = useRef();
