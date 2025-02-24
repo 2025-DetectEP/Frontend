@@ -7,10 +7,6 @@ export const Main = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(100vh - 60px - 210px + 120px); // 전체 높이 - header 높이 - footer 높이 + custom
-
-  ${media.small`
-    height: calc(100vh - 60px - 177px + 120px);
-  `}
 `;
 
 export const Section1 = styled.div`
