@@ -18,6 +18,7 @@ export default function LoginBtn({setIsModalOpen}) {
         
         login(response.accessToken);
         setIsModalOpen(false);
+        window.location.reload();
       }}
       onFail={(error) => {
         console.log("로그인 실패!");
