@@ -1,4 +1,4 @@
-export const section3BtnData = [
+export const homeSection3BtnData = [
   {
     id: 1,
     title: '열람 · 정정 · 삭제 요구',
