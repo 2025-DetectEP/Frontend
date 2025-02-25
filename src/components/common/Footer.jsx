@@ -6,6 +6,7 @@ import { fontSizes } from '../../styles/FontSizes';
 
 export default function Footer() {
   return (
+    <Main>
     <FooterContainer>
       <TermsAndPrivacyContainer>
         <span>필수 약관</span>
@@ -17,8 +18,15 @@ export default function Footer() {
         <span>Team Olibees</span>
       </BrandingContainer>
     </FooterContainer>
+    </Main>
   );
 }
+
+const Main = styled.div`
+  height: 210px;
+  margin-top: auto;
+  background: ${(props) => props.theme.Secondary};
+`;
 
 const FooterContainer = styled.div`
   display: flex;
@@ -27,8 +35,6 @@ const FooterContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  background: ${(props) => props.theme.Secondary};
-  height: 210px;
 `;
 
 const Logo = styled.div`

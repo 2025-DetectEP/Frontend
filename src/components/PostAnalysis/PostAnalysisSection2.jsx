@@ -10,6 +10,7 @@ import { useResizeObserver } from '../../hooks/useResizeObserver';
 import FilterBtn from './FilterBtn';
 import LeftBtn from '../common/Buttons/LeftBtn';
 import RightBtn from '../common/Buttons/RightBtn';
+import PostCard from './PostCard';
 
 export default function PostAnalysisSection1({isPost, postCount, analysisCount}) {
   const navigate = useNavigate();
@@ -135,7 +136,17 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount})
                 )}
               </SearchContainer>
             </FilterSearchContainer>
-            {searchValue}
+            <PostCardContainer>
+              <PostCard />
+              <PostCard />
+              <PostCard />
+              <PostCard />
+              <PostCard />
+              <PostCard />
+              <PostCard />
+              <PostCard />
+              <PostCard />
+            </PostCardContainer>
           </>
         )
       ) : (   // 게시물 X
@@ -154,8 +165,8 @@ const Main = styled.div`
   flex-direction: column;
   /* align-items: center;
   justify-content: center; */
-  height: 100%;
-  overflow-x: hidden;
+  /* height: 100vh; */
+  /* overflow-x: hidden; */
 `;
 
 const NoneContainer = styled.div`
@@ -163,7 +174,7 @@ const NoneContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 47.5vh;
   gap: 24px;
 
   span {
@@ -326,4 +337,27 @@ const SearchInput = styled.input`
 
 const CancelBtn = styled.div`
   cursor: pointer;
+`;
+
+const PostCardContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 24px;
+  margin-top: 3.704vh;
+  margin-bottom: 7.407vh;
+  /* margin-top: 40px;
+  margin-bottom: 80px; */
+
+  @media only screen and (max-width: 1022px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  ${media.small`
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 2.963vh;
+    margin-bottom: 60px;
+    /* margin-top: 32px;
+    margin-bottom: 60px; */
+  `}
 `;

@@ -6,7 +6,8 @@ import { fontSizes } from "../../styles/FontSizes";
 export const Main = styled.div`
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 60px - 210px + 120px); // 전체 높이 - header 높이 - footer 높이 + custom
+  // height: calc(100vh - 60px - 210px + 120px); // 전체 높이 - header 높이 - footer 높이 + custom
+
 `;
 
 export const Section1 = styled.div`
