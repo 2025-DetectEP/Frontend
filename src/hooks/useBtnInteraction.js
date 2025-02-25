@@ -36,7 +36,7 @@ export const useBtnInteraction = () => {
       element.removeEventListener("mousedown", handleMouseDown);
       element.removeEventListener("mouseup", handleMouseUp);
     }
-  }, []);
+  }, [ref]);
 
   return [ref, isHover, isClick];
 }

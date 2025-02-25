@@ -5,9 +5,9 @@ import PostAnalysisSection1 from '../../components/PostAnalysis/PostAnalysisSect
 import PostAnalysisSection2 from '../../components/PostAnalysis/PostAnalysisSection2';
 
 export default function PostAnalysis() {
-  const [isPost, setIsPost] = useState(false);  // 게시물 존재 여부
+  const [isPost, setIsPost] = useState(true);  // 게시물 존재 여부
   const [postCount, setPostCount] = useState(112);   // 게시물 개수
-  const [analysisCount, setAnalysisCount] = useState(0);   // 개인정보 포함된 게시물 개수
+  const [analysisCount, setAnalysisCount] = useState(20);   // 개인정보 포함된 게시물 개수
   const [dangerDegree, setDangerDegree] = useState(1) ;  // 1:낮음, 2:보통, 3:높음 (섹션1에 사용)
 
   return (
