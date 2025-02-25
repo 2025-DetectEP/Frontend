@@ -9,11 +9,11 @@ const RightBtn = forwardRef(({isHovered, isPressed}, ref) => {
   return (
     <Main ref={ref}>
       {isPressed ? (
-        <IconRightPressed width={32} height={32} />
+        <IconRightPressed />
       ) : isHovered ? (
-        <IconRightHover width={32} height={32} />
+        <IconRightHover />
       ) : (
-        <IconRightEnabled width={32} height={32} />
+        <IconRightEnabled />
       )}
     </Main>
   );
