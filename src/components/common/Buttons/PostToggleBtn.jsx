@@ -5,7 +5,6 @@ import { fontSizes } from "../../../styles/FontSizes";
 import { useBtnInteraction } from '../../../hooks/useBtnInteraction';
 
 export default function PostToggleBtn() {
-  const [isToggleOn, setIsToggleOn] = useState(false);
   const [leftRef, isLeftHover, isLeftClick] = useBtnInteraction();
   const [rightRef, isRightHover, isRightClick] = useBtnInteraction();
 
