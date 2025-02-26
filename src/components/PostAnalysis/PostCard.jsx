@@ -7,11 +7,11 @@ import { postAnalysisFilterData } from '../../constants/postAnalysisFilterData';
 import { useBtnInteraction } from '../../hooks/useBtnInteraction';
 import Tag from '../common/Etc/Tag';
 
-export default function PostCard() {
+export default function PostCard({onClick}) {
   const [postRef, isPostHover, isPostClick] = useBtnInteraction();
 
   return (
-    <Main ref={postRef}>
+    <Main ref={postRef} onClick={onClick}>
       <ImgContainer $isPostHover={isPostHover} $isPostClick={isPostClick}>
         {isPostHover && 
           <BackContainer>
