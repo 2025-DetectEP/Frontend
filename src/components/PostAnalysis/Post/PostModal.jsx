@@ -22,7 +22,8 @@ import { ReactComponent as IconLeftPressed } from '../../../assets/icons/icon_le
 
 export default function PostModal({setIsPostClick}) {
   const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false
-  
+  const [isImgAnalysis, setIsImgAnalysis] = useState(false);  // 이미지 분석(true: 발견, false: 발견X)
+
   // 모달 열리면 스크롤 막음
   useEffect(() => {
     const scrollY = window.scrollY; // 현재 스크롤 위치 저장
@@ -87,7 +88,7 @@ export default function PostModal({setIsPostClick}) {
         </S.TopContainer>
         <S.PostContainer>
           <S.ImageContainer>
-            <ImageAnalysisInform />
+            <ImageAnalysisInform isImgAnalysis={isImgAnalysis} />
             <S.ImageSlideBtns $currentIndex={currentIndex} $length={length}>
               <span className='prevBtn'><CircleLeftBtn onClick={handlePrevSlide} /></span>
               <span className='nextBtn'><CircleRightBtn onClick={handleNextSlide} /></span>
