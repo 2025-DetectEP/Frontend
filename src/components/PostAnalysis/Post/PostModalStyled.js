@@ -164,6 +164,28 @@ export const ImageSlideBtns = styled.div`
   }
 `;
 
+export const ImageNum = styled.div`
+  position: absolute;
+  z-index: 11;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  ${fontSizes.body3Regular};
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 1.481vh;
+
+  .current {
+    color: ${(props) => props.theme.Gray200};
+  }
+
+  .length {
+    color: ${(props) => props.theme.Gray500};
+  
+  }
+`;
+
 export const Img = styled.div`
   aspect-ratio: 4/5;
   align-content: center;
@@ -325,11 +347,9 @@ export const NoText = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
 
   @media only screen and (max-width: 1024px) { //700px
-    flex-grow: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
     margin-top: 60px;
     margin-bottom: 60px;
   }
