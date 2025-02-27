@@ -10,7 +10,7 @@ export default function DegreeSoso() {
     <Main>
       <IconEmotion />
       <TextcContainer>
-        <Title>유출 위험도 보통</Title>
+        <Title>피해 위험도 보통</Title>
         <Sub>게시물 업로드시 개인정보를 주의하세요.</Sub>
       </TextcContainer>
     </Main>
