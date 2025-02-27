@@ -192,6 +192,25 @@ export const OriginalContainer = styled.div`
   ${fontSizes.body3Regular};
   color: ${(props) => props.theme.Black};
   text-overflow: ellipsis;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+  margin-top: 2.963vh;
+  margin-bottom: 2.963vh;
+`;
+
+export const OriginalText = styled.div`
+  ${fontSizes.body3Regular};
+  color: ${(props) => props.theme.Black};
+  flex-grow: 1;
+  max-height: 100%;
+
+  @media only screen and (min-width: 1024px) { //700px
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 `;
 
 export const ReviseContainer = styled.div`

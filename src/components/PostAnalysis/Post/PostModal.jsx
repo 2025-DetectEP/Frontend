@@ -10,6 +10,7 @@ import ToggleBtn from '../../common/Buttons/ToggleBtn';
 import PostToggleBtn from '../../common/Buttons/PostToggleBtn';
 import LinkBtn from '../../common/Buttons/LinkBtn';
 import Button8Large from '../../common/Buttons/Button8Large';
+import TextTooltip from '../../common/Etc/TextTooltip';
 
 export default function PostModal({setIsPostClick}) {
   const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false
@@ -51,7 +52,12 @@ export default function PostModal({setIsPostClick}) {
             <S.TextContainer>
               {isOriginal ?
                 <S.OriginalContainer>
-                  <p>원본</p>
+                  <S.OriginalText>
+                    <TextTooltip 
+                      text="이 문장은 개인정보를 검사를 테스트하는 예제입니다. 예제입니다."
+                      errorWords={["이", "개인정보를", "예제입니다."]}
+                    />
+                  </S.OriginalText>
                 </S.OriginalContainer>
               :
                 <S.ReviseContainer>
