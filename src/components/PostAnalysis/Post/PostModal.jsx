@@ -69,7 +69,10 @@ export default function PostModal({setIsPostClick}) {
                 </S.ReviseContainer>
               }
             </S.TextContainer>
-            <LinkBtn />
+            <LinkBtn
+              title='해당 게시물로 이동하기'
+              url='https://naver.com'   // 임시
+            />
           </S.PostActionContainer>
         </S.PostContainer>
       </S.PostModalContainer>
