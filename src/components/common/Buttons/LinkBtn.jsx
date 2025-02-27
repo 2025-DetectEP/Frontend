@@ -19,12 +19,12 @@ const BtnContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2.963vh 1.667vw;
+  padding: 2.407vh 1.667vw;
   gap: 16px;
   border-radius: 8px;
 
   ${media.small`
-    padding: 2.963vh 4vw;
+    padding: 2.407vh 4vw;
   `}
 
   &:hover {

@@ -160,6 +160,23 @@ export const PostActionContainer = styled.div`
     /* background-color: #ca5bc5; */
     padding: 1.481vh 1.951vw;
   }
+
+  .linkBtn {
+    border-top: 1px solid ${(props) => props.theme.Gray500};
+    margin-left: -1.667vw;
+    margin-right: -1.667vw;
+    padding-top: 2.963vh;
+    padding-left: 1.667vw;
+    padding-right: 1.667vw;
+    
+    @media only screen and (max-width: 1024px) { //700px
+      margin-left: -1.951vw;
+      margin-right: -1.951vw;
+      padding-top: 1.481vh;
+      padding-left: 1.667vw;
+      padding-right: 1.667vw;
+    }
+  }
 `;
 
 export const TextContainer = styled.div`
