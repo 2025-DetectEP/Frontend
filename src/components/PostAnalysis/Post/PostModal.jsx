@@ -12,6 +12,13 @@ import LinkBtn from '../../common/Buttons/LinkBtn';
 import Button8Large from '../../common/Buttons/Button8Large';
 import TextTooltip from '../../common/Analysis/TextTooltip';
 import ImageAnalysisInform from '../../common/Analysis/ImageAnalysisInform';
+import LeftBtn from '../../common/Buttons/LeftBtn';
+import RightBtn from '../../common/Buttons/RightBtn';
+import CircleLeftBtn from '../../common/Buttons/CircleLeftBtn';
+import CircleRightBtn from '../../common/Buttons/CircleRightBtn';
+import { ReactComponent as IconLeftEnabled } from '../../../assets/icons/icon_left_enabled.svg'
+import { ReactComponent as IconLeftHover } from '../../../assets/icons/icon_left_hover.svg'
+import { ReactComponent as IconLeftPressed } from '../../../assets/icons/icon_left_pressed.svg'
 
 export default function PostModal({setIsPostClick}) {
   const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false
@@ -31,6 +38,25 @@ export default function PostModal({setIsPostClick}) {
       window.scrollTo(0, scrollY); // 원래 위치로 복구
     };
   }, []);
+
+  // 이미지 슬라이드
+  const postImages = [
+    "SampleImage45.png",
+    "SampleImage11.png",
+    "SampleImage169.png",
+  ]
+  const [currentIndex, setCurrentIndex] = useState(0);  // 이미지 현재 인덱스값
+  const length = postImages.length; // 이미지 개수
+  
+  const handleNextSlide = () => { // 다음 이미지 버튼
+    console.log("다음")
+    if(currentIndex < length - 1) setCurrentIndex(currentIndex + 1);
+  };
+
+  const handlePrevSlide = () => { // 이전 이미지 버튼
+    console.log("이전")
+    if(currentIndex > 0) setCurrentIndex(currentIndex - 1);
+  };
 
   // 텍스트 복사
   const copyRef = useRef(); // 복사할 텍스트
@@ -62,8 +88,21 @@ export default function PostModal({setIsPostClick}) {
         <S.PostContainer>
           <S.ImageContainer>
             <ImageAnalysisInform />
-            <img className='thumbnail' src="SampleImage45.png" alt="" />
-            {/* <img className='thumbnail' src="SampleImage45.png" alt="" /> */}
+            <S.ImageSlideBtns $currentIndex={currentIndex} $length={length}>
+              <span className='prevBtn'><CircleLeftBtn onClick={handlePrevSlide} /></span>
+              <span className='nextBtn'><CircleRightBtn onClick={handleNextSlide} /></span>
+            </S.ImageSlideBtns>
+            <S.Img>
+            {postImages.map((data, index) => {
+              return (
+                <div key={index} className={index === currentIndex ? 'slide active' : 'slide'}>
+                  {index === currentIndex && 
+                    <img src={data} alt="post_img" className='image' />
+                  }
+                </div>
+              )
+            })}
+            </S.Img>
           </S.ImageContainer>
           <S.PostActionContainer>
             <PostToggleBtn isOriginal={isOriginal} setIsOriginal={setIsOriginal} />

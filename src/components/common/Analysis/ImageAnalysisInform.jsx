@@ -27,6 +27,7 @@ const ImageAnalysisInform = () => {
 export default ImageAnalysisInform;
 
 const Main = styled.div`
+  z-index: 10;
   display: flex;
   flex-direction: column;
   justify-content: start;

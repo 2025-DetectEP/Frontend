@@ -5,24 +5,24 @@ import { ReactComponent as IconLeftEnabled } from '../../../assets/icons/icon_le
 import { ReactComponent as IconLeftHover } from '../../../assets/icons/icon_left_hover.svg'
 import { ReactComponent as IconLeftPressed } from '../../../assets/icons/icon_left_pressed.svg'
 
-const LeftBtn = forwardRef(({isHovered, isPressed, startScrolling, stopScrolling}, ref) => {
+const LeftBtn = forwardRef(({isHovered, isPressed}, ref) => {
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
 
     const handleMouseDown = () => {
       console.log("handleMouseDown");
-      startScrolling("Left");
+      // startScrolling("Left");
     };
 
     const handleMouseUp = () => {
       console.log("handleMouseUp");
-      stopScrolling();
+      // stopScrolling();
     };
 
     const handleMouseLeave = () => {
       console.log("handleMouseLeave");
-      stopScrolling();
+      // stopScrolling();
     };
 
     element.addEventListener("mousedown", handleMouseDown, true);
@@ -34,7 +34,7 @@ const LeftBtn = forwardRef(({isHovered, isPressed, startScrolling, stopScrolling
       element.removeEventListener("mouseup", handleMouseUp, true);
       element.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [ref, startScrolling, stopScrolling]);
+  }, [ref]); //[ref, startScrolling, stopScrolling]
 
   return (
     <Main ref={ref}>

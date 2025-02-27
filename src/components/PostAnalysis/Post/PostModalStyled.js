@@ -117,12 +117,9 @@ export const PostContainer = styled.div`
 export const ImageContainer = styled.div`
   position: relative;
   background-color: ${(props) => props.theme.Black};
-  height: 100%;
+  /* height: 100%; */
   aspect-ratio: 4/5;
   align-content: center;
-  .thumbnail {
-    width: 100%;
-  }
   
   @media only screen and (min-width: 1024px) { //700px
     border-top-left-radius: 8px;
@@ -132,6 +129,59 @@ export const ImageContainer = styled.div`
   @media only screen and (max-width: 1024px) { //700px
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+  }
+`;
+
+export const ImageSlideBtns = styled.div`
+  position: absolute;
+  z-index: 11;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  width: 100%;
+  /* height: 81.944vh; */
+  flex-grow: 1;
+  
+  height: 100%;
+  padding: 1.667vw;
+  
+  @media only screen and (max-width: 1024px) { //700px
+    padding: 1.481vh;
+  }
+
+  .prevBtn {
+    background-color: pink;
+    pointer-events: all;
+    visibility: ${(props) => props.$currentIndex !== 0 ? 'visible' : 'hidden'};
+  }
+
+  .nextBtn {
+    background-color: pink;
+    pointer-events: all;
+    visibility: ${(props) => props.$currentIndex !== props.$length-1 ? 'visible' : 'hidden'};
+  }
+`;
+
+export const Img = styled.div`
+  aspect-ratio: 4/5;
+  align-content: center;
+  position: relative;
+
+  .image {
+    width: 100%;
+  }
+
+  .slide {
+    display: flex;
+    transition: transform 0.5s ease;
+    &.active {
+      /* transform: translateX(0); */
+    }
+    &:not(.active) {
+      /* transform: translateX(100%); */
+    }
   }
 `;
 

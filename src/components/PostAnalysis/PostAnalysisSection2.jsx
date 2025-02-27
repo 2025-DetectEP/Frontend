@@ -98,8 +98,8 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount})
                   ref={leftRef}
                   isHovered={isLeftHover}
                   isPressed={isLeftPress}
-                  startScrolling={startScrolling}
-                  stopScrolling={stopScrolling}
+                  // startScrolling={startScrolling}
+                  // stopScrolling={stopScrolling}
                 />
               </FilterLeftBtn>
               {/* <FilterLeftBtn ref={leftRef} $isBtnVisible={isBtnVisible} onClick={() => console.log("왼쪽")}>
