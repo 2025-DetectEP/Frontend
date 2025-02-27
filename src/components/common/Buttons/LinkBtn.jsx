@@ -3,15 +3,12 @@ import styled from "styled-components";
 import '../../../App.css';
 import media from '../../../styles/media';
 import { fontSizes } from "../../../styles/FontSizes";
-import { useBtnInteraction } from '../../../hooks/useBtnInteraction';
 import { ReactComponent as IconLink } from '../../../assets/icons/icon_arrow_right_up_line.svg'
 
-export default function LinkBtn() {
-  const [btnRef, isBtnHover, isBtnClick] = useBtnInteraction();
-
+export default function LinkBtn({title, url}) {
   return (
-    <BtnContainer>
-      <span>버튼</span>
+    <BtnContainer onClick={() => window.open(url)}>
+      <span>{title}</span>
       <IconLink />
     </BtnContainer>
   );
