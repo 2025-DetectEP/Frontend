@@ -26,4 +26,5 @@ const TagContainer = styled.div`
 const Title = styled.div`
   ${fontSizes.bdCaption1Medium};
   color: ${(props) => props.theme.Black};
+  white-space: nowrap;
 `;
