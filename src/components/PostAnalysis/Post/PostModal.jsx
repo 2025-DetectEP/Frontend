@@ -95,16 +95,21 @@ export default function PostModal({setIsPostClick}) {
               <span className='prevBtn'><CircleLeftBtn onClick={handlePrevSlide} /></span>
               <span className='nextBtn'><CircleRightBtn onClick={handleNextSlide} /></span>
             </S.ImageSlideBtns>
+              {length > 1 && 
+                <S.ImageNum>
+                  <span className='current'>{currentIndex+1}</span><span className='length'>&nbsp;/ {length}</span>
+                  </S.ImageNum>
+              }
             <S.Img>
-            {postImages.map((data, index) => {
-              return (
-                <div key={index} className={index === currentIndex ? 'slide active' : 'slide'}>
-                  {index === currentIndex && 
-                    <img src={data} alt="post_img" className='image' />
-                  }
-                </div>
-              )
-            })}
+              {postImages.map((data, index) => {
+                return (
+                  <div key={index} className={index === currentIndex ? 'slide active' : 'slide'}>
+                    {index === currentIndex && 
+                      <img src={data} alt="post_img" className='image' />
+                    }
+                  </div>
+                )
+              })}
             </S.Img>
           </S.ImageContainer>
           <S.PostActionContainer>
@@ -138,12 +143,6 @@ export default function PostModal({setIsPostClick}) {
                       </S.ReviseContainer>
                     }
                   </S.TextContainer>
-                  {/* <div className='linkBtn'>
-                    <LinkBtn
-                      title='해당 게시물로 이동하기'
-                      url='https://naver.com'   // 임시
-                    />
-                  </div> */}
                 </>
               :
                 <S.NotFindText>
