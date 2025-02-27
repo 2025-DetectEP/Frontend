@@ -289,18 +289,48 @@ export const ReviseText = styled.div`
     overflow-y: auto;
     overflow-x: hidden;
   }
-  
-  .notice {
-    padding: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 8px;
-    background: ${(props) => props.theme.Gray100};
-    ${fontSizes.bdCaption1Medium};
-    color: ${(props) => props.theme.Gray700};
-    text-overflow: ellipsis;
-    margin-bottom: 1.481vh;
+`;
+
+export const Notice = styled.div`
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: ${(props) => props.theme.Gray100};
+  ${fontSizes.bdCaption1Medium};
+  color: ${(props) => props.theme.Gray700};
+  text-overflow: ellipsis;
+  margin-bottom: 1.481vh;
+`;
+
+export const NotFindText = styled.div`
+  ${fontSizes.body3Regular};
+  color: ${(props) => props.theme.Black};
+  flex-grow: 1;
+  max-height: 100%;
+  margin-bottom: 2.963vh;
+
+  @media only screen and (min-width: 1024px) { //700px
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+`;
+
+export const NoText = styled.div`
+  ${fontSizes.body2Medium};
+  color: ${(props) => props.theme.Gray700};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media only screen and (max-width: 1024px) { //700px
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 60px;
+    margin-bottom: 60px;
   }
 `;

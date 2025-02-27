@@ -23,6 +23,8 @@ import { ReactComponent as IconLeftPressed } from '../../../assets/icons/icon_le
 export default function PostModal({setIsPostClick}) {
   const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false
   const [isImgAnalysis, setIsImgAnalysis] = useState(false);  // 이미지 분석(true: 발견, false: 발견X)
+  const [isTextAnalysis, setIsTextAnalysis] = useState(false); // 텍스트 분석(true: 발견, flase: 발견X)
+  const [isText, setIsText] = useState(false);  // 게시물에 글이 있는지 없는지
 
   // 모달 열리면 스크롤 막음
   useEffect(() => {
@@ -106,33 +108,53 @@ export default function PostModal({setIsPostClick}) {
             </S.Img>
           </S.ImageContainer>
           <S.PostActionContainer>
-            <PostToggleBtn isOriginal={isOriginal} setIsOriginal={setIsOriginal} />
-            <S.TextContainer>
-              {isOriginal ?
-                <S.OriginalContainer>
-                  <S.OriginalText>
-                    <TextTooltip 
-                      text="이 문장은 개인정보를 검사를 테스트하는 예제입니다. 예제입니다."
-                      errorWords={["이", "개인정보를", "예제입니다."]}
+            {isText ?
+              isTextAnalysis ?
+                <>
+                  <PostToggleBtn isOriginal={isOriginal} setIsOriginal={setIsOriginal} />
+                  <S.TextContainer>
+                    {isOriginal ?
+                      <S.OriginalContainer>
+                        <S.OriginalText>
+                          <TextTooltip 
+                            text="이 문장은 개인정보를 검사를 테스트하는 예제입니다. 예제입니다."
+                            errorWords={["이", "개인정보를", "예제입니다."]}
+                          />
+                        </S.OriginalText>
+                      </S.OriginalContainer>
+                    :
+                      <S.ReviseContainer>
+                        <S.ReviseText ref={copyRef}>
+                          <S.Notice>AI를 통해 검출된 개인정보를 모두 제외하고 글을 재구성했습니다.</S.Notice>
+                          happy
+                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                        </S.ReviseText>
+                        <Button8Large onClick={handleCopyText} title={'복사하기'} />
+                      </S.ReviseContainer>
+                    }
+                  </S.TextContainer>
+                  {/* <div className='linkBtn'>
+                    <LinkBtn
+                      title='해당 게시물로 이동하기'
+                      url='https://naver.com'   // 임시
                     />
-                  </S.OriginalText>
-                </S.OriginalContainer>
+                  </div> */}
+                </>
               :
-                <S.ReviseContainer>
-                  <S.ReviseText ref={copyRef}>
-                    <div className='notice'>AI를 통해 검출된 개인정보를 모두 제외하고 글을 재구성했습니다.</div>
-                    happy
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                  </S.ReviseText>
-                  <Button8Large onClick={handleCopyText} title={'복사하기'} />
-                </S.ReviseContainer>
-              }
-            </S.TextContainer>
+                <S.NotFindText>
+                  <S.Notice>텍스트에는 개인정보가 발견되지 않았어요. 사진에서 발견된 개인정보를 확인해 보세요.</S.Notice>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum odio voluptates laudantium. Voluptates sit, quis, ipsam numquam reiciendis, aliquid nam animi a aut nostrum voluptate quisquam ipsum? Provident, distinctio veritatis?
+                </S.NotFindText>
+            :
+              <S.NoText>
+                글이 없는 게시물입니다.
+              </S.NoText>
+            }
             <div className='linkBtn'>
               <LinkBtn
                 title='해당 게시물로 이동하기'
