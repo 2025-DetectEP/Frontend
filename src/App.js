@@ -9,18 +9,18 @@ import PostAnalysis from './pages/PostAnalysis/PostAnalysis';
 
 function App() {
   useEffect(() => {
-    const handleResize = () => {
-      if(window.innerWidth < 580) {
-        document.body.style.width = "580px";
-      } else {
-        document.body.style.width = "auto";
-      }
-    };
-    window.addEventListener("resize", handleResize);
+    // const handleResize = () => {
+    //   if(window.innerWidth < 580) {
+    //     document.body.style.width = "580px";
+    //   } else {
+    //     document.body.style.width = "auto";
+    //   }
+    // };
+    // window.addEventListener("resize", handleResize);
   
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    // return () => {
+    //   window.removeEventListener("resize", handleResize);
+    // };
   }, []);
   
   return (

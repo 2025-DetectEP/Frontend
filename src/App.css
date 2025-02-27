@@ -12,6 +12,6 @@
 }
 
 html, body {
-  min-width: 580px;
+  /* min-width: 580px; */
   overflow-x: auto;
 }
