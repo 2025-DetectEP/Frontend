@@ -14,6 +14,19 @@ import Button8Large from '../../common/Buttons/Button8Large';
 export default function PostModal({setIsPostClick}) {
   const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false
 
+  // 텍스트 복사
+  const copyRef = useRef(); // 복사할 텍스트
+
+  const handleCopyText = () => {
+    if(copyRef.current) {
+      const copyText = copyRef.current.textContent;
+
+      navigator.clipboard.writeText(copyText)
+        .then(() => alert("복사되었습니다."))
+        .catch(err => console.error("복사 실패:", err));
+    }
+  };
+
   return (
     <S.Main>
       <S.PostModalContainer>
@@ -42,8 +55,8 @@ export default function PostModal({setIsPostClick}) {
                 </S.OriginalContainer>
               :
                 <S.ReviseContainer>
-                  <div className='notice'>AI를 통해 검출된 개인정보를 모두 제외하고 글을 재구성했습니다.</div>
-                  <S.ReviseText>
+                  <S.ReviseText ref={copyRef}>
+                    <div className='notice'>AI를 통해 검출된 개인정보를 모두 제외하고 글을 재구성했습니다.</div>
                     happy
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
@@ -52,7 +65,7 @@ export default function PostModal({setIsPostClick}) {
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
                   </S.ReviseText>
-                  <Button8Large title={'복사하기'} />
+                  <Button8Large onClick={handleCopyText} title={'복사하기'} />
                 </S.ReviseContainer>
               }
             </S.TextContainer>
