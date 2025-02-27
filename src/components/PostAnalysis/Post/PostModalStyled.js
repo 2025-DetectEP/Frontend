@@ -1,0 +1,215 @@
+import styled from "styled-components";
+import '../../../App.css';
+import media from '../../../styles/media';
+import { fontSizes } from "../../../styles/FontSizes";
+
+export const Main = styled.div`
+  position: fixed;
+  top:0; left: 0; bottom: 0; right: 0;
+  background: rgba(6, 6, 6, 0.6);
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+`;
+
+export const PostModalContainer = styled.div`
+  /* min-width: 52.083vw; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* min-width: 24.167vw; */
+  /* height: 61.111vh; */
+  /* flex-shrink: 0; */
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  
+  width: 62.292vw;
+  aspect-ratio: 1196/885;
+
+  @media only screen and (min-width: 1024px) { //700px
+    min-width: 600px;
+  }
+
+  @media only screen and (max-width: 1024px) { //700px
+    width: 92vw;
+    max-width: 552px;
+    /* min-width: 552px; */
+  }
+`;
+
+export const TopContainer = styled.div`
+  /* width: 62.292vw; */
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    ${fontSizes.btnTitle2Medium};
+    color: ${(props) => props.theme.White};
+  }
+
+  /* @media only screen and (min-width: 700px) {
+    width: 100%;
+  } */
+
+  /* @media only screen and (max-width: 700px) {
+    width: 92vw;
+    max-width: 552px;
+  } */
+`;
+
+export const ToggleContainer = styled.button`
+  display: flex;
+  gap: 8px;
+`;
+
+export const CloseBtn = styled.button`
+  
+`;
+
+export const PostContainer = styled.div`
+  /* width: 62.292vw; */
+  /* height: 81.944vh; */
+  /* flex-shrink: 0; */
+  box-shadow: 0px 0px 16px 0px #666868;
+  background-color: ${(props) => props.theme.White};
+  border-radius: 8px;
+  /* aspect-ratio: 1196/885; */
+  overflow-x: auto;
+
+  display: flex;
+  flex-direction: row;
+  /* justify-content: end; */
+  justify-content: start;
+
+  @media only screen and (min-width: 1024px) { //700px
+    height: 81.944vh;
+    width: 100%;
+    /* overflow-y: auto; */
+    /* aspect-ratio: 5/3; */
+  }
+  
+  @media only screen and (max-width: 1024px) { //700px
+    /* width: 62.292vw;
+    height: 81.944vh; */
+    width: 92vw;
+    max-width: 552px;
+    height: 81.944vh;
+    /* height: 80%; */
+    /* min-width: 552px; */
+    /* display: grid;
+    grid-template-rows: 4fr 3fr; */
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    /* background-color: cadetblue; */
+    overflow-y: auto;
+  }
+`;
+
+export const ImageContainer = styled.div`
+  background-color: ${(props) => props.theme.Black};
+  height: 100%;
+  aspect-ratio: 4/5;
+  align-content: center;
+  .thumbnail {
+    width: 100%;
+  }
+  
+  @media only screen and (min-width: 1024px) { //700px
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+  
+  @media only screen and (max-width: 1024px) { //700px
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+`;
+
+export const PostActionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* min-width: 25.417vw; */
+  /* width: 25.417vw; */
+  /* min-width: 32vw; */
+  /* background-color: #3daf76; */
+  padding: 2.963vh 1.667vw;
+  /* overflow-y: auto; */
+
+  @media only screen and (min-width: 1024px) { //700px
+    flex-grow: 1;
+    justify-content: space-between;
+    flex-basis: 488px;
+    min-width: 488px;
+    /* width: 25.417vw; */
+    /* min-width: 400px; */
+    /* background-color:rgb(174, 231, 203); */
+    height: 100%;
+  }
+  @media only screen and (max-width: 1024px) { //700px
+    flex-grow: 1;
+    /* min-height: 43.704vh; */
+    /* background-color: #ca5bc5; */
+    padding: 1.481vh 1.951vw;
+  }
+`;
+
+export const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+  margin-top: 2.963vh;
+  margin-bottom: 2.963vh;
+`;
+
+export const OriginalContainer = styled.div`
+  ${fontSizes.body3Regular};
+  color: ${(props) => props.theme.Black};
+  text-overflow: ellipsis;
+`;
+
+export const ReviseContainer = styled.div`
+  ${fontSizes.body3Regular};
+  color: ${(props) => props.theme.Secondary};
+  text-overflow: ellipsis;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+
+  .notice {
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    background: ${(props) => props.theme.Gray100};
+    ${fontSizes.bdCaption1Medium};
+    color: ${(props) => props.theme.Gray700};
+    text-overflow: ellipsis;
+  }
+`;
+
+export const ReviseText = styled.div`
+  ${fontSizes.body3Regular};
+  color: ${(props) => props.theme.Secondary};
+  margin-top: 16px;
+  margin-bottom: 16px;
+  flex-grow: 1;
+  max-height: 100%;
+  @media only screen and (min-width: 1024px) { //700px
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+`;

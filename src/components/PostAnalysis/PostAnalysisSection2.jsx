@@ -11,6 +11,7 @@ import FilterBtn from './FilterBtn';
 import LeftBtn from '../common/Buttons/LeftBtn';
 import RightBtn from '../common/Buttons/RightBtn';
 import PostCard from './PostCard';
+import PostModal from './Post/PostModal';
 
 export default function PostAnalysisSection1({isPost, postCount, analysisCount}) {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount})
   const [leftRef, isLeftHover, isLeftPress] = useBtnInteraction(); // 왼쪽 버튼
   const [rightRef, isRightHover, isRightPress] = useBtnInteraction(); // 오른쪽 버튼
   const filterScrollRef = useRef(null);  // filter container의 스크롤 영역
+
+  const [isPostClick, setIsPostClick] = useState(false); // 게시물 클릭
 
   // 기본 제출 방지
   const handleFormSubmit = (e) => {
@@ -137,15 +140,7 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount})
               </SearchContainer>
             </FilterSearchContainer>
             <PostCardContainer>
-              <PostCard />
-              <PostCard />
-              <PostCard />
-              <PostCard />
-              <PostCard />
-              <PostCard />
-              <PostCard />
-              <PostCard />
-              <PostCard />
+              <PostCard onClick={()=>setIsPostClick(true)} />
             </PostCardContainer>
           </>
         )
@@ -156,6 +151,10 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount})
         </NoneContainer>
       )}
       
+      {/* 게시물 모달 */}
+      {isPostClick && 
+        <PostModal setIsPostClick={setIsPostClick} />
+      }
     </Main>
   );
 }

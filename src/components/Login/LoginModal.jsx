@@ -49,6 +49,7 @@ const ModalBg = styled.div`
   background: rgba(6, 6, 6, 0.6);
   width: 100vw;
   height: 100vh;
+  z-index: 1000;
 `;
 
 const LoginModalContainer = styled.div`
