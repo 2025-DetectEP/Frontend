@@ -167,8 +167,8 @@ export const TextContainer = styled.div`
   flex-direction: column;
   flex-grow: 1;
   overflow: hidden;
-  margin-top: 2.963vh;
-  margin-bottom: 2.963vh;
+  /* margin-top: 2.963vh;
+  margin-bottom: 2.963vh; */
 `;
 
 export const OriginalContainer = styled.div`
@@ -185,7 +185,23 @@ export const ReviseContainer = styled.div`
   flex-direction: column;
   flex-grow: 1;
   overflow: hidden;
+  margin-top: 2.963vh;
+  margin-bottom: 2.963vh;
+`;
 
+export const ReviseText = styled.div`
+  ${fontSizes.body3Regular};
+  color: ${(props) => props.theme.Secondary};
+  flex-grow: 1;
+  max-height: 100%;
+  margin-bottom: 2.963vh;
+
+  @media only screen and (min-width: 1024px) { //700px
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
   .notice {
     padding: 16px;
     display: flex;
@@ -197,19 +213,6 @@ export const ReviseContainer = styled.div`
     ${fontSizes.bdCaption1Medium};
     color: ${(props) => props.theme.Gray700};
     text-overflow: ellipsis;
-  }
-`;
-
-export const ReviseText = styled.div`
-  ${fontSizes.body3Regular};
-  color: ${(props) => props.theme.Secondary};
-  margin-top: 16px;
-  margin-bottom: 16px;
-  flex-grow: 1;
-  max-height: 100%;
-  @media only screen and (min-width: 1024px) { //700px
-    flex-grow: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
+    margin-bottom: 1.481vh;
   }
 `;

@@ -3,9 +3,9 @@ import styled from "styled-components";
 import '../../../App.css';
 import { fontSizes } from "../../../styles/FontSizes";
 
-export default function Button8Large({title}) {
+export default function Button8Large({title, onClick}) {
   return (
-    <BtnContainer>
+    <BtnContainer onClick={onClick}>
       <span>{title}</span>
     </BtnContainer>
   );
