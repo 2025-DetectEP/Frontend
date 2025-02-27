@@ -79,7 +79,6 @@ export const PostContainer = styled.div`
   /* height: 81.944vh; */
   /* flex-shrink: 0; */
   box-shadow: 0px 0px 16px 0px #666868;
-  background-color: ${(props) => props.theme.White};
   border-radius: 8px;
   /* aspect-ratio: 1196/885; */
   overflow-x: auto;
@@ -94,6 +93,7 @@ export const PostContainer = styled.div`
     width: 100%;
     /* overflow-y: auto; */
     /* aspect-ratio: 5/3; */
+    overflow-y: hidden;
   }
   
   @media only screen and (max-width: 1024px) { //700px
@@ -143,6 +143,7 @@ export const PostActionContainer = styled.div`
   /* min-width: 32vw; */
   /* background-color: #3daf76; */
   padding: 2.963vh 1.667vw;
+  background-color: ${(props) => props.theme.White};
   /* overflow-y: auto; */
 
   @media only screen and (min-width: 1024px) { //700px
