@@ -15,6 +15,22 @@ import ImageAnalysisInform from '../../common/Analysis/ImageAnalysisInform';
 
 export default function PostModal({setIsPostClick}) {
   const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false
+  
+  // 모달 열리면 스크롤 막음
+  useEffect(() => {
+    const scrollY = window.scrollY; // 현재 스크롤 위치 저장
+
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%"; // 모바일 흔들림 방지
+
+    return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, scrollY); // 원래 위치로 복구
+    };
+  }, []);
 
   // 텍스트 복사
   const copyRef = useRef(); // 복사할 텍스트
@@ -46,7 +62,7 @@ export default function PostModal({setIsPostClick}) {
         <S.PostContainer>
           <S.ImageContainer>
             <ImageAnalysisInform />
-            <img className='thumbnail' src="SampleImage11.png" alt="" />
+            <img className='thumbnail' src="SampleImage45.png" alt="" />
             {/* <img className='thumbnail' src="SampleImage45.png" alt="" /> */}
           </S.ImageContainer>
           <S.PostActionContainer>
