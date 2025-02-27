@@ -10,7 +10,7 @@ import ToggleBtn from '../../common/Buttons/ToggleBtn';
 import PostToggleBtn from '../../common/Buttons/PostToggleBtn';
 import LinkBtn from '../../common/Buttons/LinkBtn';
 import Button8Large from '../../common/Buttons/Button8Large';
-import TextTooltip from '../../common/Etc/TextTooltip';
+import TextTooltip from '../../common/Analysis/TextTooltip';
 
 export default function PostModal({setIsPostClick}) {
   const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false

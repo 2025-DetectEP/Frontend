@@ -5,7 +5,7 @@ import media from '../../styles/media';
 import { fontSizes } from "../../styles/FontSizes";
 import { postAnalysisFilterData } from '../../constants/postAnalysisFilterData';
 import { useBtnInteraction } from '../../hooks/useBtnInteraction';
-import Tag from '../common/Etc/Tag';
+import Tag from '../common/Analysis/Tag';
 
 export default function PostCard({onClick}) {
   const [postRef, isPostHover, isPostClick] = useBtnInteraction();
