@@ -115,6 +115,7 @@ export const PostContainer = styled.div`
 `;
 
 export const ImageContainer = styled.div`
+  position: relative;
   background-color: ${(props) => props.theme.Black};
   height: 100%;
   aspect-ratio: 4/5;

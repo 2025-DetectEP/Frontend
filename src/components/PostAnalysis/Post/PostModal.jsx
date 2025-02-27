@@ -11,6 +11,7 @@ import PostToggleBtn from '../../common/Buttons/PostToggleBtn';
 import LinkBtn from '../../common/Buttons/LinkBtn';
 import Button8Large from '../../common/Buttons/Button8Large';
 import TextTooltip from '../../common/Analysis/TextTooltip';
+import ImageAnalysisInform from '../../common/Analysis/ImageAnalysisInform';
 
 export default function PostModal({setIsPostClick}) {
   const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false
@@ -44,6 +45,7 @@ export default function PostModal({setIsPostClick}) {
         </S.TopContainer>
         <S.PostContainer>
           <S.ImageContainer>
+            <ImageAnalysisInform />
             <img className='thumbnail' src="SampleImage11.png" alt="" />
             {/* <img className='thumbnail' src="SampleImage45.png" alt="" /> */}
           </S.ImageContainer>
