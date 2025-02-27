@@ -10,7 +10,7 @@ export default function DegreeGood() {
     <Main>
       <IconEmotion />
       <TextcContainer>
-        <Title>유출 위험도 낮음</Title>
+        <Title>피해 위험도 낮음</Title>
         <Sub>게시물을 안전하게 업로드하고 있어요.</Sub>
       </TextcContainer>
     </Main>

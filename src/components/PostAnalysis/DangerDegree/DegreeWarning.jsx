@@ -10,7 +10,7 @@ export default function DegreeWarning() {
     <Main>
       <IconEmotion />
       <TextcContainer>
-        <Title>유출 위험도 높음</Title>
+        <Title>피해 위험도 높음</Title>
         <Sub>게시물을 수정해서 노출된 정보를 관리하세요.</Sub>
       </TextcContainer>
     </Main>
