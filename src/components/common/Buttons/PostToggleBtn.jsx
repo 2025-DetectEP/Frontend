@@ -4,11 +4,9 @@ import '../../../App.css';
 import { fontSizes } from "../../../styles/FontSizes";
 import { useBtnInteraction } from '../../../hooks/useBtnInteraction';
 
-export default function PostToggleBtn() {
+export default function PostToggleBtn({isOriginal, setIsOriginal}) {
   const [leftRef, isLeftHover, isLeftClick] = useBtnInteraction();
   const [rightRef, isRightHover, isRightClick] = useBtnInteraction();
-
-  const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false
 
   return (
     <ToggleContainer>
@@ -43,7 +41,8 @@ const Btn1 = styled.div`
   cursor: pointer;
   text-align: center;
   align-content: center;
-  padding: 12px 16px;
+  /* white-space: nowrap; */
+  padding: 1.111vh 0.833vw;
   border-radius: 800px 0px 0px 800px;
   border: 2px solid ${(props) => props.$isOriginal ? props.theme.Primary : props.$isLeftHover ? props.theme.Primary : props.theme.Gray200};
   background-color: ${(props) => props.$isOriginal ? props.theme.Primary300 : props.$isLeftHover ? props.theme.Primary100 : 'transparent'};
@@ -53,7 +52,8 @@ const Btn2 = styled.div`
   cursor: pointer;
   text-align: center;
   align-content: center;
-  padding: 12px 16px;
+  /* white-space: nowrap; */
+  padding: 1.111vh 0.833vw;
   border-radius: 0px 800px 800px 0px;
   border: 2px solid ${(props) => props.$isOriginal ? (props.$isRightHover ? props.theme.Primary : props.theme.Gray200) : props.theme.Primary};
   background-color: ${(props) => props.$isOriginal ? (props.$isRightHover ? props.theme.Primary100 : 'transparent') : props.theme.Primary300};
