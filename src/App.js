@@ -6,6 +6,7 @@ import Header from "./components/common/Header";
 import Footer from './components/common/Footer';
 import Home from './pages/Home/Home';
 import PostAnalysis from './pages/PostAnalysis/PostAnalysis';
+import CheckList from './pages/CheckList/CheckList';
 
 function App() {
   useEffect(() => {
@@ -31,6 +32,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/post-analysis" element={<PostAnalysis />} />
+            <Route path="/check-list" element={<CheckList />} />
           </Routes>
         </main>
         <Footer />
