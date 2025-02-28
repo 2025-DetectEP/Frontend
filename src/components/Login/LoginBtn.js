@@ -18,6 +18,7 @@ export default function LoginBtn({setIsModalOpen}) {
         
         login(response.accessToken);
         setIsModalOpen(false);
+        window.location.reload();
       }}
       onFail={(error) => {
         console.log("로그인 실패!");
@@ -28,7 +29,6 @@ export default function LoginBtn({setIsModalOpen}) {
         console.log("name: ", response.name);
         console.log("id: ", response.id);
         console.log("picture: ", response.picture);
-        console.log("picture: ", response.picture.data.url);  // 프로필 이미지 경로
         console.log("email: ", response.email);
 
         const userImg = response.picture.data.url;

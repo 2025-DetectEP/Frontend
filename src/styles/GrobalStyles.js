@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
         cursor: pointer;
         background: transparent;
         border: transparent;
-
+        padding: 0;
         // 드래그 방지
         /* -webkit-user-select:all;
         -moz-user-select:all;

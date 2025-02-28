@@ -1,4 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../context/AuthContext';
 import styled from "styled-components";
 import '../../App.css';
@@ -6,6 +7,7 @@ import media from '../../styles/media';
 
 export default function ProfileDropdown({setIsDropdown, userImgUrl, profileImageRef}) {
   const { logout } = useAuth();
+  const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
   // 영역 밖 클릭 감지
@@ -31,6 +33,8 @@ export default function ProfileDropdown({setIsDropdown, userImgUrl, profileImage
   const handleLogout = () => {
     logout();
     setIsDropdown(false);
+    navigate('/');
+    window.location.reload();
   }
 
   return (

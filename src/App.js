@@ -5,21 +5,22 @@ import { AuthProvider } from './context/AuthContext';
 import Header from "./components/common/Header";
 import Footer from './components/common/Footer';
 import Home from './pages/Home/Home';
+import PostAnalysis from './pages/PostAnalysis/PostAnalysis';
 
 function App() {
   useEffect(() => {
-    const handleResize = () => {
-      if(window.innerWidth < 580) {
-        document.body.style.width = "580px";
-      } else {
-        document.body.style.width = "auto";
-      }
-    };
-    window.addEventListener("resize", handleResize);
+    // const handleResize = () => {
+    //   if(window.innerWidth < 580) {
+    //     document.body.style.width = "580px";
+    //   } else {
+    //     document.body.style.width = "auto";
+    //   }
+    // };
+    // window.addEventListener("resize", handleResize);
   
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    // return () => {
+    //   window.removeEventListener("resize", handleResize);
+    // };
   }, []);
   
   return (
@@ -29,6 +30,7 @@ function App() {
         <main className='content'>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/post-analysis" element={<PostAnalysis />} />
           </Routes>
         </main>
         <Footer />

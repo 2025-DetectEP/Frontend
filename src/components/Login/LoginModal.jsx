@@ -6,9 +6,27 @@ import { ReactComponent as CloseIcon } from '../../assets/icons/icon_close.svg';
 import LoginBtn from './LoginBtn';
 
 export default function LoginModal({setIsModalOpen}) {
+  const outRef = useRef(null);  // 모달 밖 클릭 시 모달 닫힘
   const [showBubble, setShowBubble] = useState(false);  // 말풍선
+  
+  // 모달 열리면 스크롤 막음
+  useEffect(() => {
+    const scrollY = window.scrollY; // 현재 스크롤 위치 저장
 
-  useEffect(() => { ;  // 0.3초 뒤 말풍선 나타내기
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%"; // 모바일 흔들림 방지
+
+    return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, scrollY); // 원래 위치로 복구
+    };
+  }, []);
+  
+  // 0.3초 뒤 말풍선 나타내기
+  useEffect(() => {
     const timer = setTimeout(() => {
       setShowBubble(true);
     }, 300);
@@ -16,7 +34,6 @@ export default function LoginModal({setIsModalOpen}) {
     return () => clearTimeout(timer);
   }, []);
 
-  const outRef = useRef(null);  // 모달 밖 클릭 시 모달 닫힘
 
   return (
     <ModalBg ref={outRef} onClick={(e) => {if(e.target == outRef.current) setIsModalOpen(false)}}>
@@ -49,6 +66,7 @@ const ModalBg = styled.div`
   background: rgba(6, 6, 6, 0.6);
   width: 100vw;
   height: 100vh;
+  z-index: 1000;
 `;
 
 const LoginModalContainer = styled.div`
