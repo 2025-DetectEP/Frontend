@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import '../../../App.css';
 import media from '../../../styles/media';
@@ -8,13 +8,19 @@ import { useBtnInteraction } from '../../../hooks/useBtnInteraction';
 const Button1_5 = ({title, onClick, isActive}) => {
   const [ref, isHover, isClick] = useBtnInteraction();
 
+  const handleClick = () => {
+    if(isActive) {
+      onClick();
+    }
+  }
+
   return (
     <BtnContainer
       ref={ref}
       $isHover={isHover}
       $isClick={isClick}
       $isActive={isActive}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <Title $isActive={isActive}>{title}</Title>
     </BtnContainer>
@@ -24,7 +30,7 @@ const Button1_5 = ({title, onClick, isActive}) => {
 export default Button1_5; 
 
 const BtnContainer = styled.div`
-  cursor: ${(props) => props.$isActive ? 'pointer' : 'default'};;
+  cursor: ${(props) => props.$isActive ? 'pointer' : 'default'};
   display: flex;
   width: 11.458vw;
   height: 5.556vh;
