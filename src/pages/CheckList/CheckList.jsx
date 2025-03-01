@@ -8,6 +8,8 @@ import QuestionBox from '../../components/common/CheckList/QuestionBox';
 import Button1_5 from '../../components/common/Buttons/Button1_5';
 
 export default function CheckList() {
+  const navigate = useNavigate();
+
   // 대답 'none'으로 초기화
   const initalizeAnswers = () => {
     const answers = {};
@@ -36,6 +38,31 @@ export default function CheckList() {
     const allAnswer = Object.values(answers).every((answer) => answer === 'yes' || answer === 'no');
     setIsSolve(allAnswer);
   }, [answers]);
+
+  // 결과 보기(전에 계산 후 페이지 이동)
+  const handleResult = () => {
+    const result = {};
+    let allScore = 0;
+    const categoryScore = Array(checkListData.length).fill(0);
+
+    checkListData.map(category => {
+      category.questions.map(question => {
+        const userAnswer = answers[`${category.id}-${question.id}`];
+
+        console.log('userAnswer: ', userAnswer);
+
+         // 정답 비교
+        const score = question.answer === userAnswer ? 1 : 0;
+        result[`${category.id}-${question.id}`] = score;
+
+        allScore += score;  // 전체 점수 계산
+
+        categoryScore[Number(category.id) - 1] += score;  // 항목별 점수 계산
+      })
+    })
+
+    navigate('result', {state: {allScore, categoryScore}});
+  };
 
   return (
     <S.Main>
@@ -69,7 +96,7 @@ export default function CheckList() {
           )
         })}
         <S.ResultBtn>
-          <Button1_5 title='결과 보기' onClick={() => console.log("테스트")} isActive={isSolve} />        
+          <Button1_5 title='결과 보기' onClick={handleResult} isActive={isSolve} />        
         </S.ResultBtn>
       </S.Section2>
     </S.Main>

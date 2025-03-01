@@ -7,6 +7,7 @@ import Footer from './components/common/Footer';
 import Home from './pages/Home/Home';
 import PostAnalysis from './pages/PostAnalysis/PostAnalysis';
 import CheckList from './pages/CheckList/CheckList';
+import CheckListResult from './pages/CheckList/CheckListResult';
 
 function App() {
   useEffect(() => {
@@ -33,6 +34,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/post-analysis" element={<PostAnalysis />} />
             <Route path="/check-list" element={<CheckList />} />
+            <Route path="/check-list/result" element={<CheckListResult />} />
           </Routes>
         </main>
         <Footer />
