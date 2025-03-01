@@ -42,7 +42,7 @@ export default function CheckList() {
   // 결과 보기(전에 계산 후 페이지 이동)
   const handleResult = () => {
     const result = {};
-    let allScore = 0;
+    let totalScore = 0;
     const categoryScore = Array(checkListData.length).fill(0);
 
     checkListData.map(category => {
@@ -55,13 +55,17 @@ export default function CheckList() {
         const score = question.answer === userAnswer ? 1 : 0;
         result[`${category.id}-${question.id}`] = score;
 
-        allScore += score;  // 전체 점수 계산
+        totalScore += score;  // 전체 점수 계산
 
         categoryScore[Number(category.id) - 1] += score;  // 항목별 점수 계산
       })
     })
 
-    navigate('result', {state: {allScore, categoryScore}});
+    totalScore = (totalScore / 15) * 100;
+    categoryScore[0] = (categoryScore[0] / 5) * 100;
+    categoryScore[1] = (categoryScore[1] / 5) * 100;
+    categoryScore[2] = (categoryScore[2] / 5) * 100;
+    navigate('result', {state: {totalScore, categoryScore}});
   };
 
   return (
