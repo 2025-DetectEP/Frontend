@@ -67,3 +67,8 @@ export const CheckListContent = styled.div`
   flex-direction: column;
   gap: 0.741vh;
 `;
+
+export const ResultBtn = styled.div`
+  display: flex;
+  justify-content: center;
+`;

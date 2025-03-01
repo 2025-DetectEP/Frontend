@@ -6,10 +6,29 @@ export const checkListData = [
       {
         id: 1,
         content: '회원가입 시 개인정보 처리 방침 및 이용약관을 꼼꼼히 살피시나요?',
+        description: [
+          {
+            id: 1,
+            terminology: '개인정보 처리 방침이란?',
+            description: '빈 내용',
+          },
+          {
+            id: 2,
+            terminology: '이용약관이란?',
+            description: '빈 내용',
+          },
+        ],
       },
       {
         id: 2,
         content: '본인확인은 주민등록번호 대신 아이핀이나 휴대폰 번호 등을 사용하시나요?',
+        description: [
+          {
+            id: 1,
+            terminology: '아이핀이란?',
+            description: '빈 내용',
+          },
+        ],
       },
       {
         id: 3,
@@ -22,6 +41,13 @@ export const checkListData = [
       {
         id: 5,
         content: '명의도용 확인 서비스를 이용하여 개인정보를 관리하고 계신가요?',
+        description: [
+          {
+            id: 1,
+            terminology: '명의도용 확인 서비스란?',
+            description: '빈 내용',
+          },
+        ],
       },
     ]
   },
@@ -36,6 +62,13 @@ export const checkListData = [
       {
         id: 2,
         content: '의도치 않은 위치 정보 노출을 예방하기 위해 SNS를 이용하지 않을 때는 위치 서비스를 끄고 계신가요?',
+        description: [
+          {
+            id: 1,
+            terminology: '위치 서비스란?',
+            description: '빈 내용',
+          },
+        ],
       },
       {
         id: 3,
@@ -66,14 +99,35 @@ export const checkListData = [
       {
         id: 3,
         content: 'PC방에서 금융거래를 진행한 적이 있으신가요?',
+        description: [
+          {
+            id: 1,
+            terminology: '금융거래란?',
+            description: '빈 내용',
+          },
+        ],
       },
       {
         id: 4,
         content: 'P2P 공유폴더에 개인정보를 저장하신 적이 있나요?',
+        description: [
+          {
+            id: 1,
+            terminology: 'P2P 서비스란?',
+            description: '빈 내용',
+          },
+        ],
       },
       {
         id: 5,
         content: '필요시 개인정보 침해 신고 서비스를 적극 활용하실 계획인가요?',
+        description: [
+          {
+            id: 1,
+            terminology: '개인정보 침해 신고 서비스란?',
+            description: '빈 내용',
+          },
+        ],
       },
     ]
   },

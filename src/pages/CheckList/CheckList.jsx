@@ -5,8 +5,37 @@ import theme from '../../styles/theme';
 import { useAuth } from '../../context/AuthContext';
 import { checkListData } from '../../constants/checkListData';
 import QuestionBox from '../../components/common/CheckList/QuestionBox';
+import Button1_5 from '../../components/common/Buttons/Button1_5';
 
-export default function Home() {
+export default function CheckList() {
+  // 대답 'none'으로 초기화
+  const initalizeAnswers = () => {
+    const answers = {};
+    checkListData.forEach((category) => {
+      category.questions.forEach((question) => {
+        answers[`${category.id}-${question.id}`] = 'none';
+      });
+    });
+    return answers;
+  };
+
+  const [answers, setAnswers] = useState(initalizeAnswers);
+
+  // 대답
+  const updateAnswer = (categoryId, questionId, answer) => {
+    setAnswers((prev) => ({
+      ...prev,
+      [`${categoryId}-${questionId}`]: answer,
+    }));
+  };
+
+  // 모든 문제 풀었으면 결과보기 버튼 활성화
+  const [isSolve, setIsSolve] = useState(false);  // 모든 문제 풀었는지 확인
+
+  useEffect(() => {
+    const allAnswer = Object.values(answers).every((answer) => answer === 'yes' || answer === 'no');
+    setIsSolve(allAnswer);
+  }, [answers]);
 
   return (
     <S.Main>
@@ -16,22 +45,32 @@ export default function Home() {
       </S.Section1>
 
       <S.Section2>
-        {checkListData.map(data => {
+        {checkListData.map(category => {
           return (
-            <S.CheckListContainer key={data.id}>
-              <S.CheckListTitle>{data.title}</S.CheckListTitle>
+            <S.CheckListContainer key={category.id}>
+              <S.CheckListTitle>{category.title}</S.CheckListTitle>
               <div className='line'></div>
               <S.CheckListContent>
-                {data.questions.map(d => {
+                {category.questions.map(question => {
                   return (
-                    <QuestionBox key={d.id} title={d.content} />
+                    <QuestionBox
+                      key={question.id}
+                      title={question.content}
+                      answer={answers[`${category.id}-${question.id}`]}
+                      setAnswer={updateAnswer}
+                      categoryId={category.id}
+                      questionId={question.id}
+                      description={question.description}
+                    />
                   )
                 })}
               </S.CheckListContent>
             </S.CheckListContainer>
           )
-        })
-        }
+        })}
+        <S.ResultBtn>
+          <Button1_5 title='결과 보기' onClick={() => console.log("테스트")} isActive={isSolve} />        
+        </S.ResultBtn>
       </S.Section2>
     </S.Main>
   );
