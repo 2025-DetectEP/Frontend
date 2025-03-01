@@ -8,7 +8,7 @@ export const Main = styled.div`
 `;
 
 export const Section1 = styled.div`
-  background: var(--Background_solid, #F8FAFC);
+  background: ${(props) => props.theme.Background_solid};
   display: flex;
   flex-direction: column;
   gap: 12px;
