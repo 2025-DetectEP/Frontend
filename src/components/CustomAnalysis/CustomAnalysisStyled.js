@@ -401,3 +401,46 @@ export const NoText = styled.div`
     margin-bottom: 60px;
   }
 `;
+
+export const InputText = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  gap: 2.963vh;
+  margin-bottom: 2.963vh;
+
+  textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+    display: flex;
+    flex-grow: 1;
+    ${fontSizes.body2Medium};
+    color: ${(props) => props.theme.Black};
+
+    @media only screen and (max-width: 1024px) { //700px
+      min-height: 16.667vh;
+    }
+
+    &::placeholder {
+      color: ${(props) => props.theme.Gray500};
+    }
+    
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
+
+  div {
+    ${fontSizes.bdCaption1Medium};
+    color: ${(props) => props.theme.Gray500};
+  }
+
+  .count {
+    ${fontSizes.bdCaption1Medium};
+    color: ${(props) => props.theme.Gray700};
+  }
+`;
