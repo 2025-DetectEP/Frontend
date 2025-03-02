@@ -95,13 +95,13 @@ export default function Home() {
       </S.HomeImg>
 
       <S.Section2>
-        <span className='sec2SubTitle'>개인정보 지식 얻어 프라이버시를 지킵시다?</span>
+        <span className='sec2SubTitle'>개인정보를 알아보고 관리해요</span>
         <S.Sec2Container>
           <QuizSection />
           <MoreSection />
         </S.Sec2Container>
         <S.CheckContainer $isBtnHover={isSec2CheckHovered} >
-          <span>나는 개인정보를 안전하게 관리하고 있을까?</span>
+          <span>현재 개인정보를 얼마나 안전하게 관리하고 있나요?</span>
           <Link to='/check-list' style={{textDecoration: "none"}}>
             <button
               onMouseEnter={() => setIsSec2CheckHovered(true)} 
