@@ -13,6 +13,7 @@ import QuizSection from '../../components/Home/QuizSection';
 import MoreSection from '../../components/Home/MoreSection';
 import ServiceLinkBtn from '../../components/Home/ServiceLinkBtn';
 import { homeSection3BtnData } from '../../constants/homeSection3BtnData';
+import CustomAnalysis from '../../components/CustomAnalysis/CustomAnalysis';
 
 export default function Home() {
   const { isLogin }= useAuth();
@@ -21,6 +22,7 @@ export default function Home() {
   const [isRightArrowHovered, setIsRightArrowHovered] = useState(false);  // 섹션1 rightArrow 버튼 호버
   const [isRightArrowPressed, setIsRightArrowPressed] = useState(false);  // 섹션1 rightArrow 버튼 호버
   const [isSec2CheckHovered, setIsSec2CheckHovered] = useState(false);    // 섹션2 체크하기 버튼 호버
+  const [isCustomAnalysis, setIsCustomAnalysis] = useState(false);  // 직접 입력해 검사하기 모달 open 여부
 
   // 로그인 확인(토큰 여부) -> context로 수정 예정
   // useEffect(() => {
@@ -37,6 +39,15 @@ export default function Home() {
     if (isLogin) {  // 로그인O
        setIsModalOpen(false);
        navigate("/post-analysis");  // 기존 게시물 분석하기 페이지로 이동
+    } else {  // 로그인X
+      setIsModalOpen(true); // 로그인 모달 열기
+    }
+  }
+  const handleCustomAnalysisBtn = () => {
+    if (isLogin) {  // 로그인O
+       setIsModalOpen(false);
+       // navigate("/custom-analysis");  // 직접 입력해 검사하기 페이지로 이동
+       setIsCustomAnalysis(true);
     } else {  // 로그인X
       setIsModalOpen(true); // 로그인 모달 열기
     }
@@ -69,7 +80,7 @@ export default function Home() {
         </S.SubTitle>
         <S.BtnContainer>
           <SearchBtn btnType="all" value="기존 게시물 분석하기" onClick={handlePostAnalysisBtn}></SearchBtn>
-          <SearchBtn btnType="one" value="직접 입력해 검사하기" onClick={handlePostAnalysisBtn}></SearchBtn>
+          <SearchBtn btnType="one" value="직접 입력해 검사하기" onClick={handleCustomAnalysisBtn}></SearchBtn>
         </S.BtnContainer>
       </S.HomeImg>
 
@@ -107,6 +118,10 @@ export default function Home() {
         <LoginModal setIsModalOpen={setIsModalOpen} />
         )
       }
+
+      {isCustomAnalysis && (
+        <CustomAnalysis setIsCustomAnalysis={setIsCustomAnalysis}/>
+      )}
     </div>
   )
 }

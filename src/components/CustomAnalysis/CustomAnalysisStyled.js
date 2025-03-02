@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import '../../../App.css';
-import media from '../../../styles/media';
-import { fontSizes } from "../../../styles/FontSizes";
+import '../../App.css';
+import media from '../../styles/media';
+import { fontSizes } from "../../styles/FontSizes";
 
 export const Main = styled.div`
   position: fixed;
@@ -69,6 +69,7 @@ export const TopContainer = styled.div`
 export const ToggleContainer = styled.button`
   display: flex;
   gap: 8px;
+  visibility: ${(props) => props.$isAnalysis ? 'visible' : 'hidden'};
 `;
 
 export const CloseBtn = styled.button`
@@ -118,7 +119,7 @@ export const PostContainer = styled.div`
 
 export const ImageContainer = styled.div`
   position: relative;
-  background-color: ${(props) => props.theme.Black};
+  background-color: ${(props) => props.$isAnalysis || props.$isImgUpload ? props.theme.Black : props.theme.Gray200};
   /* height: 100%; */
   aspect-ratio: 4/5;
   align-content: center;
@@ -154,13 +155,11 @@ export const ImageSlideBtns = styled.div`
   }
 
   .prevBtn {
-    background-color: pink;
     pointer-events: all;
     visibility: ${(props) => props.$currentIndex !== 0 ? 'visible' : 'hidden'};
   }
 
   .nextBtn {
-    background-color: pink;
     pointer-events: all;
     visibility: ${(props) => props.$currentIndex !== props.$length-1 ? 'visible' : 'hidden'};
   }
@@ -206,6 +205,52 @@ export const Img = styled.div`
     &:not(.active) {
       /* transform: translateX(100%); */
     }
+  }
+`;
+
+export const DeleteBtnContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2.963vh 1.667vw;
+`;
+
+export const SelectContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.222vh;
+`;
+
+export const SelectDescription = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.481vh;
+  ${fontSizes.body2Medium};
+  color: ${(props) => props.theme.Gray500};
+`;
+
+export const SelectBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.741vh 0.625vw;
+  gap: 0.926vh 0.521vw;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: ${(props) => props.theme.Gray100};
+  }
+  &:active {
+    background-color: ${(props) => props.theme.Gray200};
+  }
+
+  button {
+    ${fontSizes.btnTitle2Bold};
+    color: ${(props) => props.theme.Secondary};
   }
 `;
 
@@ -354,5 +399,48 @@ export const NoText = styled.div`
   @media only screen and (max-width: 1024px) { //700px
     margin-top: 60px;
     margin-bottom: 60px;
+  }
+`;
+
+export const InputText = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  gap: 2.963vh;
+  margin-bottom: 2.963vh;
+
+  textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+    display: flex;
+    flex-grow: 1;
+    ${fontSizes.body2Medium};
+    color: ${(props) => props.theme.Black};
+
+    @media only screen and (max-width: 1024px) { //700px
+      min-height: 16.667vh;
+    }
+
+    &::placeholder {
+      color: ${(props) => props.theme.Gray500};
+    }
+    
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
+
+  div {
+    ${fontSizes.bdCaption1Medium};
+    color: ${(props) => props.theme.Gray500};
+  }
+
+  .count {
+    ${fontSizes.bdCaption1Medium};
+    color: ${(props) => props.theme.Gray700};
   }
 `;
