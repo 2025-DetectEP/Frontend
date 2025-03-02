@@ -69,6 +69,7 @@ export const TopContainer = styled.div`
 export const ToggleContainer = styled.button`
   display: flex;
   gap: 8px;
+  visibility: ${(props) => props.$isAnalysis ? 'visible' : 'hidden'};
 `;
 
 export const CloseBtn = styled.button`
@@ -118,7 +119,7 @@ export const PostContainer = styled.div`
 
 export const ImageContainer = styled.div`
   position: relative;
-  background-color: ${(props) => props.theme.Black};
+  background-color: ${(props) => props.$isAnalysis || props.$isImgUpload ? props.theme.Black : props.theme.Gray200};
   /* height: 100%; */
   aspect-ratio: 4/5;
   align-content: center;
@@ -154,13 +155,11 @@ export const ImageSlideBtns = styled.div`
   }
 
   .prevBtn {
-    background-color: pink;
     pointer-events: all;
     visibility: ${(props) => props.$currentIndex !== 0 ? 'visible' : 'hidden'};
   }
 
   .nextBtn {
-    background-color: pink;
     pointer-events: all;
     visibility: ${(props) => props.$currentIndex !== props.$length-1 ? 'visible' : 'hidden'};
   }
@@ -206,6 +205,52 @@ export const Img = styled.div`
     &:not(.active) {
       /* transform: translateX(100%); */
     }
+  }
+`;
+
+export const DeleteBtnContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2.963vh 1.667vw;
+`;
+
+export const SelectContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2.222vh;
+`;
+
+export const SelectDescription = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.481vh;
+  ${fontSizes.body2Medium};
+  color: ${(props) => props.theme.Gray500};
+`;
+
+export const SelectBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.741vh 0.625vw;
+  gap: 0.926vh 0.521vw;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: ${(props) => props.theme.Gray100};
+  }
+  &:active {
+    background-color: ${(props) => props.theme.Gray200};
+  }
+
+  button {
+    ${fontSizes.btnTitle2Bold};
+    color: ${(props) => props.theme.Secondary};
   }
 `;
 

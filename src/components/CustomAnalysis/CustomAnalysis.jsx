@@ -6,12 +6,12 @@ import LinkBtn from '../common/Buttons/LinkBtn';
 import Button8Large from '../common/Buttons/Button8Large';
 import TextTooltip from '../common/Analysis/TextTooltip';
 import ImageAnalysisInform from '../common/Analysis/ImageAnalysisInform';
-import LeftBtn from '../common/Buttons/LeftBtn';
-import RightBtn from '../common/Buttons/RightBtn';
 import CircleLeftBtn from '../common/Buttons/CircleLeftBtn';
 import CircleRightBtn from '../common/Buttons/CircleRightBtn';
+import DeleteBtn from '../common/Buttons/DeleteBtn';
 
 export default function CustomAnalysis({setIsCustomAnalysis}) {
+  const [isAnalysis, setIsAnalysis] = useState(false);  // 검사하기 누르기 전 후 여부(기본: false)
   const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false
   const [isImgAnalysis, setIsImgAnalysis] = useState(false);  // 이미지 분석(true: 발견, false: 발견X)
   const [isTextAnalysis, setIsTextAnalysis] = useState(false); // 텍스트 분석(true: 발견, flase: 발견X)
@@ -33,12 +33,42 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
     };
   }, []);
 
+  // 이미지 업로드
+  const [postImages, setPostImages] = useState([]);
+  const uploadRef = useRef(null);
+  const [isImgUpload, setIsImgUpload] = useState(false);  // 이미지 업로드 여부
+
+  const handleUpload = () => {    // 이미지 업로드
+    uploadRef.current?.click();
+  }
+
+  const handleUploadImg = (event) => { // 선택한 이미지 배열 저장
+    if (event.target.files) {
+      const filesArray = Array.from(event.target.files);
+      
+      filesArray.forEach((file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+          if (reader.result) {
+            setPostImages((prevImages) => [...prevImages, reader.result]);
+          }
+        };
+      });
+    }
+    setIsImgUpload(true);
+  };
+
+  useEffect(() => {
+    console.log('post: ', postImages)
+  }, [postImages])
+  
   // 이미지 슬라이드
-  const postImages = [
-    "SampleImage45.png",
-    "SampleImage11.png",
-    "SampleImage169.png",
-  ]
+  // const postImages = [
+  //   "SampleImage45.png",
+  //   "SampleImage11.png",
+  //   "SampleImage169.png",
+  // ]
   const [currentIndex, setCurrentIndex] = useState(0);  // 이미지 현재 인덱스값
   const length = postImages.length; // 이미지 개수
   
@@ -51,6 +81,23 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
     console.log("이전")
     if(currentIndex > 0) setCurrentIndex(currentIndex - 1);
   };
+
+  // 이미지 삭제
+  const handleDeleteImg = (index) => {
+    console.log("삭제 버튼 클릭됨:", index);
+    setPostImages(prev => prev.filter((_, i) => i !== index));
+
+    // 마지막 이미지 삭제 시 앞 이미지로 이동
+    if(index === postImages.length - 1) {
+        setCurrentIndex(index-1);
+    }
+
+    // 모든 이미지 삭제 시(postImages.length === 1) 이미지 업로드 화면 보이기
+    if (postImages.length === 1) {
+      setIsImgUpload(false);
+      setCurrentIndex(0);
+    }
+  }
 
   // 텍스트 복사
   const copyRef = useRef(); // 복사할 텍스트
@@ -69,7 +116,7 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
     <S.Main>
       <S.PostModalContainer>
         <S.TopContainer>
-          <S.ToggleContainer>
+          <S.ToggleContainer $isAnalysis={isAnalysis}>
             <span>개인정보가 발견된 사진만 보기</span>
             <ToggleBtn />
           </S.ToggleContainer>
@@ -80,28 +127,61 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
           </S.CloseBtn>
         </S.TopContainer>
         <S.PostContainer>
-          <S.ImageContainer>
-            <ImageAnalysisInform isImgAnalysis={isImgAnalysis} />
-            <S.ImageSlideBtns $currentIndex={currentIndex} $length={length}>
-              <span className='prevBtn'><CircleLeftBtn onClick={handlePrevSlide} /></span>
-              <span className='nextBtn'><CircleRightBtn onClick={handleNextSlide} /></span>
-            </S.ImageSlideBtns>
-              {length > 1 && 
-                <S.ImageNum>
-                  <span className='current'>{currentIndex+1}</span><span className='length'>&nbsp;/ {length}</span>
-                  </S.ImageNum>
-              }
-            <S.Img>
-              {postImages.map((data, index) => {
-                return (
-                  <div key={index} className={index === currentIndex ? 'slide active' : 'slide'}>
-                    {index === currentIndex && 
-                      <img src={data} alt="post_img" className='image' />
-                    }
-                  </div>
-                )
-              })}
-            </S.Img>
+          <S.ImageContainer $isAnalysis={isAnalysis} $isImgUpload={isImgUpload}>
+            {isAnalysis || isImgUpload ?
+              <>
+                {isAnalysis &&
+                  <ImageAnalysisInform isImgAnalysis={isImgAnalysis} />
+                }
+                <S.ImageSlideBtns $currentIndex={currentIndex} $length={length}>
+                  <span className='prevBtn'><CircleLeftBtn onClick={handlePrevSlide} /></span>
+                  <span className='nextBtn'><CircleRightBtn onClick={handleNextSlide} /></span>
+                </S.ImageSlideBtns>
+                  {length > 1 && 
+                    <S.ImageNum>
+                      <span className='current'>{currentIndex+1}</span><span className='length'>&nbsp;/ {length}</span>
+                      </S.ImageNum>
+                  }
+                <S.Img>
+                  {postImages.map((data, index) => {
+                    return (
+                      <div key={index} className={index === currentIndex ? 'slide active' : 'slide'}>
+                        {index === currentIndex && 
+                          <>
+                            <S.DeleteBtnContainer>
+                              <DeleteBtn onClick={() => handleDeleteImg(index)}/>
+                            </S.DeleteBtnContainer>
+                            <img src={data} alt="post_img" className='image' />
+                          </>
+                        }
+                      </div>
+                    )
+                  })}
+                </S.Img>
+              </>
+            :
+              <>
+                <S.SelectContainer>
+                  <S.SelectDescription>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" fill="none">
+                      <path d="M70.0003 50V60H80.0003V66.6667H70.0003V76.6667H63.3337V66.6667H53.3337V60H63.3337V50H70.0003ZM70.027 10C71.8537 10 73.3337 11.4833 73.3337 13.31V44.4733C71.1924 43.717 68.9379 43.3315 66.667 43.3333V16.6667H13.3337L13.337 63.3333L44.3103 32.3567C44.8835 31.7816 45.6471 31.4358 46.4573 31.3842C47.2676 31.3326 48.0689 31.5789 48.7103 32.0767L49.0203 32.36L60.8403 44.1933C58.2558 44.9809 55.8575 46.2837 53.7901 48.0232C51.7227 49.7627 50.029 51.9029 48.8112 54.3147C47.5933 56.7265 46.8764 59.3599 46.7038 62.0563C46.5313 64.7526 46.9065 67.4559 47.807 70.0033L9.97366 70C9.09637 69.9991 8.25531 69.65 7.63529 69.0293C7.01527 68.4087 6.66699 67.5673 6.66699 66.69V13.31C6.67309 12.4346 7.02333 11.5967 7.64204 10.9774C8.26074 10.3581 9.09826 10.007 9.97366 10H70.027ZM26.667 23.3333C28.4351 23.3333 30.1308 24.0357 31.381 25.286C32.6313 26.5362 33.3337 28.2319 33.3337 30C33.3337 31.7681 32.6313 33.4638 31.381 34.714C30.1308 35.9643 28.4351 36.6667 26.667 36.6667C24.8989 36.6667 23.2032 35.9643 21.9529 34.714C20.7027 33.4638 20.0003 31.7681 20.0003 30C20.0003 28.2319 20.7027 26.5362 21.9529 25.286C23.2032 24.0357 24.8989 23.3333 26.667 23.3333V23.3333Z" fill="#181A1C"/>
+                    </svg>
+                    <div>검사하실 사진을 올려주세요.</div>
+                  </S.SelectDescription>
+                  <S.SelectBtn>
+                    <input 
+                      ref={uploadRef}
+                      style={{display: 'none'}}
+                      type='file'
+                      accept='image/*'
+                      multiple
+                      onChange={handleUploadImg}
+                    />
+                    <button onClick={handleUpload}>파일 업로드</button>
+                  </S.SelectBtn>
+                </S.SelectContainer>
+              </>
+            }
           </S.ImageContainer>
           <S.PostActionContainer>
             {isText ?
@@ -147,7 +227,7 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
             }
             <div className='linkBtn'>
               <LinkBtn
-                title='해당 게시물로 이동하기'
+                title='내 SNS로 이동하기'
                 url='https://naver.com'   // 임시
               />
             </div>
