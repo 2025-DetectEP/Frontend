@@ -10,17 +10,29 @@ export default function MoreSection() {
     <MoreContainer>
       <span className='title'>더 알아보기</span>
       <div>
-        <MoreBtn onClick={() => window.open("https://www.privacy.go.kr/front/contents/cntntsView.do?contsNo=27")}>
+        <MoreBtn
+          href="https://www.privacy.go.kr/front/contents/cntntsView.do?contsNo=27"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <span>개인정보란?</span>
           <IconLink />
         </MoreBtn>
         <DashedLine/>
-        <MoreBtn onClick={() => window.open("https://edu.privacy.go.kr/")}>
+        <MoreBtn
+          href="https://edu.privacy.go.kr/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <span>개인정보 배움터</span>
           <IconLink />
         </MoreBtn>
         <DashedLine/>
-        <MoreBtn onClick={() => window.open("https://blog.google/intl/ko-kr/company-news/technology/safer-internet-day/")}>
+        <MoreBtn
+          href="https://blog.google/intl/ko-kr/company-news/technology/safer-internet-day/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <span>구글 사이버 보안 가이드</span>
           <IconLink />
         </MoreBtn>
@@ -31,9 +43,14 @@ export default function MoreSection() {
 
 const MoreContainer = styled.div`
   margin-top: 32px;
+  display: flex;
+  flex-direction: column;
   flex: 1;
+  gap: 2.222vh;
+
   ${media.small`
-    margin-top: 24px;
+    margin-top: 2.222vh;
+    gap: 1.481vh;
   `}
 
   .title {
@@ -42,11 +59,18 @@ const MoreContainer = styled.div`
   }
 
   div {
-    margin-top: 2.222vh;
+    /* margin-top: 2.222vh; */
+    display: flex;
+    flex-direction: column;
+    gap: 1.111vh;
+
+    ${media.small`
+      gap: 0.741vh;
+  `}
   }
 `;
 
-const MoreBtn = styled.div`
+const MoreBtn = styled.a`
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -54,6 +78,7 @@ const MoreBtn = styled.div`
   padding: 2.963vh 1.667vw;
   gap: 16px;
   border-radius: 8px;
+  text-decoration: none;
 
   ${media.small`
     padding: 2.963vh 4vw;
@@ -74,6 +99,6 @@ const MoreBtn = styled.div`
 
 const DashedLine = styled.div`
   border-bottom: 1px dashed #8A8C8E;
-  margin-top: 12px;
-  margin-bottom: 12px;
+  /* margin-top: 12px;
+  margin-bottom: 12px; */
 `;
