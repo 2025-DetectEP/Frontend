@@ -41,6 +41,14 @@ export default function Home() {
       setIsModalOpen(true); // 로그인 모달 열기
     }
   }
+  const handleCustomAnalysisBtn = () => {
+    if (isLogin) {  // 로그인O
+       setIsModalOpen(false);
+       navigate("/custom-analysis");  // 직접 입력해 검사하기 페이지로 이동
+    } else {  // 로그인X
+      setIsModalOpen(true); // 로그인 모달 열기
+    }
+  }
 
   return (
     <div style={{ background: theme.Background_gradient }}>
@@ -69,7 +77,7 @@ export default function Home() {
         </S.SubTitle>
         <S.BtnContainer>
           <SearchBtn btnType="all" value="기존 게시물 분석하기" onClick={handlePostAnalysisBtn}></SearchBtn>
-          <SearchBtn btnType="one" value="직접 입력해 검사하기" onClick={handlePostAnalysisBtn}></SearchBtn>
+          <SearchBtn btnType="one" value="직접 입력해 검사하기" onClick={handleCustomAnalysisBtn}></SearchBtn>
         </S.BtnContainer>
       </S.HomeImg>
 
