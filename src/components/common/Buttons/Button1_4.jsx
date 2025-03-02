@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from "styled-components";
 import '../../../App.css';
 import media from '../../../styles/media';
@@ -7,7 +7,7 @@ import { useBtnInteraction } from '../../../hooks/useBtnInteraction';
 
 const Button1_4 = ({title, onClick}) => {
   const [ref, isHover] = useBtnInteraction();
-  
+
   return (
     <BtnContainer
       ref={ref}

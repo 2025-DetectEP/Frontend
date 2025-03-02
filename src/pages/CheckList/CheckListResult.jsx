@@ -1,9 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as S from "./CheckListResultStyled";
-import theme from '../../styles/theme';
-import { useAuth } from '../../context/AuthContext';
-import { checkListData } from '../../constants/checkListData';
 import Button1_5 from '../../components/common/Buttons/Button1_5';
 import Button1_4 from '../../components/common/Buttons/Button1_4';
 
@@ -14,8 +11,6 @@ export default function CheckListResult() {
   
   const totalScore = state.totalScore || 0;
   const categoryScore = state.categoryScore || [0, 0, 0];
-  console.log('totalScore: ', totalScore)
-  console.log('categoryScore: ', categoryScore)
   
   return (
     <S.Main>

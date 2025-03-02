@@ -105,7 +105,6 @@ export const GraphContainer = styled.div`
   `}
 `;
 
-
 export const Graph = styled.div`
   border-radius: 8px;
   background: ${(props) => props.theme.Gray100};
