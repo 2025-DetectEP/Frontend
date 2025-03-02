@@ -61,7 +61,7 @@ export default function CheckList() {
       })
     })
 
-    totalScore = (totalScore / 15) * 100;
+    totalScore = Math.ceil((totalScore / 15) * 100);
     categoryScore[0] = (categoryScore[0] / 5) * 100;
     categoryScore[1] = (categoryScore[1] / 5) * 100;
     categoryScore[2] = (categoryScore[2] / 5) * 100;
