@@ -6,6 +6,8 @@ import { fontSizes } from "../../../styles/FontSizes";
 import { useBtnInteraction } from '../../../hooks/useBtnInteraction';
 
 const Button1_4 = ({title, onClick}) => {
+  const [ref, isHover] = useBtnInteraction();
+  
   return (
     <BtnContainer
       ref={ref}
