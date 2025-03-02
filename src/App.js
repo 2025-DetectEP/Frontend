@@ -34,7 +34,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/post-analysis" element={<PostAnalysis />} />
-            <Route path="/custom-analysis" element={<CustomAnalysis />} />
             <Route path="/check-list" element={<CheckList />} />
             <Route path="/check-list/result" element={<CheckListResult />} />
           </Routes>
