@@ -9,6 +9,7 @@ import ImageAnalysisInform from '../common/Analysis/ImageAnalysisInform';
 import CircleLeftBtn from '../common/Buttons/CircleLeftBtn';
 import CircleRightBtn from '../common/Buttons/CircleRightBtn';
 import DeleteBtn from '../common/Buttons/DeleteBtn';
+import AnalyzingBtn from '../common/Buttons/AnalyzingBtn';
 
 export default function CustomAnalysis({setIsCustomAnalysis}) {
   const [isAnalysis, setIsAnalysis] = useState(false);  // 검사하기 누르기 전 후 여부(기본: false)
@@ -99,6 +100,22 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
     }
   }
 
+  // 텍스트 글자 수 감지
+  const [inputCount, setInputCount] = useState(0);
+  const handleInputText = (e) => {
+    setInputCount(e.target.value.length);
+  }
+
+  // 글자수 감지 -> 검사 버튼 활성화
+  const [isResultActive, setIsResultActive] = useState(false);
+  useEffect(() => {
+    if(inputCount > 0) {
+      setIsResultActive(true);
+    } else {
+      setIsResultActive(false);
+    }
+  }, [inputCount]);
+
   // 텍스트 복사
   const copyRef = useRef(); // 복사할 텍스트
 
@@ -111,6 +128,12 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
         .catch(err => console.error("복사 실패:", err));
     }
   };
+
+  // 검사하기
+  const handleAnalysis = () => {
+    setIsAnalysis(true);
+    console.log(postImages)
+  }
 
   return (
     <S.Main>
@@ -133,15 +156,16 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
                 {isAnalysis &&
                   <ImageAnalysisInform isImgAnalysis={isImgAnalysis} />
                 }
-                <S.ImageSlideBtns $currentIndex={currentIndex} $length={length}>
-                  <span className='prevBtn'><CircleLeftBtn onClick={handlePrevSlide} /></span>
-                  <span className='nextBtn'><CircleRightBtn onClick={handleNextSlide} /></span>
-                </S.ImageSlideBtns>
-                  {length > 1 && 
-                    <S.ImageNum>
-                      <span className='current'>{currentIndex+1}</span><span className='length'>&nbsp;/ {length}</span>
-                      </S.ImageNum>
-                  }
+                {length > 1 && <>
+                  <S.ImageSlideBtns $currentIndex={currentIndex} $length={length}>
+                    <span className='prevBtn'><CircleLeftBtn onClick={handlePrevSlide} /></span>
+                    <span className='nextBtn'><CircleRightBtn onClick={handleNextSlide} /></span>
+                  </S.ImageSlideBtns>
+                  <S.ImageNum>
+                    <span className='current'>{currentIndex+1}</span><span className='length'>&nbsp;/ {length}</span>
+                  </S.ImageNum>
+                </>
+                }
                 <S.Img>
                   {postImages.map((data, index) => {
                     return (
@@ -184,53 +208,71 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
             }
           </S.ImageContainer>
           <S.PostActionContainer>
-            {isText ?
-              isTextAnalysis ?
-                <>
-                  <PostToggleBtn isOriginal={isOriginal} setIsOriginal={setIsOriginal} />
-                  <S.TextContainer>
-                    {isOriginal ?
-                      <S.OriginalContainer>
-                        <S.OriginalText>
-                          <TextTooltip 
-                            text="이 문장은 개인정보를 검사를 테스트하는 예제입니다. 예제입니다."
-                            errorWords={["이", "개인정보를", "예제입니다."]}
-                          />
-                        </S.OriginalText>
-                      </S.OriginalContainer>
-                    :
-                      <S.ReviseContainer>
-                        <S.ReviseText ref={copyRef}>
-                          <S.Notice>AI를 통해 검출된 개인정보를 모두 제외하고 글을 재구성했습니다.</S.Notice>
-                          happy
-                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                        </S.ReviseText>
-                        <Button8Large onClick={handleCopyText} title={'복사하기'} />
-                      </S.ReviseContainer>
-                    }
-                  </S.TextContainer>
-                </>
-              :
-                <S.NotFindText>
-                  <S.Notice>텍스트에는 개인정보가 발견되지 않았어요. 사진에서 발견된 개인정보를 확인해 보세요.</S.Notice>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum odio voluptates laudantium. Voluptates sit, quis, ipsam numquam reiciendis, aliquid nam animi a aut nostrum voluptate quisquam ipsum? Provident, distinctio veritatis?
-                </S.NotFindText>
-            :
-              <S.NoText>
-                글이 없는 게시물입니다.
-              </S.NoText>
-            }
-            <div className='linkBtn'>
-              <LinkBtn
-                title='내 SNS로 이동하기'
-                url='https://naver.com'   // 임시
-              />
-            </div>
+            {isAnalysis ?
+              <>
+                {isText ?
+                  isTextAnalysis ?
+                    <>
+                      <PostToggleBtn isOriginal={isOriginal} setIsOriginal={setIsOriginal} />
+                      <S.TextContainer>
+                        {isOriginal ?
+                          <S.OriginalContainer>
+                            <S.OriginalText>
+                              <TextTooltip 
+                                text="이 문장은 개인정보를 검사를 테스트하는 예제입니다. 예제입니다."
+                                errorWords={["이", "개인정보를", "예제입니다."]}
+                              />
+                            </S.OriginalText>
+                          </S.OriginalContainer>
+                        :
+                          <S.ReviseContainer>
+                            <S.ReviseText ref={copyRef}>
+                              <S.Notice>AI를 통해 검출된 개인정보를 모두 제외하고 글을 재구성했습니다.</S.Notice>
+                              happy
+                              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                            </S.ReviseText>
+                            <Button8Large onClick={handleCopyText} title={'복사하기'} />
+                          </S.ReviseContainer>
+                        }
+                      </S.TextContainer>
+                    </>
+                  :
+                    <S.NotFindText>
+                      <S.Notice>텍스트에는 개인정보가 발견되지 않았어요. 사진에서 발견된 개인정보를 확인해 보세요.</S.Notice>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum odio voluptates laudantium. Voluptates sit, quis, ipsam numquam reiciendis, aliquid nam animi a aut nostrum voluptate quisquam ipsum? Provident, distinctio veritatis?
+                    </S.NotFindText>
+                :
+                  <S.NoText>
+                    글이 없는 게시물입니다.
+                  </S.NoText>
+                }
+              <div className='linkBtn'>
+                <LinkBtn
+                  title='내 SNS로 이동하기'
+                  url='https://naver.com'   // 임시
+                />
+              </div>
+            </>
+          :
+            <>
+              <S.InputText>
+                <textarea
+                  maxLength={2000}
+                  placeholder='검사하실 텍스트를 작성해 주세요.'
+                  onChange={handleInputText}
+                />
+                <div><span className='count'>{inputCount}</span> / 2000</div>
+              </S.InputText>
+              <div className='linkBtn'>
+                <AnalyzingBtn title='검사하기' onClick={handleAnalysis} isActive={isResultActive} />
+              </div>
+            </>
+          }
           </S.PostActionContainer>
         </S.PostContainer>
       </S.PostModalContainer>
