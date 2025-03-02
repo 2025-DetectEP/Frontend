@@ -84,6 +84,7 @@ export default function Home() {
           <button
             onMouseEnter={() => setIsSec2CheckHovered(true)} 
             onMouseLeave={() => setIsSec2CheckHovered(false)}
+            onClick={() => navigate('/check-list')}
           >체크하기</button>
         </S.CheckContainer>
       </S.Section2>

@@ -6,6 +6,7 @@ const theme = {
   Primary200: "#FFEDB2",
   Primary100: "#FFF9E5",
   Primary800: "#806200",
+  Secondary900: "#191E34",
   Secondary: "#293256",
   Secondary400: "#8692C5",
   Secondary300: "#A9B1D6",
