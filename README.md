@@ -24,12 +24,12 @@
 - **브랜치**
     - main: 운영 배포 브랜치
     - develop: 개발 브랜치
-    - KAN-1/feat/UI/{기능명}: UI 개발
-    - KAN-1/feat/{기능명}: 새로운 기능 개발
-    - KAN-1/fix/{버그명}: 긴급 버그 수정
-    - KAN-1/chore/{작업내용}: CI/CD 및 기타 설정 변경
+    - PRBE-1/feat/UI/{기능명}: UI 개발
+    - PRBE-1/feat/{기능명}: 새로운 기능 개발
+    - PRBE-1/fix/{버그명}: 긴급 버그 수정
+    - PRBE-1/chore/{작업내용}: CI/CD 및 기타 설정 변경
  
-    - *ex) KAN-1/feat/UI/Home*
+    - *ex) PRBE-1/feat/UI/Home*
 
 - **커밋 메시지 규칙**
   | 타입 | 설명 | 예시 |
