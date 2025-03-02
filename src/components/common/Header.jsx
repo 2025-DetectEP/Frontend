@@ -1,8 +1,10 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import styles from './Header.module.css';
+import * as S from "./HeaderStyled";
 import LoginModal from '../Login/LoginModal';
 import ProfileDropdown from './ProfileDropdown';
+import { ReactComponent as Logo } from '../../assets/logo/logo.svg';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   const { isLogin, login, logout }= useAuth();
@@ -28,17 +30,6 @@ export default function Header() {
     setIsDropdown((prev) => !prev);
   }
 
-  // useEffect(() => {
-  //   if (isDropdown) {
-
-  //     // document.addEventListener("click", handleClickProfile);
-
-  //     return () => {
-  //       document.removeEventListener("click", handleDropdown);
-  //     }
-  //   }
-  // }, [isDropdown]);
-
   // 프로필 이미지
   useEffect(() => {
     preloadImage();
@@ -57,16 +48,18 @@ export default function Header() {
   }
 
   return (
-    <header className={styles.header}>
-      <div className={styles.headerObj}>
-        <h1>{isDropdown?'t':'f'}</h1>
+    <S.Main>
+      <S.HeaderContainer>
+        <div className='logo'>
+          <Link to='/'><Logo /></Link>
+        </div>
         {isLogin ? 
-          <div className={styles.profile} onClick={handleDropdown} ref={profileImageRef} >
+          <S.Profile onClick={handleDropdown} ref={profileImageRef} >
             <img src={userImgUrl} alt="Profile" />
-          </div>
-          : <button className={styles.loginBtn} onClick={handleClick}>로그인</button>
+          </S.Profile>
+          : <S.LoginBtn onClick={handleClick}>로그인</S.LoginBtn>
         }
-      </div>
+      </S.HeaderContainer>
 
       {isDropdown && (    // 프로필 드롭다운
         <ProfileDropdown setIsDropdown={setIsDropdown} userImgUrl={userImgUrl} profileImageRef={profileImageRef} />
@@ -75,6 +68,6 @@ export default function Header() {
       {isModalOpen && (   // 로그인 모달
         <LoginModal setIsModalOpen={setIsModalOpen} />
       )}
-    </header>
+    </S.Main>
   )
 }
