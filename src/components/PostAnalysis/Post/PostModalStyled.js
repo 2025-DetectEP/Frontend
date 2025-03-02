@@ -25,7 +25,8 @@ export const PostModalContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
+  justify-content: center;
   align-items: center;
   
   width: 62.292vw;
@@ -111,6 +112,7 @@ export const PostContainer = styled.div`
     justify-content: start;
     /* background-color: cadetblue; */
     overflow-y: auto;
+    overflow-x: hidden;
   }
 `;
 

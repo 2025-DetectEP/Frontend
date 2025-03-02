@@ -46,9 +46,13 @@ const Main = styled.div`
   width: calc(100% - 1.667vw - 1.667vw);
 
   @media only screen and (max-width: 1024px) { //700px
-    margin: 1.481vh 2.667vw;
+    /* margin: 1.481vh 2.667vw;
     padding: 2.222vh 4vw;
-    width: calc(100% - 1.481vh - 1.481vh);
+    width: calc(100% - 1.481vh - 1.481vh); */
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: stretch;
   }
   
   .title {
@@ -71,7 +75,6 @@ const FindContainer = styled.div`
 `;
 
 const NotFindContainer = styled.div`
-
 `;
 
 const TagContainer = styled.div`
