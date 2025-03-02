@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import * as S from "./CustomAnalysisStyled";
-import ToggleBtn from '../../components/common/Buttons/ToggleBtn';
-import PostToggleBtn from '../../components/common/Buttons/PostToggleBtn';
-import LinkBtn from '../../components/common/Buttons/LinkBtn';
-import Button8Large from '../../components/common/Buttons/Button8Large';
-import TextTooltip from '../../components/common/Analysis/TextTooltip';
-import ImageAnalysisInform from '../../components/common/Analysis/ImageAnalysisInform';
-import LeftBtn from '../../components/common/Buttons/LeftBtn';
-import RightBtn from '../../components/common/Buttons/RightBtn';
-import CircleLeftBtn from '../../components/common/Buttons/CircleLeftBtn';
-import CircleRightBtn from '../../components/common/Buttons/CircleRightBtn';
+import ToggleBtn from '../common/Buttons/ToggleBtn';
+import PostToggleBtn from '../common/Buttons/PostToggleBtn';
+import LinkBtn from '../common/Buttons/LinkBtn';
+import Button8Large from '../common/Buttons/Button8Large';
+import TextTooltip from '../common/Analysis/TextTooltip';
+import ImageAnalysisInform from '../common/Analysis/ImageAnalysisInform';
+import LeftBtn from '../common/Buttons/LeftBtn';
+import RightBtn from '../common/Buttons/RightBtn';
+import CircleLeftBtn from '../common/Buttons/CircleLeftBtn';
+import CircleRightBtn from '../common/Buttons/CircleRightBtn';
 
 export default function CustomAnalysis({setIsCustomAnalysis}) {
   const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false

@@ -13,7 +13,7 @@ import QuizSection from '../../components/Home/QuizSection';
 import MoreSection from '../../components/Home/MoreSection';
 import ServiceLinkBtn from '../../components/Home/ServiceLinkBtn';
 import { homeSection3BtnData } from '../../constants/homeSection3BtnData';
-import CustomAnalysis from '../CustomAnalysis/CustomAnalysis';
+import CustomAnalysis from '../../components/CustomAnalysis/CustomAnalysis';
 
 export default function Home() {
   const { isLogin }= useAuth();
