@@ -85,7 +85,7 @@ const Container = styled.div`
 const DropdownContainer = styled.div`
   position: fixed;
   top: 54px;
-  right: 10%;
+  right: 12.5vw;
   width: 220px;
   display: flex;
   flex-direction: column;
@@ -94,6 +94,10 @@ const DropdownContainer = styled.div`
   z-index: 1000;
   box-shadow: 0px 0px 16px 0px ${(props) => props.theme.Gray600};
   border-radius: 8px;
+
+  ${media.small`
+    right: 3.962vw;
+  `}
 `;
 
 // const DropdownContainer = styled.div`
