@@ -1,50 +1,35 @@
-import FacebookLogin from "@greatsumini/react-facebook-login";
 import styled from "styled-components";
 import { useAuth } from "../../context/AuthContext";
 import { ReactComponent as FaceBookIcon } from '../../assets/icons/icon_Facebook.svg';
+import axios from "axios";
 
 export default function LoginBtn({setIsModalOpen}) {
   const { login } = useAuth();
-  return (
-    <FacebookLogin
-      appId={process.env.REACT_APP_FB_ID}
-      onSuccess={(response) => {
-        console.log("로그인 성공!");
-        console.log("id: ", response.userID);
-        console.log("accessToken: ", response.accessToken);
-        console.log("expiresIn: ", response.expiresIn);
-        console.log("reauthorize_required_in: ", response.reauthorize_required_in);
-        console.log("signedRequest: ", response.signedRequest);
-        
-        login(response.accessToken);
-        setIsModalOpen(false);
-        window.location.reload();
-      }}
-      onFail={(error) => {
-        console.log("로그인 실패!");
-        console.log("status: ", error.status);
-      }}
-      onProfileSuccess={(response) => {
-        console.log("Get Profile Success!");
-        console.log("name: ", response.name);
-        console.log("id: ", response.id);
-        console.log("picture: ", response.picture);
-        console.log("email: ", response.email);
+  const loginURL = process.env.REACT_APP_API_FB_LOGIN;
 
-        const userImg = response.picture.data.url;
-        localStorage.setItem("userImg", userImg);
-      }}
-      render={({onClick}) => (
-        <FBLoginBtn onClick={onClick}>
-          <FaceBookIcon/>
-          <BtnText>Facebook으로 계속하기</BtnText>
-        </FBLoginBtn>
-      )}
-    />
+  const handleOnCick = async() => {
+    try {
+      const response = await axios.get(process.env.REACT_APP_API_FB_LOGIN)
+      if (response.data?.code === 200) {
+        console.log('로그인 완료');
+        console.log('message: ', response.data?.message);
+      } else {
+        console.log('로그인 실패: ', response.data?.message);
+      }
+    } catch (error) {
+        console.error('로그인 API 에러 발생: ', error);
+    }
+  };
+
+  return (
+    <FBLoginBtnContainer onClick={handleOnCick}>
+      <FaceBookIcon/>
+      <BtnText>Facebook으로 계속하기</BtnText>
+    </FBLoginBtnContainer>
   );
 }
 
-const FBLoginBtn = styled.div`
+const FBLoginBtnContainer = styled.div`
   cursor: pointer;
   background-color: ${(props) => props.theme.White};
   color: ${(props) => props.theme.Black};
