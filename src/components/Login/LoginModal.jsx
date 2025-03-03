@@ -3,6 +3,7 @@ import styled from "styled-components";
 import '../../App.css';
 import media from '../../styles/media';
 import { ReactComponent as CloseIcon } from '../../assets/icons/icon_close.svg';
+import FBLoginBtn from './FBLoginBtn';
 import LoginBtn from './LoginBtn';
 
 export default function LoginModal({setIsModalOpen}) {
@@ -50,7 +51,8 @@ export default function LoginModal({setIsModalOpen}) {
         </FBContainer>
         
         <BtnContainer>
-          <LoginBtn setIsModalOpen={setIsModalOpen} />
+          {/* <FBLoginBtn setIsModalOpen={setIsModalOpen} /> */}
+          <LoginBtn setIsModalOpen={setIsModalOpen}/>
         </BtnContainer>
         <Spacer />
         <FooterText>추후 분석이 지원되는 SNS가 더 추가될 예정입니다.</FooterText>
