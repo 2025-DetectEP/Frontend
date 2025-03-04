@@ -10,13 +10,15 @@ export const AuthProvider = ({ children }) => {
     setIsLogin(!!accessToken);  // accessToken이 있으면 true, 없으면 false
   }, []);
 
-  const login = (accessToken) => {
+  const login = (accessToken, refreshToken) => {
     localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
     setIsLogin(true);
   };
 
   const logout = () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     setIsLogin(false);
   };
 
