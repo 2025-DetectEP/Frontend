@@ -86,6 +86,10 @@ export const FilterBtnContainer = styled.div`
   @media only screen and (max-width: 1430px) {
     overflow-x: scroll;
     width: 750px;
+  }
+  @media only screen and (max-width: 1022px) {
+    overflow-x: scroll;
+    width: 750px;
     padding-left: 100px;
     padding-right: 100px;
   }
