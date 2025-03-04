@@ -39,9 +39,13 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount})
     if (width < 750) {
       setIsBtnVisible(true);
     } else {
-      setIsBtnVisible(false);
+      if(isPostClick) {
+        setIsBtnVisible(true);
+      } else {
+        setIsBtnVisible(false);
+      }
     }
-  }, [width]);
+  }, [width, isPostClick]);
 
   // X-스크롤 (방향: left 또는 right)
   // const startScrolling = (direction) => {

@@ -154,13 +154,13 @@ export const ImageSlideBtns = styled.div`
   }
 
   .prevBtn {
-    background-color: pink;
+    z-index: 12;
     pointer-events: all;
-    visibility: ${(props) => props.$currentIndex !== 0 ? 'visible' : 'hidden'};
+    visibility: ${(props) => props.$currentIndex > 0 ? 'visible' : 'hidden'};
   }
 
   .nextBtn {
-    background-color: pink;
+    z-index: 12;
     pointer-events: all;
     visibility: ${(props) => props.$currentIndex !== props.$length-1 ? 'visible' : 'hidden'};
   }
