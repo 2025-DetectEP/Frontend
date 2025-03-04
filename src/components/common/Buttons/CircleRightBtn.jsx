@@ -4,7 +4,6 @@ import '../../../App.css';
 import { ReactComponent as IconRightEnabled } from '../../../assets/icons/icon_right_enabled.svg'
 import { ReactComponent as IconRightHover } from '../../../assets/icons/icon_right_hover.svg'
 import { ReactComponent as IconRightPressed } from '../../../assets/icons/icon_right_pressed.svg'
-import { useBtnInteraction } from '../../../hooks/useBtnInteraction';
 
 const CircleLeftBtn = ({onClick}) => {
     const [ishover, setIsHover] = useState(false);
