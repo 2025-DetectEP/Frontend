@@ -80,9 +80,11 @@ export default function Home() {
         <S.BtnContainer>
           {/* <SearchBtn btnType="all" value="기존 게시물 분석하기" onClick={handlePostAnalysisBtn}></SearchBtn> */}
           {isLogin ? (
-            <Link to="/post-analysis" style={{textDecoration: "none"}}>
-              <SearchBtn btnType="all" value="기존 게시물 분석하기" />
-            </Link>
+            <S.LinkBtn>
+              <Link to="/post-analysis" style={{textDecoration: "none"}}>
+                <SearchBtn btnType="all" value="기존 게시물 분석하기" />
+              </Link>
+            </S.LinkBtn>
           ) : (
             <SearchBtn
               btnType="all"
