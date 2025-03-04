@@ -15,8 +15,8 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
   const [isAnalysis, setIsAnalysis] = useState(false);  // 검사하기 누르기 전 후 여부(기본: false)
   const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false
   const [isImgAnalysis, setIsImgAnalysis] = useState(false);  // 이미지 분석(true: 발견, false: 발견X)
-  const [isTextAnalysis, setIsTextAnalysis] = useState(false); // 텍스트 분석(true: 발견, flase: 발견X)
-  const [isText, setIsText] = useState(false);  // 게시물에 글이 있는지 없는지
+  const [isTextAnalysis, setIsTextAnalysis] = useState(true); // 텍스트 분석(true: 발견, flase: 발견X)
+  const [isText, setIsText] = useState(true);  // 게시물에 글이 있는지 없는지
 
   // 모달 열리면 스크롤 막음
   useEffect(() => {
@@ -226,15 +226,17 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
                           </S.OriginalContainer>
                         :
                           <S.ReviseContainer>
-                            <S.ReviseText ref={copyRef}>
+                            <S.ReviseText>
                               <S.Notice>AI를 통해 검출된 개인정보를 모두 제외하고 글을 재구성했습니다.</S.Notice>
-                              happy
-                              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                              <div ref={copyRef}>
+                                happy
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                              </div>
                             </S.ReviseText>
                             <Button8Large onClick={handleCopyText} title={'복사하기'} />
                           </S.ReviseContainer>
