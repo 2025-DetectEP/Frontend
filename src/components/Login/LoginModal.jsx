@@ -3,6 +3,7 @@ import styled from "styled-components";
 import '../../App.css';
 import media from '../../styles/media';
 import { ReactComponent as CloseIcon } from '../../assets/icons/icon_close.svg';
+import { ReactComponent as LogoImg } from '../../assets/logo/logo_small.svg';
 import FBLoginBtn from './FBLoginBtn';
 import LoginBtn from './LoginBtn';
 
@@ -42,9 +43,9 @@ export default function LoginModal({setIsModalOpen}) {
       <CloseBtn onClick={() => setIsModalOpen(false)}><CloseIcon /></CloseBtn>
       <LoginContainer>
         <TitleContainer>
-          <Logo>logo</Logo>
+          <Logo><LogoImg /></Logo>
           <Title>로그인</Title>
-          <Description>로그인하시면 전체 게시물 분석이 가능해요<br/>분석하고 싶으신 sns를 선택해 주세요</Description>
+          <Description>로그인하시면 해당 SNS의 기준 게시물 분석이 가능해요.<br/>분석하고 싶으신 sns를 선택해 주세요.</Description>
         </TitleContainer>
         <FBContainer $isVisible={showBubble}>
           <FBDescription>인스타그램 계정을 분석할 수 있어요</FBDescription>
