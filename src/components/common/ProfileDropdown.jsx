@@ -8,7 +8,7 @@ import axios from 'axios';
 import refreshToken from '../../utils/refreshToken';
 
 export default function ProfileDropdown({setIsDropdown, userImgUrl, profileImageRef}) {
-  const { logout } = useAuth();
+  const { logout, setIsLoading } = useAuth();
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
@@ -33,6 +33,8 @@ export default function ProfileDropdown({setIsDropdown, userImgUrl, profileImage
 
   // 로그아웃
   const handleLogout = async() => {
+    setIsLoading(true); // 요청 시작 시 로딩 상태 활성화
+
     try {
       let accessToken = localStorage.getItem("accessToken");
 
@@ -73,6 +75,8 @@ export default function ProfileDropdown({setIsDropdown, userImgUrl, profileImage
       }
     } catch (error) { // API 에러 발생
         console.error('로그아웃 API 에러 발생: ', error);
+    } finally {
+      setIsLoading(false); // 요청이 끝나면 로딩 해제
     }
 
     setIsDropdown(false);
@@ -82,17 +86,55 @@ export default function ProfileDropdown({setIsDropdown, userImgUrl, profileImage
 
   // 탈퇴
   const handleWithdraw = async() => {
-    try {
-      const newToken = await refreshToken();
+    setIsLoading(true); // 요청 시작 시 로딩 상태 활성화
 
-      if (newToken) {
-        console.log('성고오오옹')
+    try {
+      let accessToken = localStorage.getItem("accessToken");
+
+      let response = await axios.delete(`${process.env.REACT_APP_API_URL}/withdraw`, {
+        headers: { 
+          "accept": "application/json",
+          "Authorization": `Bearer ${accessToken}`,
+        }
+      })
+      if (response.data?.code === 200) { // 탈퇴 완료
+        console.log(response.data?.code, ': ', response.data?.message);
+        logout();
+      } else if (response.data?.code === 403) { // 토큰 만료
+        console.log(response.data?.code, ': ', response.data?.message);
+
+        // 토큰 재발급 후 탈퇴 다시 요청
+        const newToken = await refreshToken();
+        if(newToken) {
+          console.log('새 토큰으로 탈퇴 요청');
+
+          response = await axios.delete(`${process.env.REACT_APP_API_URL}/withdraw`, {
+            headers: { 
+              "accept": "application/json",
+              "Authorization": `Bearer ${newToken}`,
+            }
+          })
+          if (response.data?.code === 200) { // 탈퇴 완료
+            console.log(response.data?.code, ': ', response.data?.message);
+            logout();
+          } else {  // 탈퇴 실패
+            console.log(response.data?.code, ': ', response.data?.message);
+          }
+        } else {
+          console.log("토큰 재발급 실패, 탈퇴 진행 불가");
+        }
       } else {
-        console.log('시류ㅐㅐㅠㅐ')
+        console.log(response.data?.code, ': ', response.data?.message);
       }
     } catch (error) { // API 에러 발생
-      console.error('에러 발생: ', error);
-  }
+        console.error('탈퇴 API 에러 발생: ', error);
+    } finally {
+      setIsLoading(false); // 요청이 끝나면 로딩 해제
+    }
+
+    setIsDropdown(false);
+    navigate('/');
+    window.location.reload();
   };
 
   return (

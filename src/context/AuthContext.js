@@ -3,7 +3,8 @@ import { createContext, useContext, useState, useEffect } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);  // 로그인 여부
+  const [isLoading, setIsLoading] = useState(false);  // 로딩 여부
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -23,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLogin, login, logout }}>
+    <AuthContext.Provider value={{ isLogin, login, logout, isLoading, setIsLoading }}>
       {children}
     </AuthContext.Provider>
   );
