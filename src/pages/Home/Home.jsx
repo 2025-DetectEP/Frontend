@@ -104,13 +104,15 @@ export default function Home() {
         </S.Sec2Container>
         <S.CheckContainer $isBtnHover={isSec2CheckHovered} >
           <span>현재 개인정보를 얼마나 안전하게 관리하고 있나요?</span>
-          <Link to='/check-list' style={{textDecoration: "none"}}>
-            <button
-              onMouseEnter={() => setIsSec2CheckHovered(true)} 
-              onMouseLeave={() => setIsSec2CheckHovered(false)}
-              // onClick={() => navigate('/check-list')}
-            >체크하기</button>
-          </Link>
+          <div>
+            <Link to='/check-list' style={{textDecoration: "none"}}>
+              <button
+                onMouseEnter={() => setIsSec2CheckHovered(true)} 
+                onMouseLeave={() => setIsSec2CheckHovered(false)}
+                // onClick={() => navigate('/check-list')}
+              >체크하기</button>
+            </Link>
+          </div>
         </S.CheckContainer>
       </S.Section2>
 
