@@ -13,8 +13,8 @@ export default function Header() {
   const [isDropdown, setIsDropdown] = useState(false);  // 프로필 드롭다운 여부
   const [userImgUrl, setUserImgUrl] = useState();   // 프로필 이미지
   const profileImageRef = useRef(null);
-  useLoginRedirect();
-  
+  useLoginRedirect();   // 로그인 리다이렉트
+
   // 로그인 여부에 따라 모달(로그인X -> 로그인 모달)
   const handleClick = () => {
     if (isLogin) {  // 로그인O
