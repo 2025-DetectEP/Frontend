@@ -82,6 +82,12 @@ export const BtnContainer = styled.div`
   `}
 `;
 
+export const LinkBtn = styled.div`
+  ${media.small`
+    width: 100%;
+  `}
+`;
+
 export const Section2 = styled.div`
   box-sizing: border-box;
   padding-top: 7.407vh;
@@ -128,6 +134,12 @@ export const CheckContainer = styled.div`
   span {
     ${fontSizes.titleHead3Bold};
     color: ${(props) => props.theme.Black};
+  }
+
+  div {
+    ${media.small`
+      width: 100%;
+    `}
   }
 
   button {

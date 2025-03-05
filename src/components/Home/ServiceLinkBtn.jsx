@@ -14,7 +14,10 @@ export default function ServiceLinkBtn({title, description, url}) {
       onMouseDown={() => setIsPressed(true)}
       onMouseUp={() => setIsPressed(false)}
       onMouseOut={() => setIsPressed(false)}
-      onClick={() => window.open(url)}
+      // onClick={() => window.open(url, '_blank')}
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
     >
       <TitleContainer>
         <span>{title}</span>
@@ -25,7 +28,7 @@ export default function ServiceLinkBtn({title, description, url}) {
   );
 }
 
-const BtnContainer = styled.div`
+const BtnContainer = styled.a`
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -36,6 +39,7 @@ const BtnContainer = styled.div`
   border-radius: 8px;
   border: 2px solid ${(props) => props.theme.Secondary100};
   background: ${(props) => props.theme.White};
+  text-decoration: none;
   padding: 2.963vh 1.5vw;
   ${media.small`
     padding: 2.222vh 2.86vw;

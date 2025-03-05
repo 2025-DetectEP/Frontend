@@ -1,40 +1,52 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useEffect } from 'react';
 import styled from "styled-components";
 import '../../../App.css';
 import { ReactComponent as IconLeftEnabled } from '../../../assets/icons/icon_left_enabled.svg'
 import { ReactComponent as IconLeftHover } from '../../../assets/icons/icon_left_hover.svg'
 import { ReactComponent as IconLeftPressed } from '../../../assets/icons/icon_left_pressed.svg'
 
-const LeftBtn = forwardRef(({isHovered, isPressed}, ref) => {
+const LeftBtn = forwardRef(({isHovered, isPressed, startScrolling, stopScrolling}, ref) => {
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
 
     const handleMouseDown = () => {
-      console.log("handleMouseDown");
-      // startScrolling("Left");
+      startScrolling("left");
     };
 
     const handleMouseUp = () => {
-      console.log("handleMouseUp");
-      // stopScrolling();
+      stopScrolling();
     };
 
     const handleMouseLeave = () => {
-      console.log("handleMouseLeave");
-      // stopScrolling();
+      stopScrolling();
     };
 
     element.addEventListener("mousedown", handleMouseDown, true);
     element.addEventListener("mouseup", handleMouseUp, true);
-    element.addEventListener("mouseleave", handleMouseLeave);
+    element.addEventListener("mouseleave", handleMouseLeave, true);
 
     return () => {
       element.removeEventListener("mousedown", handleMouseDown, true);
       element.removeEventListener("mouseup", handleMouseUp, true);
-      element.removeEventListener("mouseleave", handleMouseLeave);
+      element.removeEventListener("mouseleave", handleMouseLeave, true);
     };
-  }, [ref]); //[ref, startScrolling, stopScrolling]
+  }, [ref]);
+
+  // useEffect(() => {
+  //   const element = ref.current;
+  //   if (!element) return;
+
+  //   const handleMouseDown = () => {
+  //     startScrolling("left");
+  //   };
+
+  //   element.addEventListener("mousedown", handleMouseDown, true);
+
+  //   return () => {
+  //     element.removeEventListener("mousedown", handleMouseDown, true);
+  //   };
+  // }, [ref]);
 
   return (
     <Main ref={ref}>

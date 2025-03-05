@@ -160,7 +160,6 @@ const QuestionContainer = styled.div`
     width: 100%;
     align-items: start;
   `}
-  
 `;
 
 const ButtonContainer = styled.div`
@@ -199,6 +198,10 @@ const TooltipContainer = styled.div`
   background: ${(props) => props.theme.White};
   box-shadow: 0px 0px 16px 0px ${(props) => props.theme.Gray600};
   width: 500px;
+
+  ${media.small`
+    width: 83.333vw;
+  `}
 `;
 
 const DescriptionContainer = styled.div`
@@ -214,5 +217,6 @@ const DescriptionContainer = styled.div`
   .description {
     ${fontSizes.body3Regular};
     color: ${(props) => props.theme.Black};
+    white-space: pre-line;
   }
 `;
