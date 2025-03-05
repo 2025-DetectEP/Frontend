@@ -74,12 +74,10 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
   const length = postImages.length; // 이미지 개수
   
   const handleNextSlide = () => { // 다음 이미지 버튼
-    console.log("다음")
     if(currentIndex < length - 1) setCurrentIndex(currentIndex + 1);
   };
 
   const handlePrevSlide = () => { // 이전 이미지 버튼
-    console.log("이전")
     if(currentIndex > 0) setCurrentIndex(currentIndex - 1);
   };
 

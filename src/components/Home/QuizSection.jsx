@@ -16,23 +16,64 @@ export default function QuizSection() {
   const [isQuizRightHovered, setIsQuizRightHovered] = useState(false);  // 섹션2 퀴즈 오른쪽 버튼 호버
   const [isQuizRightPressed, setIsQuizRightPressed] = useState(false);  // 섹션2 퀴즈 오른쪽 버튼 클릭
   
+  const [quiz, setQuiz] = useState([
+    {id: 1, question: '질문1', select1: '선택11', select2: '선택12', answer: '선택11', description: '설명1', rate: '51%', isCorrect: 0},
+    {id: 2, question: '질문2 질문2질문2질문2질문 2질문2질문2 질문2질문2질문2 질문2질문2질문2 질문2질문2질문2', select1: '선택21', select2: '선택22', answer: '선택22', description: '설명2', rate: '52%', isCorrect: 0},
+    {id: 3, question: '질문3', select1: '선택31', select2: '선택32', answer: '선택32', description: '설명3', rate: '53%', isCorrect: 0},
+  ]);
+  const [currentIndex, setCurrentIndex] = useState(0);  // 퀴즈 현재 인덱스값
+  const length = quiz.length; // 퀴즈 개수
+  
+  const handleNextSlide = () => { // 다음 퀴즈 버튼
+    console.log("다음")
+    if(currentIndex < length - 1) setCurrentIndex(currentIndex + 1);
+  };
+
+  const handlePrevSlide = () => { // 이전 퀴즈 버튼
+    console.log("이전")
+    if(currentIndex > 0) setCurrentIndex(currentIndex - 1);
+  };
+
+  const handleSelectBtn = (select, answer, index) => {  // 퀴즈 선택지 버튼
+    setQuiz((prevQuiz) =>
+      prevQuiz.map((item, i) =>
+        i === index
+          ? { ...item, isCorrect: select === answer ? 1 : 2 }
+          : item
+      )
+    );
+    // 정답을 서버로 보낼 예정(오답 비율을 위해)
+  }
+
   return (
     <Main>
       <span>오늘의 개인정보 퀴즈</span>
-      <Quiz>
-        <span>어떤 형식으로 하느냐에 따라 달라겠지만, 일단 맞춤법 퀴즈처럼 넣어 봄ㄴㄴ</span>
-        <Answer>
-          <button>선택지1</button>
-          <button>선택지2</button>
-        </Answer>
-      </Quiz>
+      {quiz.map((data, index) => 
+        index === currentIndex && (
+          data.isCorrect === 0 ?
+            <Quiz key={index}>
+              <span>{data.question}</span>
+              <Answer>
+                <button onClick={() => handleSelectBtn(data.select1, data.answer, index)}>{data.select1}</button>
+                <button onClick={() => handleSelectBtn(data.select2, data.answer, index)}>{data.select2}</button>
+              </Answer>
+            </Quiz>
+            :
+            <QuizAnswer key={index}>
+              {data.isCorrect === 1 && <span className='correct'>정답입니다</span>}
+              {data.isCorrect === 2 && <span className='wrong'>오답입니다</span>}
+              <div className='rate'>오답률 {data.rate}</div>
+              <div className='description'>{data.description}</div>
+            </QuizAnswer>
+        )
+      )}
       <QuizNavigation>
         <span
           className='quizIconBtn' 
           onMouseEnter={() => setIsQuizLeftHovered(true)}
           onMouseLeave={() => setIsQuizLeftHovered(false)}
           onMouseDown={() => setIsQuizLeftPressed(true)}
-          onMouseUp={() => setIsQuizLeftPressed(false)}
+          onMouseUp={() => {setIsQuizLeftPressed(false); handlePrevSlide();}}
           onMouseOut={() => setIsQuizLeftPressed(false)}
         >
           {isQuizLeftPressed ? (
@@ -43,13 +84,13 @@ export default function QuizSection() {
             <IconLeftEnabled width={32} height={32} />
           )}
         </span>
-        <span className="currentNum">1</span><span className="allNum">&nbsp;/ 3</span>
+        <span className="currentNum">{currentIndex+1}</span><span className="allNum">&nbsp;/ {length}</span>
         <span 
           className='quizIconBtn' 
           onMouseEnter={() => setIsQuizRightHovered(true)}
           onMouseLeave={() => setIsQuizRightHovered(false)}
           onMouseDown={() => setIsQuizRightPressed(true)}
-          onMouseUp={() => setIsQuizRightPressed(false)}
+          onMouseUp={() => {setIsQuizRightPressed(false); handleNextSlide();}}
           onMouseOut={() => setIsQuizRightPressed(false)}
         >
           {isQuizRightPressed ? (
@@ -109,30 +150,79 @@ const Quiz = styled.div`
     padding-bottom: 36px;
   }
   box-sizing: border-box;
-  ${media.large`
-    span {
-      padding-top: 24px;
-      padding-bottom: 36px;
-    }
-  `}
   ${media.small`
     span {
       padding-top: 16px;
       padding-bottom: 16px;
     }
+    height: 264px;
   `}
 `;
 
-const Answer = styled.div`
+const QuizAnswer = styled.div`
   display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  align-items: center;
+  flex-grow: 1;
+  box-sizing: border-box;
+  padding-top: 24px;
+  padding-bottom: 36px;
+
+  ${media.small`
+    padding-top: 16px;
+    padding-bottom: 16px;
+    height: 264px;
+  `}
+
+  .correct {
+    ${fontSizes.body1Bold}
+    color: ${(props) => props.theme.Secondary};
+    text-align: center;
+    align-self: stretch;
+  }
+
+  .wrong {
+    ${fontSizes.body1Bold}
+    color: ${(props) => props.theme.Warning};
+    text-align: center;
+    align-self: stretch;
+  }
+  
+  .rate {
+    display: flex;
+    padding: 4px 8px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    background: ${(props) => props.theme.Gray100};
+    ${fontSizes.bdCaption1Medium}
+    color: ${(props) => props.theme.Secondary};
+    margin-top: 8px;
+    margin-bottom: 2.963vh;
+  }
+
+  .description {
+    ${fontSizes.body2Medium}
+    color: ${(props) => props.theme.Gray700};
+    text-align: center;
+    align-self: stretch;
+  }
+`;
+
+const Answer = styled.div`
+  /* display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
   width: 100%;
   
   button {
-    width: 50%;
+    /* width: 50%; */
     padding: 1.759vh 0.833vw;
     justify-content: center;
     align-items: center;
@@ -156,6 +246,10 @@ const Answer = styled.div`
   margin-bottom: 4.63vh;
   ${media.small`
     margin-bottom: 3.333vh;
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    width: 100%;
   `}
 `;
 
