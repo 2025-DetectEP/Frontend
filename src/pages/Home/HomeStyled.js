@@ -136,6 +136,12 @@ export const CheckContainer = styled.div`
     color: ${(props) => props.theme.Black};
   }
 
+  div {
+    ${media.small`
+      width: 100%;
+    `}
+  }
+
   button {
     display: flex;
     width: 220px;
