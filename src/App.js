@@ -8,8 +8,10 @@ import Home from './pages/Home/Home';
 import PostAnalysis from './pages/PostAnalysis/PostAnalysis';
 import CheckList from './pages/CheckList/CheckList';
 import CheckListResult from './pages/CheckList/CheckListResult';
+import Loading from './components/common/Loading';
 
 function App() {
+
   useEffect(() => {
     // const handleResize = () => {
     //   if(window.innerWidth < 580) {
@@ -28,6 +30,7 @@ function App() {
   return (
     <AuthProvider>
       <div className="app">
+        <Loading />
         <Header/>
         <main className='content'>
           <Routes>
