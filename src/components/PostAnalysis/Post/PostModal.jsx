@@ -139,7 +139,9 @@ export default function PostModal({setIsPostClick}) {
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
                           </dvi>
                         </S.ReviseText>
-                        <Button8Large onClick={handleCopyText} title={'복사하기'} />
+                        <div className='copyBtn'>
+                          <Button8Large onClick={handleCopyText} title={'복사하기'} />
+                        </div>
                       </S.ReviseContainer>
                     }
                   </S.TextContainer>

@@ -17,6 +17,7 @@ const BtnContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1.481vh 0.833vw;
+  width: 220px;
   gap: 16px;
   border-radius: 8px;
   border: 2px solid ${(props) => props.theme.Primary};
