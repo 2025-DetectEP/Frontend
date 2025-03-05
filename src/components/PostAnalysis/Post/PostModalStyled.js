@@ -154,13 +154,13 @@ export const ImageSlideBtns = styled.div`
   }
 
   .prevBtn {
-    background-color: pink;
+    z-index: 12;
     pointer-events: all;
-    visibility: ${(props) => props.$currentIndex !== 0 ? 'visible' : 'hidden'};
+    visibility: ${(props) => props.$currentIndex > 0 ? 'visible' : 'hidden'};
   }
 
   .nextBtn {
-    background-color: pink;
+    z-index: 12;
     pointer-events: all;
     visibility: ${(props) => props.$currentIndex !== props.$length-1 ? 'visible' : 'hidden'};
   }
@@ -295,10 +295,16 @@ export const ReviseContainer = styled.div`
   text-overflow: ellipsis;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  align-items: center;
+  /* flex-grow: 1; */
   overflow: hidden;
   margin-top: 2.963vh;
   margin-bottom: 2.963vh;
+
+  .copyBtn {
+    display: inline-block;
+    width: fit-content;
+  }
 `;
 
 export const ReviseText = styled.div`

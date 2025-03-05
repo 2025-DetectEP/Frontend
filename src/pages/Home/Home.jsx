@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as S from "./HomeStyled";
 import theme from '../../styles/theme';
 import { useAuth } from '../../context/AuthContext';
@@ -46,8 +46,7 @@ export default function Home() {
   const handleCustomAnalysisBtn = () => {
     if (isLogin) {  // 로그인O
        setIsModalOpen(false);
-       // navigate("/custom-analysis");  // 직접 입력해 검사하기 페이지로 이동
-       setIsCustomAnalysis(true);
+       setIsCustomAnalysis(true); // 직접 입력해 검사하기 모달 열기
     } else {  // 로그인X
       setIsModalOpen(true); // 로그인 모달 열기
     }
@@ -79,24 +78,41 @@ export default function Home() {
           </span>
         </S.SubTitle>
         <S.BtnContainer>
-          <SearchBtn btnType="all" value="기존 게시물 분석하기" onClick={handlePostAnalysisBtn}></SearchBtn>
+          {/* <SearchBtn btnType="all" value="기존 게시물 분석하기" onClick={handlePostAnalysisBtn}></SearchBtn> */}
+          {isLogin ? (
+            <S.LinkBtn>
+              <Link to="/post-analysis" style={{textDecoration: "none"}}>
+                <SearchBtn btnType="all" value="기존 게시물 분석하기" />
+              </Link>
+            </S.LinkBtn>
+          ) : (
+            <SearchBtn
+              btnType="all"
+              value="기존 게시물 분석하기"
+              onClick={() => setIsModalOpen(true)}
+            />
+          )}
           <SearchBtn btnType="one" value="직접 입력해 검사하기" onClick={handleCustomAnalysisBtn}></SearchBtn>
         </S.BtnContainer>
       </S.HomeImg>
 
       <S.Section2>
-        <span className='sec2SubTitle'>개인정보 지식 얻어 프라이버시를 지킵시다?</span>
+        <span className='sec2SubTitle'>개인정보를 알아보고 관리해요</span>
         <S.Sec2Container>
           <QuizSection />
           <MoreSection />
         </S.Sec2Container>
         <S.CheckContainer $isBtnHover={isSec2CheckHovered} >
-          <span>나는 개인정보를 안전하게 관리하고 있을까?</span>
-          <button
-            onMouseEnter={() => setIsSec2CheckHovered(true)} 
-            onMouseLeave={() => setIsSec2CheckHovered(false)}
-            onClick={() => navigate('/check-list')}
-          >체크하기</button>
+          <span>현재 개인정보를 얼마나 안전하게 관리하고 있나요?</span>
+          <div>
+            <Link to='/check-list' style={{textDecoration: "none"}}>
+              <button
+                onMouseEnter={() => setIsSec2CheckHovered(true)} 
+                onMouseLeave={() => setIsSec2CheckHovered(false)}
+                // onClick={() => navigate('/check-list')}
+              >체크하기</button>
+            </Link>
+          </div>
         </S.CheckContainer>
       </S.Section2>
 
