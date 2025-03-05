@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import styled from "styled-components";
 import '../../App.css';
-import media from '../../styles/media';
 import { fontSizes } from "../../styles/FontSizes";
 
 import Lottie from "lottie-react";
@@ -34,7 +33,7 @@ export default function Loading() {
       <Main>
         <LoadingContainer>
           <LottieContainer>      
-            <Lottie animationData={loadingLottie} width={50} height={50} />
+            <Lottie animationData={loadingLottie} />
           </LottieContainer>
           <TextContaienr>잠시만 기다려 주세요.</TextContaienr>
         </LoadingContainer>
