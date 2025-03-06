@@ -38,7 +38,7 @@ export default function ProfileDropdown({setIsDropdown, userImgUrl, profileImage
     try {
       let accessToken = localStorage.getItem("accessToken");
 
-      let response = await axios.delete(`${process.env.REACT_APP_API_URL}/logout`, {
+      let response = await axios.delete(`${process.env.REACT_APP_API_URL}/auth/logout`, {
         headers: { 
           "accept": "application/json",
           "Authorization": `Bearer ${accessToken}`,
@@ -55,7 +55,7 @@ export default function ProfileDropdown({setIsDropdown, userImgUrl, profileImage
         if(newToken) {
           console.log('새 토큰으로 로그아웃 요청');
 
-          response = await axios.delete(`${process.env.REACT_APP_API_URL}/logout`, {
+          response = await axios.delete(`${process.env.REACT_APP_API_URL}/auth/logout`, {
             headers: { 
               "accept": "application/json",
               "Authorization": `Bearer ${newToken}`,
@@ -91,7 +91,7 @@ export default function ProfileDropdown({setIsDropdown, userImgUrl, profileImage
     try {
       let accessToken = localStorage.getItem("accessToken");
 
-      let response = await axios.delete(`${process.env.REACT_APP_API_URL}/withdraw`, {
+      let response = await axios.delete(`${process.env.REACT_APP_API_URL}/auth/withdraw`, {
         headers: { 
           "accept": "application/json",
           "Authorization": `Bearer ${accessToken}`,
@@ -108,7 +108,7 @@ export default function ProfileDropdown({setIsDropdown, userImgUrl, profileImage
         if(newToken) {
           console.log('새 토큰으로 탈퇴 요청');
 
-          response = await axios.delete(`${process.env.REACT_APP_API_URL}/withdraw`, {
+          response = await axios.delete(`${process.env.REACT_APP_API_URL}/auth/withdraw`, {
             headers: { 
               "accept": "application/json",
               "Authorization": `Bearer ${newToken}`,

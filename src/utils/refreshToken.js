@@ -7,7 +7,7 @@ const refreshToken = async() => {
   console.log('리프: ', storedRefreshToken);
 
   try {
-    const response = await axios.get(`${process.env.REACT_APP_API_URL}/token`, {
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/token`, {
       headers: { 
         "accept": "application/json",
         "Authorization-Refresh": `Bearer ${storedRefreshToken}`,
