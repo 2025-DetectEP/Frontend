@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
 import '../../App.css';
 import media from '../../styles/media';
 import { fontSizes } from "../../styles/FontSizes";
 
-export default function FilterBtn({title}) {
+export default function FilterBtn({title, onClick}) {
+  const [isClick, setIsClick] = useState(false);
+
+  const handleClick = () => {
+    onClick();
+    setIsClick((prev) => !prev);
+  }
+
   return (
-    <BtnoContainer>
+    <BtnoContainer onClick={handleClick} $isClick={isClick}>
       <button>{title}</button>
     </BtnoContainer>
   );
@@ -23,6 +30,7 @@ const BtnoContainer = styled.div`
     gap: 10px;
     border-radius: 800px;
     border: 2px solid ${(props) => props.theme.Primary};
+    background: ${(props) => props.$isClick ? props.theme.Primary300 : 'transparent'};
   }
 
   button:hover {
