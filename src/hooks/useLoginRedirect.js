@@ -26,7 +26,7 @@ const useLoginRedirect = () => {
     setIsLoading(true); // 요청 시작 시 로딩 상태 활성화
 
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/login/facebook`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/login/facebook`, {
         headers: { 
           "accept": "application/json",
           "facebook-code": code,
