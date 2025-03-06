@@ -114,7 +114,7 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount})
                 <S.FilterBtnContainer ref={filterScrollRef}>
                   {postAnalysisFilterData.map(data => {
                     return (
-                      <FilterBtn key={data.id} title={data.title} />
+                      <FilterBtn key={data.id} title={data.title} onClick={()=>{console.log(data.title)}} />
                     )
                   })}
                 </S.FilterBtnContainer>
