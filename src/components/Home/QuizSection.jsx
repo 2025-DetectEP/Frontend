@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 import styled from "styled-components";
 import '../../App.css';
 import media from '../../styles/media';
@@ -15,56 +16,97 @@ export default function QuizSection() {
   const [isQuizLeftPressed, setIsQuizLeftPressed] = useState(false);  // 섹션2 퀴즈 왼쪽 버튼 클릭
   const [isQuizRightHovered, setIsQuizRightHovered] = useState(false);  // 섹션2 퀴즈 오른쪽 버튼 호버
   const [isQuizRightPressed, setIsQuizRightPressed] = useState(false);  // 섹션2 퀴즈 오른쪽 버튼 클릭
-  
-  const [quiz, setQuiz] = useState([
-    {id: 1, question: '질문1', select1: '선택11', select2: '선택12', answer: '선택11', description: '설명1', rate: '51%', isCorrect: 0},
-    {id: 2, question: '질문2 질문2질문2질문2질문 2질문2질문2 질문2질문2질문2 질문2질문2질문2 질문2질문2질문2', select1: '선택21', select2: '선택22', answer: '선택22', description: '설명2', rate: '52%', isCorrect: 0},
-    {id: 3, question: '질문3', select1: '선택31', select2: '선택32', answer: '선택32', description: '설명3', rate: '53%', isCorrect: 0},
-  ]);
+
+  const [quizIsCorrect, setQuizIsCorrect] = useState([0, 0, 0]);  // 퀴즈 맞췄는지 여부 (0: 선택X, 1: 정답, 2: 틀림)
   const [currentIndex, setCurrentIndex] = useState(0);  // 퀴즈 현재 인덱스값
-  const length = quiz.length; // 퀴즈 개수
+  const [quizData, setQuizData] = useState([]);
+
+  // 퀴즈 API - 랜덤 퀴즈 3개 추출
+  const getQuiz = async() => {
+    try {
+      let response = await axios.get(`${process.env.REACT_APP_API_URL}/quiz/`, {
+        headers: { 
+          "accept": "application/json",
+        }
+      })
+      if (response.data?.code === 200) { // 퀴즈 추출 완료
+        console.log(response.data?.code, ': ', response.data?.message);
+        setQuizData(response.data?.data);
+      } else { // 퀴즈 추출 실패
+        console.log(response.data?.code, ': ', response.data?.message);
+      }
+    } catch (error) { // API 에러 발생
+        console.error('로그아웃 API 에러 발생: ', error);
+    }
+  }
+
+  const didMount = useRef(false);
+  useEffect(() => {
+    if (didMount.current) return;
+    didMount.current = true;
+    getQuiz();
+  }, []);
   
   const handleNextSlide = () => { // 다음 퀴즈 버튼
-    console.log("다음")
-    if(currentIndex < length - 1) setCurrentIndex(currentIndex + 1);
+    if(currentIndex < quizData.length - 1) setCurrentIndex(prev => prev + 1);
   };
 
   const handlePrevSlide = () => { // 이전 퀴즈 버튼
-    console.log("이전")
-    if(currentIndex > 0) setCurrentIndex(currentIndex - 1);
+    if(currentIndex > 0) setCurrentIndex(prev => prev - 1);
   };
 
-  const handleSelectBtn = (select, answer, index) => {  // 퀴즈 선택지 버튼
-    setQuiz((prevQuiz) =>
-      prevQuiz.map((item, i) =>
-        i === index
-          ? { ...item, isCorrect: select === answer ? 1 : 2 }
-          : item
-      )
-    );
-    // 정답을 서버로 보낼 예정(오답 비율을 위해)
+  const handleSelectBtn = async(selectIsOne, answerIsOne, index, id) => {  // 퀴즈 선택지 버튼
+    setQuizIsCorrect(prevState => {
+      const newState = [...prevState];
+      newState[index] = selectIsOne === answerIsOne ? 1 : 2;  // 정답 맞춤:1, 정답 틀림: 2
+
+      postQuiz(newState[index], id);
+      return newState;
+    })
+  };
+
+  // 정답을 서버로 보기(오답률 반영을 위해)
+  const postQuiz = async(quizIsCorrect, id) => {
+    const isCorrect = quizIsCorrect === 1 ? true : false;
+
+    try {
+      let response = await axios.post(`${process.env.REACT_APP_API_URL}/quiz/`, {
+        "quizAnswerReqs": [
+          {
+            "id": id,
+            "isCorrect": isCorrect
+          }
+        ]
+      })
+      if (response.data?.code === 200) { // 정답률 처리 완료
+        console.log(response.data?.code, ': ', response.data?.message);
+      } else { // 정답률 처리 실패
+        console.log(response.data?.code, ': ', response.data?.message);
+      }
+    } catch (error) { // API 에러 발생
+        console.error('정답률 처리 API 에러 발생: ', error);
+    }
   }
 
   return (
     <Main>
       <span>오늘의 개인정보 퀴즈</span>
-      {quiz.map((data, index) => 
-        index === currentIndex && (
-          data.isCorrect === 0 ?
-            <Quiz key={index}>
-              <span>{data.question}</span>
-              <Answer>
-                <button onClick={() => handleSelectBtn(data.select1, data.answer, index)}>{data.select1}</button>
-                <button onClick={() => handleSelectBtn(data.select2, data.answer, index)}>{data.select2}</button>
-              </Answer>
-            </Quiz>
-            :
-            <QuizAnswer key={index}>
-              {data.isCorrect === 1 && <span className='correct'>정답입니다</span>}
-              {data.isCorrect === 2 && <span className='wrong'>오답입니다</span>}
-              <div className='rate'>오답률 {data.rate}</div>
-              <div className='description'>{data.description}</div>
-            </QuizAnswer>
+      {quizData?.length > 0 && quizData[currentIndex] && (
+        quizIsCorrect[currentIndex] === 0 ? (
+          <Quiz key={currentIndex}>
+            <span>{quizData[currentIndex]?.question}</span>
+            <Answer>
+              <button onClick={() => handleSelectBtn(true, quizData[currentIndex].answerIsOne, currentIndex, quizData[currentIndex].id)}>{quizData[currentIndex]?.answer1}</button>
+              <button onClick={() => handleSelectBtn(false, quizData[currentIndex].answerIsOne, currentIndex, quizData[currentIndex].id)}>{quizData[currentIndex]?.answer2}</button>
+            </Answer>
+          </Quiz>
+          ) : (
+          <QuizAnswer key={currentIndex}>
+            {quizIsCorrect[currentIndex] === 1 && <span className='correct'>정답입니다</span>}
+            {quizIsCorrect[currentIndex] === 2 && <span className='wrong'>오답입니다</span>}
+            <div className='rate'>오답률 {quizData[currentIndex]?.wrongPortion}%</div>
+            <div className='description'>{quizData[currentIndex]?.reason}</div>
+          </QuizAnswer>
         )
       )}
       <QuizNavigation>
@@ -84,7 +126,7 @@ export default function QuizSection() {
             <IconLeftEnabled width={32} height={32} />
           )}
         </span>
-        <span className="currentNum">{currentIndex+1}</span><span className="allNum">&nbsp;/ {length}</span>
+        <span className="currentNum">{currentIndex+1}</span><span className="allNum">&nbsp;/ {quizData.length}</span>
         <span 
           className='quizIconBtn' 
           onMouseEnter={() => setIsQuizRightHovered(true)}
