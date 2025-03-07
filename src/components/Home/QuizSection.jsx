@@ -90,7 +90,7 @@ export default function QuizSection() {
 
   return (
     <Main>
-      <span>오늘의 개인정보 퀴즈</span>
+      <span>개인정보 퀴즈</span>
       {quizData?.length > 0 && quizData[currentIndex] && (
         quizIsCorrect[currentIndex] === 0 ? (
           <Quiz key={currentIndex}>
@@ -109,9 +109,9 @@ export default function QuizSection() {
           </QuizAnswer>
         )
       )}
-      <QuizNavigation>
+      <QuizNavigation $currentIndex={currentIndex}>
         <span
-          className='quizIconBtn' 
+          className='quizIconBtn quizIconLeft' 
           onMouseEnter={() => setIsQuizLeftHovered(true)}
           onMouseLeave={() => setIsQuizLeftHovered(false)}
           onMouseDown={() => setIsQuizLeftPressed(true)}
@@ -128,7 +128,7 @@ export default function QuizSection() {
         </span>
         <span className="currentNum">{currentIndex+1}</span><span className="allNum">&nbsp;/ {quizData.length}</span>
         <span 
-          className='quizIconBtn' 
+          className='quizIconBtn quizIconRight' 
           onMouseEnter={() => setIsQuizRightHovered(true)}
           onMouseLeave={() => setIsQuizRightHovered(false)}
           onMouseDown={() => setIsQuizRightPressed(true)}
@@ -306,6 +306,12 @@ const QuizNavigation = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .quizIconLeft {
+    visibility: ${(props) => props.$currentIndex !== 0 ? 'visible' : 'hidden'};
+  }
+  .quizIconRight{
+    visibility: ${(props) => props.$currentIndex !== 2 ? 'visible' : 'hidden'};
   }
   .currentNum {
     margin-left: 28px;
