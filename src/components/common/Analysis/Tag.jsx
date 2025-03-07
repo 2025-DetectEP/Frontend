@@ -7,10 +7,12 @@ import translateTag from '../../../utils/translateTag';
 
 export default function Tag({title}) {
   const [text, setText] = useState('');
+
   useEffect(() => {
     const translateText = translateTag(title);
     setText(translateText);
   }, [])
+  
   return (
     <TagContainer>
       <Title>{text}</Title>
