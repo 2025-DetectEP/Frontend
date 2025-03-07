@@ -45,7 +45,7 @@ export default function LoginModal({setIsModalOpen}) {
         <TitleContainer>
           <Logo><LogoImg /></Logo>
           <Title>로그인</Title>
-          <Description>로그인하시면 해당 SNS의 기준 게시물 분석이 가능해요.<br/>분석하고 싶으신 sns를 선택해 주세요.</Description>
+          <Description>로그인하시면 해당 SNS의 기준 게시물 분석이 가능해요.<br/>분석하고 싶으신 SNS를 선택해 주세요.</Description>
         </TitleContainer>
         <FBContainer $isVisible={showBubble}>
           <FBDescription>Meta 계정을 분석할 수 있어요</FBDescription>
