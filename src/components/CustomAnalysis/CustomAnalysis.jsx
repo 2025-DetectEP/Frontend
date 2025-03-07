@@ -255,8 +255,8 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
                 }
               <div className='linkBtn'>
                 <LinkBtn
-                  title='내 SNS로 이동하기'
-                  url='https://naver.com'   // 임시
+                  title='Facebook으로 이동하기'
+                  url='https://www.facebook.com/'
                 />
               </div>
             </>
