@@ -3,11 +3,17 @@ import styled from "styled-components";
 import '../../../App.css';
 import media from '../../../styles/media';
 import { fontSizes } from "../../../styles/FontSizes";
+import translateTag from '../../../utils/translateTag';
 
-export default function Tag() {
+export default function Tag({title}) {
+  const [text, setText] = useState('');
+  useEffect(() => {
+    const translateText = translateTag(title);
+    setText(translateText);
+  }, [])
   return (
     <TagContainer>
-      <Title>프로필 정보</Title>
+      <Title>{text}</Title>
     </TagContainer>
   );
 }
