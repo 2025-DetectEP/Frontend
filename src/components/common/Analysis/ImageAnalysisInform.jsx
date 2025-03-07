@@ -5,21 +5,19 @@ import '../../../App.css';
 import { fontSizes } from "../../../styles/FontSizes";
 import Tag from './Tag';
 
-const ImageAnalysisInform = ({isImgAnalysis}) => {
+const ImageAnalysisInform = ({isImgAnalysis, detectPhotoKeywords}) => {
   return (
     <Main $isImgAnalysis={isImgAnalysis}>
       {isImgAnalysis ?
         <FindContainer>
           <span className='title'>사진에서 발견된 정보</span>
           <TagContainer>
-            <Tag />
-            <Tag />
+            {detectPhotoKeywords.map((data, index) => (
+              <Tag key={index} title={data} />
+            ))}
           </TagContainer>
           <Content>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores temporibus voluptates omnis est! Perspiciatis soluta odit nemo asperiores totam iste delectus praesentium, atque, dolore dolor dolorem dolores reprehenderit cupiditate illum. 
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores temporibus voluptates omnis est! Perspiciatis soluta odit nemo asperiores totam iste delectus praesentium, atque, dolore dolor dolorem dolores reprehenderit cupiditate illum. 
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores temporibus voluptates omnis est! Perspiciatis soluta odit nemo asperiores totam iste delectus praesentium, atque, dolore dolor dolorem dolores reprehenderit cupiditate illum. 
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores temporibus voluptates omnis est! Perspiciatis soluta odit nemo asperiores totam iste delectus praesentium, atque, dolore dolor dolorem dolores reprehenderit cupiditate illum. 
+            
           </Content>
         </FindContainer>
       :

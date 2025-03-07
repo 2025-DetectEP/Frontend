@@ -19,13 +19,26 @@ import CircleRightBtn from '../../common/Buttons/CircleRightBtn';
 import { ReactComponent as IconLeftEnabled } from '../../../assets/icons/icon_left_enabled.svg'
 import { ReactComponent as IconLeftHover } from '../../../assets/icons/icon_left_hover.svg'
 import { ReactComponent as IconLeftPressed } from '../../../assets/icons/icon_left_pressed.svg'
+import { useAuth } from '../../../context/AuthContext';
+import axios from 'axios';
+import refreshToken from '../../../utils/refreshToken';
 
-export default function PostModal({setIsPostClick}) {
+export default function PostModal({setIsPostClick, postId}) {
+  const { setIsLoading } = useAuth();
   const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false
   const [isImgAnalysis, setIsImgAnalysis] = useState(false);  // 이미지 분석(true: 발견, false: 발견X)
   const [isTextAnalysis, setIsTextAnalysis] = useState(true); // 텍스트 분석(true: 발견, flase: 발견X)
   const [isText, setIsText] = useState(true);  // 게시물에 글이 있는지 없는지
 
+  const [postData, setPostData] = useState([]); // 게시물
+  const [message, setMessage] = useState(''); // 게시물 메시지
+  const [safeMessage, setSafeMessage] = useState(''); // 게시물 수정 메시지
+  const [permalinkUrl, setPermalinkUrl] = useState(''); // 게시물 url
+  const [detectMessageKeywords, setDetectMessageKeywords] = useState([]); // 메시지에서 탐지된 키워드
+  const [photoData, setPotoData] = useState([]); // 게시물 사진
+  const [photoUrl, setPhotoUrl] = useState([]); // 게시물 사진 url
+  const [detectPhotoKeywords, setDetectPhotoKeywords] = useState([]); // 사진에서 탐지된 키워드
+  
   // 모달 열리면 스크롤 막음
   useEffect(() => {
     const scrollY = window.scrollY; // 현재 스크롤 위치 저장
@@ -42,19 +55,118 @@ export default function PostModal({setIsPostClick}) {
     };
   }, []);
 
+  // 게시물 가져오기
+  useEffect(() => {
+    getPost();
+  }, []);
+
+  const getPost = async() => {
+    setIsLoading(true); // 요청 시작 시 로딩 상태 활성화
+
+    try {
+      let accessToken = localStorage.getItem("accessToken");
+
+      let response = await axios.get(`${process.env.REACT_APP_API_URL}/feed/${postId}`, {
+        headers: {
+          "accept": "application/json",
+          "Authorization": `Bearer ${accessToken}`,
+        }
+      })
+      if (response.data?.code === 200) { // 요청 완료
+        console.log(response.data?.code, ': ', response.data?.message);
+
+        setPostData(response.data?.data);
+      } else if (response.data?.code === 403) { // 토큰 만료
+        console.log(response.data?.code, ': ', response.data?.message);
+
+        // 토큰 재발급 후 다시 요청
+        const newToken = await refreshToken();
+        if(newToken) {
+          console.log('새 토큰으로 요청');
+
+          response = await axios.get(`${process.env.REACT_APP_API_URL}/feed/${postId}`, {
+            headers: { 
+              "accept": "application/json",
+              "Authorization": `Bearer ${newToken}`,
+            }
+          })
+          if (response.data?.code === 200) { // 요청 완료
+            console.log(response.data?.code, ': ', response.data?.message);
+            
+            setPostData(response.data?.data);
+          } else {  // 요청 실패
+            console.log(response.data?.code, ': ', response.data?.message);
+          }
+        } else {
+          console.log("토큰 재발급 실패, API 요청 진행 불가");
+        }
+      } else {
+        console.log(response.data?.code, ': ', response.data?.message);
+      }
+    } catch (error) { // API 에러 발생
+        console.error('API 에러 발생: ', error);
+    } finally {
+      setIsLoading(false); // 요청이 끝나면 로딩 해제
+    }
+  };  
+
+  useEffect(() => {
+    if (postData) {
+      setMessage(postData.message); // 게시물 메시지
+      setSafeMessage(postData.safeMessage); // 게시물 수정 메시지
+      setPermalinkUrl(postData.permalinkUrl); // 게시물 url
+      setPotoData(postData.photoUrlRes); // 게시물 사진
+      setDetectMessageKeywords(postData.messageDetectRes || []); // 메시지에서 탐지된 키워드
+
+      // const keywords = postData.messageDetectRes.map(item => item.keyword) || []; // 메시지에서 탐지된 키워드
+      // // 중복 제거
+      // const uniqueKeywords = [...new Set(keywords)];
+      // setDetectMessageKeywords(uniqueKeywords);
+    }
+  }, [postData]);
+
+  useEffect(() => { // 메시지에서 탐지된 키워드 있는지 없는지
+    console.log(detectMessageKeywords)
+    if (Array.isArray(detectMessageKeywords) && detectMessageKeywords.length > 0) {
+      setIsTextAnalysis(true);
+    } else {
+      setIsTextAnalysis(false);
+    }
+  }, [detectMessageKeywords]);
+
+  useEffect(() => {
+    if (postData && postData.photoUrlRes) {
+      const urls = photoData.map(item => item.pictureUrl);
+      setPhotoUrl(urls);
+    }
+  }, [photoData]);
+
+  useEffect(() => {
+    if (postData && postData.photoUrlRes) {
+      const keywords = postData.photoUrlRes.flatMap(item => 
+        item.photoDetectRes.map(detect => detect.keyword)
+      );
+  
+      // 중복 제거
+      const uniqueKeywords = [...new Set(keywords)];
+      setDetectPhotoKeywords(uniqueKeywords);
+    }
+  }, [photoData]);
+
+  useEffect(() => {
+    if (detectPhotoKeywords.length > 0) {
+      setIsImgAnalysis(true);
+    } else {
+      setIsImgAnalysis(false);
+    }
+  }, [detectPhotoKeywords])
+
   // 이미지 슬라이드
-  const postImages = [
-    "SampleImage45.png",
-    "SampleImage11.png",
-    "SampleImage169.png",
-  ]
   const [currentIndex, setCurrentIndex] = useState(0);  // 이미지 현재 인덱스값
-  const length = postImages.length; // 이미지 개수
   
   const handleNextSlide = () => { // 다음 이미지 버튼
-    if(currentIndex < length - 1) setCurrentIndex(currentIndex + 1);
+    if(currentIndex < photoUrl.length - 1) setCurrentIndex(currentIndex + 1);
   };
-
   const handlePrevSlide = () => { // 이전 이미지 버튼
     if(currentIndex > 0) setCurrentIndex(currentIndex - 1);
   };
@@ -88,18 +200,18 @@ export default function PostModal({setIsPostClick}) {
         </S.TopContainer>
         <S.PostContainer>
           <S.ImageContainer>
-            <ImageAnalysisInform isImgAnalysis={isImgAnalysis} />
-            <S.ImageSlideBtns $currentIndex={currentIndex} $length={length}>
+            <ImageAnalysisInform isImgAnalysis={isImgAnalysis} detectPhotoKeywords={detectPhotoKeywords} />
+            <S.ImageSlideBtns $currentIndex={currentIndex} $length={photoUrl.length}>
               <span className='prevBtn'><CircleLeftBtn onClick={handlePrevSlide} /></span>
               <span className='nextBtn'><CircleRightBtn onClick={handleNextSlide} /></span>
             </S.ImageSlideBtns>
-              {length > 1 && 
+              {photoUrl.length > 1 && 
                 <S.ImageNum>
-                  <span className='current'>{currentIndex+1}</span><span className='length'>&nbsp;/ {length}</span>
+                  <span className='current'>{currentIndex+1}</span><span className='length'>&nbsp;/ {photoUrl.length}</span>
                   </S.ImageNum>
               }
             <S.Img>
-              {postImages.map((data, index) => {
+              {photoUrl.map((data, index) => {
                 return (
                   <div key={index} className={index === currentIndex ? 'slide active' : 'slide'}>
                     {index === currentIndex && 
@@ -120,8 +232,9 @@ export default function PostModal({setIsPostClick}) {
                       <S.OriginalContainer>
                         <S.OriginalText>
                           <TextTooltip 
-                            text="이 문장은 개인정보를 검사를 테스트하는 예제입니다. 예제입니다."
+                            text={message}
                             errorWords={["이", "개인정보를", "예제입니다."]}
+                            detectMessageKeywords={detectMessageKeywords}
                           />
                         </S.OriginalText>
                       </S.OriginalContainer>
@@ -130,13 +243,11 @@ export default function PostModal({setIsPostClick}) {
                         <S.ReviseText>
                           <S.Notice>AI를 통해 검출된 개인정보를 모두 제외하고 글을 재구성했습니다.</S.Notice>
                           <div ref={copyRef}>
-                            happy
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                            {safeMessage ? 
+                              {safeMessage}
+                              :
+                              <span>준비 중 입니다.</span>
+                            }
                           </div>
                         </S.ReviseText>
                         <div className='copyBtn'>
@@ -149,7 +260,7 @@ export default function PostModal({setIsPostClick}) {
               :
                 <S.NotFindText>
                   <S.Notice>텍스트에는 개인정보가 발견되지 않았어요. 사진에서 발견된 개인정보를 확인해 보세요.</S.Notice>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum odio voluptates laudantium. Voluptates sit, quis, ipsam numquam reiciendis, aliquid nam animi a aut nostrum voluptate quisquam ipsum? Provident, distinctio veritatis?
+                  {message}
                 </S.NotFindText>
             :
               <S.NoText>
@@ -159,7 +270,7 @@ export default function PostModal({setIsPostClick}) {
             <div className='linkBtn'>
               <LinkBtn
                 title='해당 게시물로 이동하기'
-                url='https://naver.com'   // 임시
+                url={permalinkUrl}
               />
             </div>
           </S.PostActionContainer>

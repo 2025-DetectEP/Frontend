@@ -296,7 +296,7 @@ export const ReviseContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* flex-grow: 1; */
+  flex-grow: 1;
   overflow: hidden;
   margin-top: 2.963vh;
   margin-bottom: 2.963vh;
@@ -313,6 +313,7 @@ export const ReviseText = styled.div`
   flex-grow: 1;
   max-height: 100%;
   margin-bottom: 2.963vh;
+  width: 100%;
 
   @media only screen and (min-width: 1024px) { //700px
     flex-grow: 1;

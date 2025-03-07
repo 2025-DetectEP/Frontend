@@ -5,12 +5,29 @@ import '../../../App.css';
 import { fontSizes } from "../../../styles/FontSizes";
 import Tag from './Tag';
 
-const TextTooltip = ({ text, errorWords }) => {
+const TextTooltip = ({ text, errorWords, detectMessageKeywords }) => {
+  const [detectWord, setDetectWord] = useState('');
+  let currentIndex = 0;
+  const parts = [];
+
+  useEffect(() => {
+    const word = detectMessageKeywords.map(item => item.detectWord);
+    setDetectWord(word)
+      // const keywords = postData.messageDetectRes.map(item => item.keyword) || []; // 메시지에서 탐지된 키워드
+      // // 중복 제거
+      // const uniqueKeywords = [...new Set(keywords)];
+      // setDetectMessageKeywords(uniqueKeywords);
+  }, [])
+
+  useEffect(() => {
+    console.log('d:' , detectWord)
+  }, [detectWord])
+
   return (
     <div>
       {/* 문장을 단어별로 나누고, 수정해야 할 단어만 툴팁 추가 */}
       {text.split(" ").map((word, index) =>
-        errorWords.includes(word) ? (
+        detectWord.includes(word) ? (
           <TextContainer
             key={index}
             data-tooltip-id={`tooltip-${index}`}
@@ -27,17 +44,10 @@ const TextTooltip = ({ text, errorWords }) => {
                 <span className='title'>텍스트에서 발견된 개인정보</span>
                 <TagContainer>
                   <Tag />
-                  <Tag />
-                  <Tag />
-                  <Tag />
-                  <Tag />
-                  <Tag />
-                  <Tag />
                 </TagContainer>
                 <Content>
                   {word}
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, maiores placeat alias omnis at sint temporibus eaque non iure aperiam sit aliquam iusto ipsa quibusdam expedita debitis? Assumenda, nihil porro.
-                </Content>
+                  </Content>
               </TooltipContainer>
             </Tooltip>
           </TextContainer>
