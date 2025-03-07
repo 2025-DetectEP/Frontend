@@ -243,11 +243,7 @@ export default function PostModal({setIsPostClick, postId}) {
                         <S.ReviseText>
                           <S.Notice>AI를 통해 검출된 개인정보를 모두 제외하고 글을 재구성했습니다.</S.Notice>
                           <div ref={copyRef}>
-                            {safeMessage ? 
-                              {safeMessage}
-                              :
-                              <span>준비 중 입니다.</span>
-                            }
+                          {safeMessage}
                           </div>
                         </S.ReviseText>
                         <div className='copyBtn'>
