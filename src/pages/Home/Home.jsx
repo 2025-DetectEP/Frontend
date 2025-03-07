@@ -44,12 +44,13 @@ export default function Home() {
     }
   }
   const handleCustomAnalysisBtn = () => {
-    if (isLogin) {  // 로그인O
-       setIsModalOpen(false);
-       setIsCustomAnalysis(true); // 직접 입력해 검사하기 모달 열기
-    } else {  // 로그인X
-      setIsModalOpen(true); // 로그인 모달 열기
-    }
+    // if (isLogin) {  // 로그인O
+    //    setIsModalOpen(false);
+    //    setIsCustomAnalysis(true); // 직접 입력해 검사하기 모달 열기
+    // } else {  // 로그인X
+    //   setIsModalOpen(true); // 로그인 모달 열기
+    // }
+    setIsCustomAnalysis(true); // 직접 입력해 검사하기 모달 열기
   }
 
   return (
@@ -61,7 +62,7 @@ export default function Home() {
         </S.MainTitle>
         <S.SubTitle>
           Chat GPT와 Cloud DLP를 활용해서 게시물 속 개인정보를 안전하게 분석해 드려요.
-          <span
+          {/* <span
             onMouseEnter={() => setIsRightArrowHovered(true)}
             onMouseLeave={() => setIsRightArrowHovered(false)}
             onMouseDown={() => setIsRightArrowPressed(true)}
@@ -75,7 +76,7 @@ export default function Home() {
             ) : (
               <RightArrowEnabled />
             )}
-          </span>
+          </span> */}
         </S.SubTitle>
         <S.BtnContainer>
           {/* <SearchBtn btnType="all" value="기존 게시물 분석하기" onClick={handlePostAnalysisBtn}></SearchBtn> */}
