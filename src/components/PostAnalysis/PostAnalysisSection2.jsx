@@ -10,7 +10,7 @@ import RightBtn from '../common/Buttons/RightBtn';
 import PostCard from './PostCard';
 import PostModal from './Post/PostModal';
 
-export default function PostAnalysisSection1({isPost, postCount, analysisCount}) {
+export default function PostAnalysisSection1({isPost, postCount, analysisCount, postData}) {
   const navigate = useNavigate();
   const [isSearchFocus, setIsSearchFocus] = useState(false);  // 검색 input focus 여부
   const [searchValue, setSearchValue] = useState('');   // 검색 값
@@ -23,6 +23,7 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount})
   const filterScrollRef = useRef(null);  // filter container의 스크롤 영역
 
   const [isPostClick, setIsPostClick] = useState(false); // 게시물 클릭
+  const [postId, setPostId] = useState(); // 클릭 게시물 아이디
 
   // 기본 제출 방지
   const handleFormSubmit = (e) => {
@@ -78,6 +79,12 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount})
     }
   };
 
+  // 게시물 클릭
+  const handlePostClick = (id) => {
+    setIsPostClick(true);
+    console.log("데이어 아이디:" , id);
+    setPostId(id);
+  }
 
   return (
     <S.Main>
@@ -144,7 +151,11 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount})
               </S.SearchContainer>
             </S.FilterSearchContainer>
             <S.PostCardContainer>
-              <PostCard onClick={()=>setIsPostClick(true)} />
+              {postData.map((data, index) => {
+                return (
+                  <PostCard key={index} onClick={() => handlePostClick(data.id)} postData={data} />
+                )
+              })}
             </S.PostCardContainer>
           </>
         )
@@ -157,7 +168,7 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount})
       
       {/* 게시물 모달 */}
       {isPostClick && 
-        <PostModal setIsPostClick={setIsPostClick} />
+        <PostModal setIsPostClick={setIsPostClick} postId={postId} />
       }
     </S.Main>
   );

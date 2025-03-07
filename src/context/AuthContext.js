@@ -11,15 +11,19 @@ export const AuthProvider = ({ children }) => {
     setIsLogin(!!accessToken);  // accessToken이 있으면 true, 없으면 false
   }, []);
 
-  const login = (accessToken, refreshToken) => {
+  const login = (accessToken, refreshToken, userName, profilePictureUrl) => {
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("userName", userName);
+    localStorage.setItem("profilePictureUrl", profilePictureUrl);
     setIsLogin(true);
   };
 
   const logout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("profilePictureUrl");
     setIsLogin(false);
   };
 

@@ -143,7 +143,7 @@ export default function ProfileDropdown({setIsDropdown, userImgUrl, profileImage
         <div>
           <img src={userImgUrl} alt="Profile" />
         </div>
-        <span>ID</span>
+        <span>{localStorage.getItem("userName")}</span>
       </IdConainer>
       <ListContainer onClick={handleLogout}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

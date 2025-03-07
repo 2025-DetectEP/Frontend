@@ -19,7 +19,7 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount, 
               <path d="M13.2638 12.5463L13.7315 9.99969H11.0095V9.09904C11.0095 7.7534 11.5375 7.23575 12.9038 7.23575C13.3282 7.23575 13.6698 7.24608 13.8665 7.26675V4.95846C13.4938 4.8548 12.5828 4.75146 12.0549 4.75146C9.27025 4.75146 7.98661 6.06611 7.98661 8.90238V9.99969H6.26831V12.5463H7.98661V18.0875C8.63126 18.2475 9.30558 18.3329 9.99957 18.3329C10.3412 18.3329 10.6782 18.3119 11.0092 18.2719V12.5463H13.2635H13.2638Z" fill="white"/>
             </svg>
           </span>
-          <span>ID</span>
+          <span>{localStorage.getItem("userName")}</span>
         </AccountContainer>
         <InfoContainer $count={analysisCount}>
           {isPost ? 
