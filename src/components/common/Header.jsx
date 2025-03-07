@@ -49,7 +49,7 @@ export default function Header() {
   return (
     <S.Main>
       <S.HeaderContainer>
-        <div className='logo'>
+        <div className='logo' onClick={() => window.location.reload()}>
           <Link to='/'><Logo /></Link>
         </div>
         {isLogin ? 
