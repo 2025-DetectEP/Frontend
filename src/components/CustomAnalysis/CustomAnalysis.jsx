@@ -10,13 +10,19 @@ import CircleLeftBtn from '../common/Buttons/CircleLeftBtn';
 import CircleRightBtn from '../common/Buttons/CircleRightBtn';
 import DeleteBtn from '../common/Buttons/DeleteBtn';
 import AnalyzingBtn from '../common/Buttons/AnalyzingBtn';
+import axios from 'axios';
+import refreshToken from '../../utils/refreshToken';
+import { useAuth } from '../../context/AuthContext';
 
 export default function CustomAnalysis({setIsCustomAnalysis}) {
+  const { setIsLoading } = useAuth();
   const [isAnalysis, setIsAnalysis] = useState(false);  // 검사하기 누르기 전 후 여부(기본: false)
   const [isOriginal, setIsOriginal] = useState(true); // 원본글: ture, 수정본: false
   const [isImgAnalysis, setIsImgAnalysis] = useState(false);  // 이미지 분석(true: 발견, false: 발견X)
   const [isTextAnalysis, setIsTextAnalysis] = useState(true); // 텍스트 분석(true: 발견, flase: 발견X)
   const [isText, setIsText] = useState(true);  // 게시물에 글이 있는지 없는지
+  const [text, setText] = useState('');   // 텍스트
+  const [postImg, setPostImg] = useState(null); // 이미지 보내기
 
   // 모달 열리면 스크롤 막음
   useEffect(() => {
@@ -46,6 +52,9 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
   const handleUploadImg = (event) => { // 선택한 이미지 배열 저장
     if (event.target.files) {
       const filesArray = Array.from(event.target.files);
+      console.log('asdf', event.target.files[0])
+      const file = event.target.files[0]
+      setPostImg(file);
       
       filesArray.forEach((file) => {
         const reader = new FileReader();
@@ -59,10 +68,6 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
     }
     setIsImgUpload(true);
   };
-
-  useEffect(() => {
-    console.log('post: ', postImages)
-  }, [postImages])
   
   // 이미지 슬라이드
   // const postImages = [
@@ -102,6 +107,7 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
   const [inputCount, setInputCount] = useState(0);
   const handleInputText = (e) => {
     setInputCount(e.target.value.length);
+    setText(e.target.value);
   }
 
   // 글자수 감지 -> 검사 버튼 활성화
@@ -129,8 +135,34 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
 
   // 검사하기
   const handleAnalysis = () => {
-    setIsAnalysis(true);
     console.log(postImages)
+
+    postAnalysis();
+  }
+
+  const postAnalysis = async() => {
+    setIsLoading(true); // 요청 시작 시 로딩 상태 활성화
+    
+    try {
+      let formData = new FormData();
+      formData.append("message", text);
+      formData.append("file", postImg);
+
+      let response = await axios.post(`${process.env.REACT_APP_API_URL}/feed/detect`, formData)
+      if (response.data?.code === 200) { // 요청 완료
+        console.log(response.data?.code, ': ', response.data?.message);
+
+        // setPostData(response.data?.data);
+        
+        setIsAnalysis(true);
+      } else {
+        console.log(response.data?.code, ': ', response.data?.message);
+      }
+    } catch (error) { // API 에러 발생
+        console.error('API 에러 발생: ', error);
+    } finally {
+      setIsLoading(false); // 요청이 끝나면 로딩 해제
+    }
   }
 
   return (
@@ -196,7 +228,7 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
                       style={{display: 'none'}}
                       type='file'
                       accept='image/*'
-                      multiple
+                      // multiple
                       onChange={handleUploadImg}
                     />
                     <button onClick={handleUpload}>파일 업로드</button>
@@ -216,10 +248,11 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
                         {isOriginal ?
                           <S.OriginalContainer>
                             <S.OriginalText>
-                              <TextTooltip 
+                              {/* <TextTooltip 
                                 text="이 문장은 개인정보를 검사를 테스트하는 예제입니다. 예제입니다."
                                 errorWords={["이", "개인정보를", "예제입니다."]}
-                              />
+                                detectMessageKeyword={}
+                              /> */}
                             </S.OriginalText>
                           </S.OriginalContainer>
                         :
@@ -227,13 +260,7 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
                             <S.ReviseText>
                               <S.Notice>AI를 통해 검출된 개인정보를 모두 제외하고 글을 재구성했습니다.</S.Notice>
                               <div ref={copyRef}>
-                                happy
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, dignissimos. Incidunt molestiae nobis possimus. Obcaecati ab earum ipsum atque, iure consectetur accusamus fugit provident voluptatibus veniam, nesciunt eos! Voluptatibus, cupiditate!
+                              
                               </div>
                             </S.ReviseText>
                             <div className='copyBtn'>
@@ -246,7 +273,6 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
                   :
                     <S.NotFindText>
                       <S.Notice>텍스트에는 개인정보가 발견되지 않았어요. 사진에서 발견된 개인정보를 확인해 보세요.</S.Notice>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum odio voluptates laudantium. Voluptates sit, quis, ipsam numquam reiciendis, aliquid nam animi a aut nostrum voluptate quisquam ipsum? Provident, distinctio veritatis?
                     </S.NotFindText>
                 :
                   <S.NoText>
