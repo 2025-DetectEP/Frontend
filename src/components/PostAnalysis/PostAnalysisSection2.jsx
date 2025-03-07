@@ -10,7 +10,7 @@ import RightBtn from '../common/Buttons/RightBtn';
 import PostCard from './PostCard';
 import PostModal from './Post/PostModal';
 
-export default function PostAnalysisSection1({isPost, postCount, analysisCount}) {
+export default function PostAnalysisSection1({isPost, postCount, analysisCount, postData}) {
   const navigate = useNavigate();
   const [isSearchFocus, setIsSearchFocus] = useState(false);  // 검색 input focus 여부
   const [searchValue, setSearchValue] = useState('');   // 검색 값
@@ -78,7 +78,6 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount})
     }
   };
 
-
   return (
     <S.Main>
       {isPost ? (
@@ -144,7 +143,11 @@ export default function PostAnalysisSection1({isPost, postCount, analysisCount})
               </S.SearchContainer>
             </S.FilterSearchContainer>
             <S.PostCardContainer>
-              <PostCard onClick={()=>setIsPostClick(true)} />
+              {postData.map((data, index) => {
+                return (
+                  <PostCard key={index} onClick={()=>setIsPostClick(true)} postData={data} />
+                )
+              })}
             </S.PostCardContainer>
           </>
         )

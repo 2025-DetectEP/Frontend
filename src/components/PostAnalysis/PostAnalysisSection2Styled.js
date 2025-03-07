@@ -110,6 +110,11 @@ export const FilterLeftBtn = styled.div`
   opacity: ${({$isBtnVisible}) => ($isBtnVisible ? 1 : 0)};
   z-index: 10;
   pointer-events: ${({ $isBtnVisible }) => ($isBtnVisible ? "auto" : "none")}; // 추가
+
+  visibility: hidden;
+  @media only screen and (max-width: 1022px) {
+    visibility: visible;  
+  }
 `;
 
 export const FilterRightBtn = styled.div`
@@ -121,6 +126,11 @@ export const FilterRightBtn = styled.div`
   visibility: ${({$isBtnVisible}) => ($isBtnVisible ? "visible" : "hidden")};
   opacity: ${({$isBtnVisible}) => ($isBtnVisible ? 1 : 0)};
   z-index: 10;
+  visibility: hidden;
+  
+  @media only screen and (max-width: 1022px) {
+    visibility: visible;
+  }
 `;
 
 export const FilterBtnBg = styled.div`
@@ -134,15 +144,20 @@ export const FilterBtnBg = styled.div`
     left: 0;
     background: linear-gradient(90deg, #FFF 39.5%, rgba(255, 255, 255, 0.00) 100%);
     justify-content: start;
-    visibility: ${({$isBtnVisible}) => ($isBtnVisible ? "visible" : "hidden")};
+    /* visibility: ${({$isBtnVisible}) => ($isBtnVisible ? "visible" : "hidden")}; */
     opacity: ${({$isBtnVisible}) => ($isBtnVisible ? 1 : 0)};
   }
   &.right {
     right: 0;
     background: linear-gradient(270deg, #FFF 39.5%, rgba(255, 255, 255, 0.00) 100%);
     justify-content: end;
-    visibility: ${({$isBtnVisible}) => ($isBtnVisible ? "visible" : "hidden")};
+    /* visibility: ${({$isBtnVisible}) => ($isBtnVisible ? "visible" : "hidden")}; */
     opacity: ${({$isBtnVisible}) => ($isBtnVisible ? 1 : 0)};
+  }
+
+  visibility: hidden;
+  @media only screen and (max-width: 1022px) {
+    visibility: visible;  
   }
 `;
 
