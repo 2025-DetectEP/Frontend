@@ -35,7 +35,7 @@ export default function Header() {
   }, []);
 
   const preloadImage = () => {
-    const userImg = localStorage.getItem("userImg");
+    const userImg = localStorage.getItem("profilePictureUrl");
     if (userImg) {
       setUserImgUrl(userImg);
       const img = new Image();
