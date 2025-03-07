@@ -68,10 +68,6 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
     }
     setIsImgUpload(true);
   };
-
-  useEffect(() => {
-    console.log('post: ', postImages)
-  }, [postImages])
   
   // 이미지 슬라이드
   // const postImages = [
@@ -146,7 +142,7 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
 
   const postAnalysis = async() => {
     setIsLoading(true); // 요청 시작 시 로딩 상태 활성화
-
+    
     try {
       let formData = new FormData();
       formData.append("message", text);
