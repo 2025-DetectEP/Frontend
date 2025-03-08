@@ -5,60 +5,50 @@ import '../../../App.css';
 import { fontSizes } from "../../../styles/FontSizes";
 import Tag from './Tag';
 
-const TextTooltip = ({ text, errorWords, detectMessageKeywords }) => {
-  const [detectWord, setDetectWord] = useState('');
-  let currentIndex = 0;
-  const parts = [];
+const TextTooltip = ({ text, detectMessageKeywords }) => {
 
-  useEffect(() => {
-    const word = detectMessageKeywords.map(item => item.detectWord);
-    setDetectWord(word)
-      // const keywords = postData.messageDetectRes.map(item => item.keyword) || []; // 메시지에서 탐지된 키워드
-      // // 중복 제거
-      // const uniqueKeywords = [...new Set(keywords)];
-      // setDetectMessageKeywords(uniqueKeywords);
-  }, [])
+  if (!detectMessageKeywords || detectMessageKeywords.length === 0) {
+    return <span>{text}</span>; // 감지된 단어가 없으면 그냥 텍스트 출력
+  }
+  const highlightedText = [];
+  let lastIndex = 0;
 
-  useEffect(() => {
-    console.log('d:' , detectWord)
-  }, [detectWord])
+  detectMessageKeywords.forEach((data, index) => {
+    // detectWord가 나오기 전까지의 일반 텍스트 추가
+    highlightedText.push(
+      <span key={`text-${index}`}>{text.slice(lastIndex, data.startAt)}</span>
+    );
 
-  return (
-    <div>
-      {/* 문장을 단어별로 나누고, 수정해야 할 단어만 툴팁 추가 */}
-      {text.split(" ").map((word, index) =>
-        detectWord.includes(word) ? (
-          <TextContainer
-            key={index}
-            data-tooltip-id={`tooltip-${index}`}
-          >
-            {word}
-            <Tooltip 
-              id={`tooltip-${index}`}
-              place='bottom-start'
-              arrowColor='transparent'
-              aria-haspopup='true'
-              style={{backgroundColor:'transparent', margin: '0', padding: '0'}}
-            >
-              <TooltipContainer>
-                <span className='title'>텍스트에서 발견된 개인정보</span>
-                <TagContainer>
-                  <Tag />
-                </TagContainer>
-                <Content>
-                  {word}
-                  </Content>
-              </TooltipContainer>
-            </Tooltip>
-          </TextContainer>
-        ) : (
-          <span key={index} style={{ margin: "0 3px" }}>
-            {word}
-          </span>
-        )
-      )}
-    </div>
-  );
+    // detectWord 부분을 Tooltip으로 감싸서 추가
+    highlightedText.push(
+      <TextContainer key={`tooltip-${index}`} data-tooltip-id={`tooltip-${index}`}>
+        {text.slice(data.startAt, data.endAt)}
+        <Tooltip
+          id={`tooltip-${index}`}
+          place="bottom-start"
+          arrowColor="transparent"
+          aria-haspopup="true"
+          style={{ backgroundColor: "transparent", margin: "0", padding: "0" }}
+        >
+          <TooltipContainer>
+            <span className="title">텍스트에서 발견된 개인정보</span>
+            <TagContainer>
+              <Tag title={data.keyword} />
+            </TagContainer>
+            <Content>{text.slice(data.startAt, data.endAt)}</Content>
+          </TooltipContainer>
+        </Tooltip>
+      </TextContainer>
+    );
+
+    // 마지막 인덱스 업데이트
+    lastIndex = data.endAt;
+  });
+
+  // 마지막으로 남은 일반 텍스트 추가
+  highlightedText.push(<span key="last">{text.slice(lastIndex)}</span>);
+
+  return <>{highlightedText}</>;
 };
 
 export default TextTooltip;
