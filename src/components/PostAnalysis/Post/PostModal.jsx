@@ -1,24 +1,14 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import styled from "styled-components";
+import React, { useEffect, useRef, useState } from 'react';
 import '../../../App.css';
-import media from '../../../styles/media';
-import { fontSizes } from "../../../styles/FontSizes";
 import * as S from "./PostModalStyled";
-import { postAnalysisFilterData } from '../../../constants/postAnalysisFilterData';
-import { useBtnInteraction } from '../../../hooks/useBtnInteraction';
 import ToggleBtn from '../../common/Buttons/ToggleBtn';
 import PostToggleBtn from '../../common/Buttons/PostToggleBtn';
 import LinkBtn from '../../common/Buttons/LinkBtn';
 import Button8Large from '../../common/Buttons/Button8Large';
 import TextTooltip from '../../common/Analysis/TextTooltip';
 import ImageAnalysisInform from '../../common/Analysis/ImageAnalysisInform';
-import LeftBtn from '../../common/Buttons/LeftBtn';
-import RightBtn from '../../common/Buttons/RightBtn';
 import CircleLeftBtn from '../../common/Buttons/CircleLeftBtn';
 import CircleRightBtn from '../../common/Buttons/CircleRightBtn';
-import { ReactComponent as IconLeftEnabled } from '../../../assets/icons/icon_left_enabled.svg'
-import { ReactComponent as IconLeftHover } from '../../../assets/icons/icon_left_hover.svg'
-import { ReactComponent as IconLeftPressed } from '../../../assets/icons/icon_left_pressed.svg'
 import { useAuth } from '../../../context/AuthContext';
 import axios from 'axios';
 import refreshToken from '../../../utils/refreshToken';

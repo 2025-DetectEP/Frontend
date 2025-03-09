@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styled from "styled-components";
 import '../../App.css';
@@ -21,14 +21,10 @@ export default function QuizSection() {
   const [currentIndex, setCurrentIndex] = useState(0);  // 퀴즈 현재 인덱스값
   const [quizData, setQuizData] = useState([]);
 
-  const host = window.location.hostname === "localhost" 
-  ? `${process.env.REACT_APP_API_URL}/quiz/`
-  : "api";
-
   // 퀴즈 API - 랜덤 퀴즈 3개 추출
   const getQuiz = async() => {
     try {
-      let response = await axios.get(host, {
+      let response = await axios.get(`${process.env.REACT_APP_API_URL}/quiz/`, {
         headers: { 
           "accept": "application/json",
         }
