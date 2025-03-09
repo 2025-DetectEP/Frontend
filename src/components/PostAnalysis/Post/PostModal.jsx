@@ -233,7 +233,6 @@ export default function PostModal({setIsPostClick, postId}) {
                         <S.OriginalText>
                           <TextTooltip 
                             text={message}
-                            errorWords={["이", "개인정보를", "예제입니다."]}
                             detectMessageKeywords={detectMessageKeywords}
                           />
                         </S.OriginalText>

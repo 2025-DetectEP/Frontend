@@ -250,7 +250,6 @@ export default function CustomAnalysis({setIsCustomAnalysis}) {
                             <S.OriginalText>
                               {/* <TextTooltip 
                                 text="이 문장은 개인정보를 검사를 테스트하는 예제입니다. 예제입니다."
-                                errorWords={["이", "개인정보를", "예제입니다."]}
                                 detectMessageKeyword={}
                               /> */}
                             </S.OriginalText>
