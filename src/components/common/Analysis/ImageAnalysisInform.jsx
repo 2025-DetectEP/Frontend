@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Tooltip } from "react-tooltip";
+import React from 'react';
 import styled from "styled-components";
 import '../../../App.css';
 import { fontSizes } from "../../../styles/FontSizes";

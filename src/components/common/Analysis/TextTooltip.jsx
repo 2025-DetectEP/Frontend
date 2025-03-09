@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Tooltip } from "react-tooltip";
 import styled from "styled-components";
 import '../../../App.css';
